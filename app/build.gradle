@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.example.credit"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 8
+        versionName "1.07"
+
+//参数说明
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "a6kpxXpX416BHJdy29qQ1A",
+                GETUI_APP_KEY   : "a6kpxXpX416BHJdy29qQ1A",
+                GETUI_APP_SECRET: "SoGbivep7F9ksPP4UqOD56",
+                PACKAGE_NAME    : applicationId
+        ]
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile files('libs/pinyin4j-2.5.0.jar')
+    compile files('libs/xUtils-2.6.14.jar')
+    compile 'com.yolanda.nohttp:nohttp:1.0.5'
+    compile 'com.google.code.gson:gson:+'
+    compile 'co.roverlabs:picasso:2.5.2'
+    compile 'com.getui:sdk:2.9.0.0'
+    compile files('libs/zxing.jar')
+    compile files('libs/AMap3DMap_4.1.1_AMapNavi_1.9.3_AMapSearch_3.5.0_AMapLocation_3.0.0_20161019.jar')
+}

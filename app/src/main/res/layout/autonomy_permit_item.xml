@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#EEEEEE">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/details_con_bg"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="序号："
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/permit_xh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="16sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="许可文件名称："
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:id="@+id/permit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="企业投资技术改造项目变更建设年限批复"
+                android:textStyle="bold"
+                android:textColor="#57737D"
+                android:textSize="14sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="许可证号："
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/permit_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="赣环评函[2015]182号"
+                android:textStyle="bold"
+                android:textColor="#57737D"
+                android:textSize="14sp" />
+
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有效期："
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/permit_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019年11月12日-2020年11月20日"
+                android:textStyle="bold"
+                android:textColor="#57737D"
+                android:textSize="14sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登记机关："
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/permit_office"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="南昌经开区经发局"
+                android:textStyle="bold"
+                android:textColor="#57737D"
+                android:textSize="14sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发证日期："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015年12月30日"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="14sp" />
+
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:id="@+id/permit_content1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="详情："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="许可该机构经营中国银行业监督管理委员会依照有关法律、行政法规和其他规定批准的业务，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_zxtimetit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注销日期："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_zxtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_zxyuanytit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注销原因："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_zxyuany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_bdxtimetit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="被吊销日期："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_bdxtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+        android:background="#B8B8B8"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_bdxyuanytit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="被吊销原因："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_bdxyuany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_qtendtimetit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他无效日期："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_qtendtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/permit_qtendyuanytit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他无效原因："
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/permit_qtendyuany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="、，经营范围以批准文件所列的为准。"
+            android:textColor="#57737D"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginRight="10dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

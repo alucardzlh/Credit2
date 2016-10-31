@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#EEEEEE">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/details_con_bg"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="序号："
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginRight="5dp"/>
+
+        <TextView
+            android:id="@+id/lore_xh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="16sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主体身份代码："
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lore_pripid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="36XXXXXXXXXX"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="14sp" />
+
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="企业机构名称："
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lore_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="江西省南昌市东湖区"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="14sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册号："
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lore_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="safd456sadf456asdf4s5a78"
+            android:textStyle="bold"
+            android:textColor="#57737D"
+            android:textSize="14sp" />
+        <View
+            android:background="#B8B8B8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:orientation="vertical"
+    tools:context=".Activitys.DetailsContentActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/public_bottom_view"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
+
+            <include layout="@layout/public_top_bar"/>
+            <LinearLayout
+                android:id="@+id/tabLa"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/c_tab1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg1"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:text="登记信息"
+                    android:textSize="@dimen/ctest_size"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/c_tab2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg2"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:textSize="@dimen/ctest_size"
+                    android:text="股东出资"
+                    android:textColor="#353334" />
+
+                <Button
+                    android:id="@+id/c_tab3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg2"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:text="主要人员"
+                    android:textSize="@dimen/ctest_size"
+                    android:textColor="#353334" />
+
+                <Button
+                    android:id="@+id/c_tab4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg2"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:text="工商变更"
+                    android:textSize="@dimen/ctest_size"
+                    android:textColor="#353334" />
+
+                <Button
+                    android:id="@+id/c_tab5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg2"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:text="分支机构"
+                    android:textSize="@dimen/ctest_size"
+                    android:textColor="#353334" />
+                <Button
+                    android:id="@+id/c_tab6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/details_con_tabbg2"
+                    android:gravity="center"
+                    android:onClick="tabshow"
+                    android:text="清算"
+                    android:textSize="@dimen/ctest_size"
+                    android:textColor="#353334" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#00A8E9" />
+
+            <ScrollView
+                android:id="@+id/c_scr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/c_tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="登记信息"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+
+                    <com.example.credit.Views.MyGridView
+                        android:id="@+id/myGridView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:verticalSpacing="5dp"
+                        android:horizontalSpacing="5dp"
+                        android:numColumns="2"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/c_daimatit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="统一社会信用代码："
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_daima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="开业"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/c_limoney"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:visibility="gone"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="成员出资总额："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="600万人民币"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/c_nametit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="企业名称："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="开业"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="类型："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="有限"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/c_addresstit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="住址："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="水水水水水水水"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="经营范围："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_fangwei"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="水水水水的阿飞"
+                            android:textColor="#57737D"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/ctest_size" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="登记机关："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_djjg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="工商局"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/c_stateLin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="登记状态："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_state"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="开业"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/c_tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="股东及出资"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+
+                    <com.example.credit.Views.MyGridView
+                        android:id="@+id/myGridViewp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:numColumns="2" />
+                    <LinearLayout
+                        android:id="@+id/c_people"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:visibility="gone"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="该企业没有相关信息"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/c_tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="主要人员"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+
+                    <com.example.credit.Views.MyGridView
+                        android:id="@+id/myGridViewZY"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:numColumns="2" />
+                    <LinearLayout
+                        android:id="@+id/c_Cpeople"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:visibility="gone"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="该企业没有相关信息"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/c_tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="工商变更"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+
+                    <com.example.credit.Views.MyListView
+                        android:id="@+id/GSmylist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@null"
+                        android:divider="#00000000"
+                        android:listSelector="#00000000" />
+                    <LinearLayout
+                        android:id="@+id/c_GS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:visibility="gone"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="该企业没有相关信息"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/c_tv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="分支机构"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+                    <com.example.credit.Views.MyListView
+                        android:id="@+id/myGridViewZYfz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@null"
+                        android:divider="#00000000"
+                        android:listSelector="#00000000" />
+
+                    <LinearLayout
+                        android:id="@+id/c_fzjg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="该企业没有相关信息"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/c_tv6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/details_gg_bgtit"
+                        android:gravity="center"
+                        android:text="清算"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+                    <com.example.credit.Views.MyListView
+                        android:id="@+id/mylistviewQS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@null"
+                        android:divider="#00000000"
+                        android:listSelector="#00000000" />
+
+                    <LinearLayout
+                        android:id="@+id/c_qsuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="该企业没有相关信息"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="sexMar">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string-array name="alert">
+        <item>证照到期</item>
+        <item>证照过期</item>
+        <item>责令改正</item>
+        <item>欠贷信息</item>
+        <item>欠税信息</item>
+        <item>欠薪信息</item>
+    </string-array>
+
+    <string-array name="alertItemTit">
+        <item>预警机关</item>
+        <item>预警金额</item>
+        <item>预警状态</item>
+        <item>预警日期</item>
+        <item>预警内容</item>
+        <item>数据状态</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+        <item>证照到期</item>
+    </string-array>
+
+
+    <string-array name="pledge">
+        <item>(赣洪)内顾等级涉【2015】第00058号</item>
+        <item>(赣洪)内顾等级涉【2015】第00058号</item>
+        <item>(赣洪)内顾等级涉【2015】第00058号</item>
+        <item>(赣洪)内顾等级涉【2015】第00058号</item>
+    </string-array>
+    <string-array name="pledge_c"><!--出质-->
+        <item>股权所在公司注册号</item>
+        <item>股权登记编号</item>
+        <item>出质人</item>
+        <item>出质人证照号</item>
+        <item>出质人证件类型</item>
+        <item>出质股权数额(万元)</item>
+        <item>质权人</item>
+        <item>质权人证照号</item>
+        <item>股权所在公司名称</item>
+        <item>股权出质登记日期</item>
+        <item>公示日期</item>
+    </string-array>
+    <string-array name="patent_c"><!--专利-->
+        <item>专利名称</item>
+        <item>申请号</item>
+        <item>申请日</item>
+        <item>申请公布号</item>
+        <item>申请公布日</item>
+        <item>发明人</item>
+        <item>类型</item>
+        <item>专利代理机构</item>
+        <item>法律状态</item>
+        <item>摘要</item>
+    </string-array>
+    <string-array name="copyright_c"><!--著作-->
+        <item>著作名称</item>
+        <item>登记日期</item>
+        <item>登记号</item>
+        <item>类别</item>
+        <item>创作完成日期</item>
+        <item>创作发布日期</item>
+    </string-array>
+    <string-array name="copyright_c1"><!--著作软件-->
+        <item>软件名称</item>
+        <item>登记日期</item>
+        <item>登记号</item>
+        <item>软件简称</item>
+        <item>首发日期</item>
+    </string-array>
+    <string-array name="punish_c"><!--处罚-->
+        <item>行政处罚决定文书号</item>
+        <item>名称</item>
+        <item>注册号/统一社会信用代码</item>
+        <item>法定代表人（负责人）姓名</item>
+        <item>违法行为类型</item>
+        <item>行政处罚内容</item>
+        <item>作出行政处罚决定机关</item>
+        <item>作出行政处罚决定日期</item>
+        <item>行政处罚决定书</item>
+    </string-array>
+    <string-array name="trademark_c"><!--商标-->
+        <item>商标名称</item>
+        <item>申请日期</item>
+        <item>申请人</item>
+        <item>商标状态</item>
+        <item>商标注册号</item>
+        <item>商标分类号</item>
+        <item>代理机构</item>
+        <item>使用期限</item>
+
+    </string-array>
+
+    <string-array name="autonomy">
+        <item>企业年报</item>
+        <item>股东及出资</item>
+        <item>股权变更</item>
+        <item>行政许可</item>
+        <item>知识产权登记</item>
+        <item>行政处罚</item>
+    </string-array>
+<!--司法信息集合-->
+    <string-array name="judicial">
+        <item>司法文书信息</item>
+        <item>失信被执行人信息</item>
+        <item>司法股东变更登记信息</item>
+        <item>股权冻结信息</item>
+    </string-array>
+    <string-array name="JudicialDocuments"><!--司法文书信息-->
+        <item>司法文书信息</item>
+        <item>判决内容</item>
+        <item>判决书文号</item>
+        <item>作出判决机关</item>
+        <item>作出判决书日期</item>
+        <item>详情</item>
+    </string-array>
+    <string-array name="CrackCredit"><!--失信被执行人信息-->
+        <item>失信被执行人信息</item>
+        <item>执行法院</item>
+        <item>立案时间</item>
+        <item>执行案号</item>
+        <item>执行依据文号</item>
+        <item>履行情况</item>
+        <item>类型名称</item>
+        <item>具体详情</item>
+    </string-array>
+    <string-array name="ShareholderInformationChange"><!--股东变更信息-->
+        <item>司法股东变更登记信息</item>
+        <item>注册号</item>
+        <item>被执行人</item>
+        <item>股权数额（万元）</item>
+        <item>受让人</item>
+        <item>执行法院</item>
+    </string-array>
+    <string-array name="FrozenInformation"><!--股权冻结信息-->
+        <item>股权冻结信息</item>
+        <item>被执行人</item>
+        <item>执行事项</item>
+        <item>执行法院</item>
+        <item>股权数额（万人民币）</item>
+        <item>冻结状态</item>
+        <item>冻结期限</item>
+    </string-array>
+<!--===========================================-->
+    <string-array name="advertisement"><!--广告信息-->
+        <item>级别</item>
+        <item>类别</item>
+        <item>有效期</item>
+        <item>认定时间</item>
+        <item>认定机关</item>
+    </string-array>
+
+    <string-array name="ENTTYPE_id">
+        <!-- 个人独资企业 -->
+        <item >4540</item>
+        <!-- 个人独资企业分支机构 -->
+        <item>4560</item>
+        <!-- 农民专业合作社法人 -->
+        <item >9100</item>
+        <!-- 农民专业合作社分支机构 -->
+        <item >9200</item>
+        <!-- 个体工商户 -->
+        <item>9500</item>
+        <item >9999</item>
+        <!-- 外资分支机构 -->
+        <item >5800</item>
+        <item >5810</item>
+        <item >5820</item>
+        <item >5830</item>
+        <item >5890</item>
+        <item >6800</item>
+        <item >6810</item>
+        <item >6820</item>
+        <item >6830</item>
+        <item >6890</item>
+        <item>71</item>
+        <!-- 外商投资合伙企业分支机构 -->
+        <item >5840</item>
+        <item >6840</item>
+        <!-- 合伙企业 -->
+        <item >453</item>
+        <!-- 合伙企业分支机构 -->
+        <item>455</item>
+
+        <!-- 内资非公司企业法人分支机构 -->
+        <item >43</item>
+        <!-- 内资非法人企业 -->
+        <item>41</item>
+        <item >42</item>
+        <item >44</item>
+        <item>46</item>
+        <item >47</item>
+
+        <!-- 外商投资合伙企业 -->
+        <item>54</item>
+        <item >64</item>
+
+        <!-- wstzqyxx  wztzqyfzjg  -->
+        <!-- 外资公司法人 -->
+        <item >51</item>
+        <item >52</item>
+        <item >61</item>
+        <item >62</item>
+        <!-- 中外合作非法人企业 -->
+        <item >53</item>
+        <item >63</item>
+
+        <!-- 外国（地区）企业在中国境内从事生产经营活动 -->
+        <item >73</item>
+        <!-- 内资公司法人 -->
+        <item>1</item>
+        <!-- 内资分公司 -->
+        <item >2</item>
+        <!-- 内资非公司企业法人 -->
+        <item >3</item>
+    </string-array>
+    <string-array name="ENTTYPE_name">
+        <!-- 个人独资企业 -->
+        <item >投资人</item>
+        <!-- 个人独资企业分支机构 -->
+        <item >负责人</item>
+        <!-- 农民专业合作社法人 -->
+        <item >法定代表人</item>
+        <!-- 农民专业合作社分支机构 -->
+        <item >负责人</item>
+        <!-- 个体工商户 -->
+        <item >经营者</item>
+        <item >经营者</item>
+        <!-- 外资分支机构 -->
+        <item >负责人</item>
+        <item>负责人</item>
+        <item >负责人</item>
+        <item>负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <item>负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <!-- 外商投资合伙企业分支机构 -->
+        <item >负责人</item>
+        <item >负责人</item>
+        <!-- 合伙企业 -->
+        <item >执行事务合伙人</item>
+        <!-- 合伙企业分支机构 -->
+        <item >负责人</item>
+
+        <!-- 内资非公司企业法人分支机构 -->
+        <item >负责人</item>
+        <!-- 内资非法人企业 -->
+        <item >负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <item >负责人</item>
+        <!-- 外商投资合伙企业 -->
+        <item >执行事务合伙人</item>
+        <item>执行事务合伙人</item>
+
+        <!-- wstzqyxx  wztzqyfzjg  -->
+        <!-- 外资公司法人 -->
+        <item>法定代表人</item>
+        <item >法定代表人</item>
+        <item >法定代表人</item>
+        <item >法定代表人</item>
+        <!-- 中外合作非法人企业 -->
+        <item >负责人</item>
+        <item >负责人</item>
+
+        <!-- 外国（地区）企业在中国境内从事生产经营活动 -->
+        <item >负责人</item>
+
+        <!-- 内资公司法人 -->
+        <item >法定代表人</item>
+        <!-- 内资分公司 -->
+        <item >负责人</item>
+        <!-- 内资非公司企业法人 -->
+        <item >法定代表人</item>
+    </string-array>
+</resources>

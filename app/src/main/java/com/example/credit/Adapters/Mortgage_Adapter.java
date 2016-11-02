@@ -55,6 +55,8 @@ public class Mortgage_Adapter extends BaseAdapter {
         if (convertView == null) {
             vh = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.mortgage_list_item, null);
+
+            vh.mort_xh= (TextView) convertView.findViewById(R.id.mort_xh);
             vh.ctv= (TextView) convertView.findViewById(R.id.title2);
             vh.mort_id = (TextView) convertView.findViewById(R.id.mort_id);
             vh.mort_no = (TextView) convertView.findViewById(R.id.mort_no);
@@ -81,7 +83,7 @@ public class Mortgage_Adapter extends BaseAdapter {
                 vh.ctv.setVisibility(View.VISIBLE);
                 vh.ctv.setText("动产抵押信息");
             }
-
+            vh.mort_xh.setText(position+1+"");
             vh.mort_id.setText(tempMP.MORREG_ID);
             vh.mort_no.setText(tempMP.MORREGCNO);
             vh.mort_time.setText(tempMP.REGIDATE);
@@ -111,7 +113,7 @@ public class Mortgage_Adapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        TextView ctv;
+        TextView ctv,mort_xh;
         TextView mort_id,mort_no,mort_time,mort_date,mort_office,mort_val;
         TextView mort_detail;
         LinearLayout ll_detail,ll_val;

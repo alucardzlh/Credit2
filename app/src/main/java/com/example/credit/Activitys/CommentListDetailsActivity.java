@@ -100,7 +100,7 @@ public class CommentListDetailsActivity extends BaseActivity {
         position=i.getIntExtra("position",0);
         pid=i.getStringExtra("pid");
         Build bd = new Build();
-        deviceId=bd.MODEL;//设备ID
+        deviceId= Build.MODEL;//设备ID
         KeyNo=CommentListActivity.listpl.get(position).COMMENTID;
         token = MD5.MD5s(KeyNo + deviceId);
         /**
@@ -279,6 +279,7 @@ public class CommentListDetailsActivity extends BaseActivity {
                         GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.HHOMM, RequestMethod.GET);
                         request14.add("KeyNo",KeyNo);
                         request14.add("token",token);
+                        request14.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
                         request14.add("deviceId",deviceId);
                         request14.add("remark",huifu_con.getText().toString());
                         request14.add("pid",pid);//点评其他评论,父评论ID
@@ -303,6 +304,7 @@ public class CommentListDetailsActivity extends BaseActivity {
             GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.ZZOMM, RequestMethod.GET);
             request14.add("KeyNo",KeyNo);
             request14.add("token",token);
+            request14.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
             request14.add("deviceId",deviceId);
             request14.add("memberId",csp.getID());
             if(N>S){//当当前点赞数值大于原来所赋值的数值，则为点赞+1
@@ -319,6 +321,7 @@ public class CommentListDetailsActivity extends BaseActivity {
             GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.NNOMM, RequestMethod.GET);
             request14.add("KeyNo",KeyNo);
             request14.add("token",token);
+            request14.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
             request14.add("deviceId",deviceId);
             request14.add("memberId",csp.getID());
             if(No>So){//当当前差评数值大于原来所赋值的数值，则为差评+

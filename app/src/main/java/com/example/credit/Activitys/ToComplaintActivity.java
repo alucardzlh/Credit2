@@ -180,6 +180,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                             request14.add("KeyNo",DataManager.toComplain.data.relationId);
                             request14.add("memberId",csp.getID());
                             request14.add("type","投诉");
+                            request14.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
                             request14.add("attchmentDesc",attchmentDescS);//图片描述内容，多文件以@符号分割
                             request14.add("attchmentSteam",attchmentSteamS);//base64码内容，多文件以@符号分割
                             CallServer.getInstance().add(ToComplaintActivity.this, request14, MyhttpCallBack.getInstance(), 0x992, true, false, true);
@@ -353,6 +354,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                         ComRequerst.add("KeyNo", DataManager.QJiugongGList.data.allCount.get(0).Pripid);
                         ComRequerst.add("deviceId", new Build().MODEL);
                         ComRequerst.add("memberId", csp.getID());
+                        ComRequerst.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
                         ComRequerst.add("title", com_et_title.getText().toString());
                         ComRequerst.add("remark", com_et_conten.getText().toString());
                         ComRequerst.add("typeId",list1.get(strid));//投诉类型
@@ -369,7 +371,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                         list1.add(dis.ZD_ID);
                         list2.add(dis.NAME);
                     }
-                    String[] tlist2 = (String[])list2.toArray(new String[list2.size()]);
+                    String[] tlist2 = list2.toArray(new String[list2.size()]);
                     showSelect("类型",tlist2,com_et_type);
                     break;
                 default:
@@ -437,7 +439,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
             // 取得SDCard图片路径做显示
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(null, photo);
-            myList.add(drawable);;
+            myList.add(drawable);
             adapters = new MyGridAdapterClaim2(ToComplaintActivity.this, myList);
             myGridViewtc.setAdapter(adapters);
         }

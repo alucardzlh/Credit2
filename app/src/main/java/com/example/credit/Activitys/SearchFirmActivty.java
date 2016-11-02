@@ -179,6 +179,7 @@ public class SearchFirmActivty extends BaseActivity implements PullToRefreshView
                                         requst.setConnectTimeout(30000);
                                         requst.add("KeyNo", KeyNo);
                                         requst.add("token", token);
+                                        requst.add("C_PROVINCE",listsea.get(position).C_PROVINCE);
                                         requst.add("deviceId", model);
                                         if(csp.getLoginStatus()){
                                             requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
@@ -190,6 +191,7 @@ public class SearchFirmActivty extends BaseActivity implements PullToRefreshView
                                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                                             request121.add("token", token);
                                             request121.add("deviceId", model);
+                                            request121.add("C_PROVINCE",listsea.get(position).C_PROVINCE);
                                             request121.add("KeyNo", KeyNo);
                                             if(csp.getLoginStatus()){
                                                 request121.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42

@@ -23,12 +23,11 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/Textbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:background="@color/mic_white"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_margin="10dp"
             android:padding="10dp">
             <LinearLayout
@@ -45,7 +44,7 @@
                     android:visibility="visible"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="公交路线"/>
+                    android:text="乘车路线"/>
                 <TextView
                     android:id="@+id/Text2"
                     android:layout_width="match_parent"
@@ -56,9 +55,10 @@
                     android:layout_gravity="bottom|center"
                     android:background="@color/mic_white"
                     android:textSize="14sp"
-                    android:text="全称4.5公里   预计历时45分钟"/>
+                    android:text=""/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/Textbtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -128,8 +128,7 @@
                         android:id="@+id/busbtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:text="公交" />
+                        android:text="乘车" />
                 </RadioGroup>
             </LinearLayout>
             <CheckBox

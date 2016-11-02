@@ -71,23 +71,23 @@ public class H5ViewActivity extends Activity {
         wd.show();
         switch (msg){
             case "1"://投资连图
-                str = URL + "?KeyNo=" + KeyNo + "&regno=" + regno + "&entname=" + entname + "&devicetype=1";
+                str = URL + "?KeyNo=" + KeyNo + "&regno=" + regno + "&entname=" + entname + "&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "2"://发展历程
-                str=URL+"?KeyNo=" + KeyNo+ "&regno=" + regno+"&devicetype=1"+"&priptype="+priptype;
+                str=URL+"?KeyNo=" + KeyNo+ "&regno=" + regno+"&devicetype=1"+"&priptype="+priptype+"&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "3"://招投标
-                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1";
+                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "4"://企业新闻
-                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1";
+                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "5"://企业招聘
-                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1";
+                str = URL + "?KeyNo=" + KeyNo + "&pripid=" + pripid + "&regno=" + regno + "&priptype=" + priptype + "&entname=" + entname + "&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "6"://企业展示
                 b_topname.setText("企业展示");
-                str = URL + "?KeyNo=" + KeyNo +  "&regno=" + regno + "&entname=" + entname + "&devicetype=1";
+                str = URL + "?KeyNo=" + KeyNo +  "&regno=" + regno + "&entname=" + entname + "&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE;
                 break;
             case "7"://首页招投标
                 b_topname.setText("招投标");
@@ -107,7 +107,7 @@ public class H5ViewActivity extends Activity {
                 break;
             case"11"://投资全景
                 b_topname.setText("投资全景");
-                str = URL + "?KeyNo=" + KeyNo + "&priptype=" + priptype+"&entname="+entname+"&regno="+regno+"&devicetype=1" ;
+                str = URL + "?KeyNo=" + KeyNo + "&priptype=" + priptype+"&entname="+entname+"&regno="+regno+"&devicetype=1&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE ;
                 break;
 
             default:

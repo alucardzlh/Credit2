@@ -86,8 +86,9 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
     CheckBox maptyp1e;
     List<String> list;
     List<Double> list1,list2;
+    List<Double> list1t,list2t;
     boolean flag=false;
-    RelativeLayout Textbtn;
+    LinearLayout Textbtn;
     TextView Text1,Text2;
     MarkerOptions markerOption;
     UiSettings mUiSettings;
@@ -96,6 +97,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
     int index;
     boolean TrFlag=false;
     RadioGroup.OnCheckedChangeListener radioButtonListener;
+    List<String> listtx=new ArrayList<>();//路线途径点
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,9 +106,10 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
         mapView = (MapView) findViewById(R.id.map);
 
         maptyp1e = (CheckBox) findViewById(R.id.maptyp1e);//交通路况
-        Textbtn = (RelativeLayout) findViewById(R.id.Textbtn);//详情
+        Textbtn = (LinearLayout) findViewById(R.id.Textbtn);//详情
         Text1 = (TextView) findViewById(R.id.Text1);//
         Text2 = (TextView) findViewById(R.id.Text2);//
+        Text1.setOnClickListener(listener);
         Textbtn.setOnClickListener(listener);
         maptyp1e.setOnClickListener(listener);
         //在activity执行onCreate时执行mapView.onCreate(savedInstanceState)，实现地图生命周期管理
@@ -141,6 +144,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                 GsonUtil MyClaimRuerst=null;
                 switch (checkedId){
                     case R.id.moren:
+                        try{ list1t.clear(); }catch (NullPointerException e){}
                         aMap.clear();
                         flag=false;
                         isFirstLoc = true;
@@ -154,8 +158,10 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         CallServer.getInstance().add(StartMapActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1142, true, false, true);
                         break;
                     case R.id.busbtn:
+                        try{ list1t.clear(); }catch (NullPointerException e){}
                         try{
                             if(DataManager.getBusList.route.transits.size()>0 && DataManager.getBusList.route.transits != null){
+
                                 List<String> listx=new ArrayList<>();
                                 for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
                                     for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
@@ -163,13 +169,13 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                     }
                                 }
                                 String[] arr = listx.toArray(new String[listx.size()]);
-                                showSelect("公交路线选择",arr);
+                                showSelect("乘车路线选择",arr);
                             }else{
                                 if(DataManager.getMapList.geocodes.get(0).citycode.equals(city)){
                                     MyClaimRuerst = new GsonUtil(URLconstant.MAPBUS + "&origin="+nlng+","+nlat+"&destination="+lng+","+lat+"&city="+city, RequestMethod.GET);
                                     CallServer.getInstance().add(StartMapActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1143, true, false, true);
                                 }else{
-                                    com.example.credit.Utils.Toast.show("您与该企业不在同一城市，公交无法直达，请选择其他路线!");
+                                    com.example.credit.Utils.Toast.show("您与该企业不在同一城市，乘车无法直达，请选择其他路线!");
                                 }
                             }
                         }catch (Exception e){
@@ -177,7 +183,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                 MyClaimRuerst = new GsonUtil(URLconstant.MAPBUS + "&origin="+nlng+","+nlat+"&destination="+lng+","+lat+"&city="+city, RequestMethod.GET);
                                 CallServer.getInstance().add(StartMapActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1143, true, false, true);
                             }else{
-                                com.example.credit.Utils.Toast.show("您与该企业不在同一城市，公交无法直达，请选择其他路线!");
+                                com.example.credit.Utils.Toast.show("您与该企业不在同一城市，乘车无法直达，请选择其他路线!");
                             }
                         }
                         break;
@@ -197,9 +203,10 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                 Textbtn.setVisibility(View.VISIBLE);
                 LatLng latLng;
                 List<LatLng> latLngs;
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+//                aMap.moveCamera(CameraUpdateFactory.zoomTo(10));
                 switch (msg.what){
                     case 0://步行
+                        try{ list1t.clear(); }catch (NullPointerException e){}
                         aMap.clear();
                         Text1.setText("步行路线");
                         if(DataManager.getwalkingList.route.paths.get(0).distance.length()>3){
@@ -248,6 +255,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                 addAll(latLngs).width(10).color(getResources().getColor(R.color.red)));
                         break;
                     case 1://驾车
+                        try{ list1t.clear(); }catch (NullPointerException e){}
                         aMap.clear();
                         Text1.setText("驾车路线");
                         if(DataManager.getDrivingList.route.paths.get(0).distance.length()>3){
@@ -296,7 +304,8 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         aMap.addPolyline(new PolylineOptions().
                                 addAll(latLngs).width(10).color(getResources().getColor(R.color.blue2)));
                         break;
-                    case 2://公交
+                    case 2://乘车
+                        aMap.clear();
                         List<String> listx=new ArrayList<>();
                         for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
                             for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
@@ -304,7 +313,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                             }
                         }
                         String[] arr = listx.toArray(new String[listx.size()]);
-                        showSelect("公交路线选择",arr);
+                        showSelect("乘车路线选择",arr);
                         break;
                 }
             }
@@ -315,10 +324,20 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.Textbtn:
+                case R.id.Textbtn://详情
                     int size = list.size();
                     String[] arr = list.toArray(new String[size]);
                     showLK(Text1.getText().toString(),arr);
+                    break;
+                case R.id.Text1://路线选择
+                    List<String> listx=new ArrayList<>();
+                    for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
+                        for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
+                            listx.add(bus.name + "");
+                        }
+                    }
+                    String[] arr1 = listx.toArray(new String[listx.size()]);
+                    showSelect("乘车路线选择",arr1);
                     break;
                 case R.id.maptyp1e:
                     if(TrFlag==false){
@@ -437,6 +456,21 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                 markerOption.draggable(true);
                 markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.end));//设置图标
                 aMap.addMarker(markerOption);
+
+                if(list1t !=null && list1t.size()>0){
+                    for(int y=0;y<list1t.size();y++){
+                        LatLng x12 = new LatLng(list2t.get(y),list1t.get(y));//第一个参数是：latitude，第二个参数是longitude
+                        //添加标记
+                        markerOption.position(x12);
+                        markerOption.title("目的地");
+                        markerOption.snippet("目的地");
+                        markerOption.perspective(true);
+                        markerOption.draggable(true);
+                        markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.way));//设置图标
+                        aMap.addMarker(markerOption);
+                    }
+
+                }
             }
             aMapLocation.getAccuracy();//获取精度信息
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -520,13 +554,13 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
     public void showSelect(final String title, final String[] con){
         View outerView = LayoutInflater.from(StartMapActivity.this).inflate(R.layout.wheel_view, null);
         WheelView wv = (WheelView) outerView.findViewById(R.id.wheel_view_wv);
-        wv.setOffset(2);
         wv.setItems(Arrays.asList(con));
         wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
 //                Toast.show("[Dialog]selectedIndex: " + selectedIndex + ", item: " + item);
                 index=selectedIndex-1;
+//                com.example.credit.Utils.Toast.show(selectedIndex+"");
             }
         });
 
@@ -537,7 +571,8 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         aMap.clear();
-                        Text1.setText("公交路线");
+                        try{ list1t.clear(); }catch (NullPointerException e){}
+                        Text1.setText("乘车路线");
                         //获取坐标
                         list=new ArrayList<>();//路况
                         list1=new ArrayList<>();//经度坐标
@@ -551,6 +586,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                         list1.add(Double.parseDouble(ss[0]));
                                         list2.add(Double.parseDouble(ss[1]));
                                     }
+                                    list.add(wa.instruction);
                                 }
                                 for(DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus:DataManager.getBusList.route.transits.get(index).segments.get(a).bus.buslines){
                                     String [] str=bus.polyline.split(";");
@@ -558,6 +594,21 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                         String [] ss=str[i].split(",");
                                         list1.add(Double.parseDouble(ss[0]));
                                         list2.add(Double.parseDouble(ss[1]));
+                                    }
+                                    if(bus.via_stops.size()>0 && bus.via_stops!=null) {
+                                        list.add(bus.departure_stop.name);
+                                        listtx.add(bus.departure_stop.location);
+                                        for(int t=0;t<bus.via_stops.size();t++){
+                                            listtx.add(bus.via_stops.get(t).location);
+                                            list.add(bus.via_stops.get(t).name);
+                                        }
+                                        list.add(bus.arrival_stop.name);
+                                        listtx.add(bus.arrival_stop.location);
+                                    }else{
+                                        list.add(bus.departure_stop.name);
+                                        list.add(bus.arrival_stop.name);
+                                        listtx.add(bus.departure_stop.location);
+                                        listtx.add(bus.arrival_stop.location);
                                     }
                                 }
 
@@ -568,6 +619,21 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                                         String [] ss=str[i].split(",");
                                         list1.add(Double.parseDouble(ss[0]));
                                         list2.add(Double.parseDouble(ss[1]));
+                                    }
+                                    if(bus.via_stops.size()>0 && bus.via_stops!=null) {
+                                        listtx.add(bus.departure_stop.location);
+                                        list.add(bus.departure_stop.name);
+                                        for(int t=0;t<bus.via_stops.size();t++){
+                                            listtx.add(bus.via_stops.get(t).location);
+                                            list.add(bus.via_stops.get(t).name);
+                                        }
+                                        list.add(bus.arrival_stop.name);
+                                        listtx.add(bus.arrival_stop.location);
+                                    }else{
+                                        list.add(bus.departure_stop.name);
+                                        list.add(bus.arrival_stop.name);
+                                        listtx.add(bus.departure_stop.location);
+                                        listtx.add(bus.arrival_stop.location);
                                     }
                                 }
                             }
@@ -581,6 +647,18 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         latLngs.add(new LatLng(lat,lng));
                         aMap.addPolyline(new PolylineOptions().
                                 addAll(latLngs).width(10).color(getResources().getColor(R.color.red)));
+
+                        //绘制途经点
+                        list1t=new ArrayList<>();
+                        list2t=new ArrayList<>();
+                        for(int tl=0;tl<listtx.size();tl++){
+                            String [] str=listtx.get(tl).split(";");
+                            for(int i=0;i<str.length;i++){
+                                String [] ss=str[i].split(",");
+                                list1t.add(Double.parseDouble(ss[0]));
+                                list2t.add(Double.parseDouble(ss[1]));
+                            }
+                        }
                     }
                 })
                 .setCancelable(false)

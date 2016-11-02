@@ -27,25 +27,69 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="抵押登记ID:"
+                android:text="序号："
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
+            <TextView
+                android:id="@+id/mort_xh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textStyle="bold"
+                android:textColor="#57737D"
+                android:textSize="@dimen/ctest_size" />
+        </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#B8B8B8" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="抵押登记ID："
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="@dimen/ctitle_size" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/mort_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123123123131"
+                android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
         </LinearLayout>
@@ -55,27 +99,35 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#B8B8B8" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="登记编号:"
+                android:text="登记编号："
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/mort_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2019年11月12日"
+                android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
         </LinearLayout>
@@ -85,28 +137,35 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#B8B8B8" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="登记日期:"
+                android:text="登记日期："
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/mort_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2019年11月12日-2020年11月20日"
                 android:textColor="#57737D"
+                android:textStyle="bold"
                 android:textSize="@dimen/ctest_size" />
         </LinearLayout>
 
@@ -115,27 +174,35 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#B8B8B8" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="公示日期:"
+                android:text="公示日期："
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/mort_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100万"
+                android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
         </LinearLayout>
@@ -145,21 +212,29 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#B8B8B8" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="登记机关:"
+            android:text="登记机关："
+            android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#B8B8B8" />
         <TextView
             android:id="@+id/mort_office"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="南昌市西湖区人民法院"
+            android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
 
@@ -168,6 +243,7 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#B8B8B8" />
 
         <!--<TextView
@@ -198,25 +274,26 @@
                 android:id="@+id/Valuation1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="抵押数额(万元):"
+                android:text="抵押数额(万元)："
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/mort_Val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4700万人民币"
                 android:textColor="#57737D"
+                android:textStyle="bold"
                 android:textSize="@dimen/ctest_size" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:background="#B8B8B8" />
         </LinearLayout>
 
         <LinearLayout
@@ -225,7 +302,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#B8B8B8" />
             <TextView
                 android:id="@+id/detail1"
                 android:layout_width="wrap_content"

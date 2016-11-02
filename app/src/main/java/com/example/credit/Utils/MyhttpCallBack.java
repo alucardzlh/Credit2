@@ -830,8 +830,14 @@ public class MyhttpCallBack implements HttpCallBack {
                         break;
                     case 0x1143://公交
                         jsonString = (String) response.get();
-                        DataManager.getBusList = gson.fromJson(jsonString, DataManager.getBus.class);
-                        StartMapActivity.handler.sendEmptyMessage(2);
+                        try{
+                            DataManager.getBusList = gson.fromJson(jsonString, DataManager.getBus.class);
+                            StartMapActivity.handler.sendEmptyMessage(2);
+                        }catch (JsonSyntaxException e) {
+                            showdisplay(what);
+                            Toast.show("路线有变化,无法导航!");
+                        }
+
                         break;
 
                     default:
@@ -983,8 +989,7 @@ public class MyhttpCallBack implements HttpCallBack {
         }catch (NumberFormatException e) {
             showdisplay(what);
             Toast.show("字符串转换为数字异常!");
-        }
-        catch (JsonSyntaxException e) {
+        }catch (JsonSyntaxException e) {
             showdisplay(what);
             Toast.show("后台数据变更json解析出错!");
         }

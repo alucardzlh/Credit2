@@ -78,6 +78,11 @@ public class DataManager {
             }
 
             public static class ResultBean {
+                public Object D_ADDTIME;
+                public String REGSTATE;
+                public String ADD_PROVINCE;
+                public Object ISMOVE;
+                public Object C_OUT_STATUS;
                 public String REGCAPCUR_CN;
                 public String ESTDATE;
                 public String ENTNAME_HIGHT;
@@ -101,6 +106,7 @@ public class DataManager {
                 public String INDUSTRYPHY;//行业代码
                 public String INDUSTRYPHY_NAME;//行业代码中文名字
                 public String OPSCOPE;//经营范围
+
 
             }
         }

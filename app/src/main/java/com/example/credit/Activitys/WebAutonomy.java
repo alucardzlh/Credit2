@@ -70,7 +70,7 @@ public class WebAutonomy extends BaseActivity {
         ws.setUseWideViewPort(true);//自适应
         ws.setLoadWithOverviewMode(true);//自适应
 
-        web_conten.loadUrl(Url+KeyNo+devicetype+priptypes);
+        web_conten.loadUrl(Url+KeyNo+devicetype+priptypes+"&C_PROVINCE"+CompanyDetailsActivity.ADD_PROVINCE);
 
         web_conten.setWebViewClient( new WebViewClient(){
 

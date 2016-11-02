@@ -17,7 +17,6 @@ public class URLconstant {
 
     public static final String SAVESUM="baseinfoInterface/saveOperationLog.do";//记录用户进入九宫格
 
-
     public static final String DETAILSCINFOURL = "infomessageInterface/queryinfomessage";//获取工商信息数据
 
     public static final String ADMINURL = "certificateInterface/queryCertificateInfo";//获取行政审批数据
@@ -46,7 +45,7 @@ public class URLconstant {
 
     public static final String JUDICIALURL = "courtcaseInterface/queryJusticeInfo.do";//司法信息URL
 
-    public static final String INVESTMENTURL = "http://192.168.10.44:8080/zhirong.credith5/investAllViewController/investAllView.do";//New模块 投资全景Investment
+    public static final String INVESTMENTURL = "http://101.201.211.27:8282/zhirong.credith5/investAllViewController/investAllView.do";//New模块 投资全景Investment
 
     public static final String REPORTURL1 ="MakePdfInterface/makePdf.do";//信用报告Report1
 
@@ -78,7 +77,7 @@ public class URLconstant {
 
 
     /**
-     * 额鹅鹅鹅
+     * 自主业务
      */
 
     public static final String USERLOGIN = "/memberInterface/userLogin";//登录接口
@@ -239,15 +238,15 @@ public class URLconstant {
 
     public static final String SXDETAILSDS="http://101.201.211.27:8282/zhirong.credith5/forensicInfoController/getforensicInfoDetails.do";//失信详情页URl
 
-    public static final String TBSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//招投标
+    public static final String TBSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//招投标 废弃
 
-    public static final String JYSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//经营异常
+    public static final String JYSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//经营异常   废弃
 
     public static final String COMPANYNEWS="http://101.201.211.27:8282/zhirong.credith5/enterinfo/entnew.do";//企业新闻接口
 
     public static final String RECRUIT="http://101.201.211.27:8282/zhirong.credith5/enterinfo/entrecruit.do";//招聘接口recruit
 
-    public static final String TENDER="http://101.201.211.27:8282/zhirong.credith5/biddingInfoController/getBiddingInfolist.do";//招标接口Tender
+    public static final String TENDER="http://101.201.211.27:8282/zhirong.credith5/biddingInfoController/getBiddingInfolist.do";//招标接口Tender 59
 
     public static final String TOUZILIAN="http://101.201.211.27:8282/zhirong.credith5/investViewController/investView.do";//投资链图
 

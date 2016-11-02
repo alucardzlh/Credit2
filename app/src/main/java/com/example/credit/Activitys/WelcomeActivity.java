@@ -43,6 +43,7 @@ public class WelcomeActivity extends BaseActivity {
         GsonUtil NewClaimRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.NEWAPP, RequestMethod.GET);//获取最新版本
         NewClaimRequest.add("token", MD5.MD5s("" + new Build().MODEL));
         NewClaimRequest.add("KeyNo", "");
+        NewClaimRequest.add("dowmload", "true");
         NewClaimRequest.add("deviceId", (new Build()).MODEL);
         CallServer.getInstance().add(WelcomeActivity.this, NewClaimRequest, MyhttpCallBack.getInstance(), 0x110, true, false, true);
 

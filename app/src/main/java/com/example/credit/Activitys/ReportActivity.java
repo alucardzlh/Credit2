@@ -116,6 +116,7 @@ public class ReportActivity extends Activity {
                         GsonUtil request = new GsonUtil(URLconstant.URLINSER+URLconstant.REPORTURL2, RequestMethod.GET);
                         request.add("fileName",  DataManager.ReportText);
                         request.add("sendTo",xx1.getText().toString());//
+                        request.add("C_PROVINCE", CompanyDetailsActivity.ADD_PROVINCE);
                         CallServer.getInstance().add(ReportActivity.this, request, MyhttpCallBack.getInstance(), 0x702, true, false, true);
                         break;
                     case  1:
@@ -385,7 +386,7 @@ public class ReportActivity extends Activity {
                             list.add(1);
                         }
                         for (int i = R.id.gs1; i <= R.id.qt2; i++) {
-                            ((TextView) findViewById(i)).setBackgroundResource(R.drawable.xxbaogao_tit);
+                            findViewById(i).setBackgroundResource(R.drawable.xxbaogao_tit);
                         }
                     }else{
                         b_topY.setText("全选");
@@ -393,7 +394,7 @@ public class ReportActivity extends Activity {
                             list.add(0);
                         }
                         for (int i = R.id.gs1; i <= R.id.qt2; i++) {
-                            ((TextView) findViewById(i)).setBackgroundResource(R.drawable.maintop_shape);
+                            findViewById(i).setBackgroundResource(R.drawable.maintop_shape);
                         }
                     }
                     break;
@@ -470,6 +471,7 @@ public class ReportActivity extends Activity {
                         GsonUtil request = new GsonUtil(URLconstant.URLINSER+URLconstant.REPORTURL1, RequestMethod.GET);
                         request.add("pripid",  DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
                         request.add("select",selectStr);//
+                        request.add("C_PROVINCE", CompanyDetailsActivity.ADD_PROVINCE);
                         request.add("entname",  DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);//
                         request.add("priptype",  DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);//
                         CallServer.getInstance().add(ReportActivity.this, request, MyhttpCallBack.getInstance(), 0x701, true, false, true);

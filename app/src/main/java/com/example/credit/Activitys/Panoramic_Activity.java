@@ -77,7 +77,7 @@ public class Panoramic_Activity extends BaseActivity {
         //ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         ws.setUseWideViewPort(true);//自适应
         ws.setLoadWithOverviewMode(true);//自适应
-        fullview.loadUrl(url+KeyNo+deviceId+priptype+regno+entname+token+devicetype);
+        fullview.loadUrl(url+KeyNo+deviceId+priptype+regno+entname+token+devicetype+"&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE);
         fullview.setWebViewClient( new WebViewClient(){
 
             @Override

@@ -412,10 +412,12 @@ public class DetailsContentActivity extends BaseActivity {
         List<String> userList2 = Arrays.asList(getResources().getStringArray(R.array.ENTTYPE_name));
         for(int z=0;z<userList1.size();z++){
             int size=userList1.get(z).length();
-            if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,size).indexOf(userList1.get(z)) != -1){
-                arrays3[1]=userList2.get(z);
-                break;
-            }
+            try{
+                if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,size).indexOf(userList1.get(z)) != -1){
+                    arrays3[1]=userList2.get(z);
+                    break;
+                }
+            }catch (Exception e){}
         }
 
 
@@ -423,12 +425,13 @@ public class DetailsContentActivity extends BaseActivity {
         if(DataManager.gsxx.data.baseInfo.REGCAP.equals("") || DataManager.gsxx.data.baseInfo.REGCAP.equals("null") || DataManager.gsxx.data.baseInfo.REGCAP==null){
             lt.add("暂无信息");
         }else{
-            if(DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".") == -1){
-                lt.add(DataManager.gsxx.data.baseInfo.REGCAP+ "万元人民币");
-            }else{
-                lt.add(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".")) + "万元人民币");
-            }
-
+            try{
+                if(DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".") == -1){
+                    lt.add(DataManager.gsxx.data.baseInfo.REGCAP+ "万元人民币");
+                }else{
+                    lt.add(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".")) + "万元人民币");
+                }
+            }catch (Exception e){}
 
         }
 
@@ -749,398 +752,400 @@ public class DetailsContentActivity extends BaseActivity {
      */
     public void enttypeShow(){
 //        Toast.show((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE));
-        /**
-         *  个体工商户（9999 9500）
-         */
-        if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9999") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9500") != -1) ){
-            String[] arrays31 = {"经营者：", "登记状态：","成立日期：","核准日期："};
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_daimatit.setText("注册号：");
-            c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
-            c_nametit.setText("名称：");
-            c_addresstit.setText("住所：");
-            c_tab2.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tab5.setVisibility(View.GONE);
-            c_tab6.setText("参加经营的家庭成员");
-
-            c_tv2.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            c_tv5.setVisibility(View.GONE);
-            c_tv6.setText("参加经营的家庭成员");
-
-            myGridViewp.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            myGridViewZYfz.setVisibility(View.GONE);
-
-            c_people.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_impPeoc_fzjgple.setVisibility(View.GONE);
-
-        }
-
-        /**
-         * 个人独资企业——企业类型4540
-         */
-        else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("4540") != -1){
-            arrays3[0]="登记状态：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_tab2.setText("投资人");
-            c_tv2.setText("投资人");
-            c_nametit.setText("名称：");
-            c_addresstit.setText("住所：");
-            c_stateLin.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
+        try{
             /**
-             * 投资人
+             *  个体工商户（9999 9500）
              */
-            List<String> p1 = new ArrayList<String>();//投资人名称
-            List<String> p2 = new ArrayList<String>();//出资类型
-            if((DataManager.gsxx.data.partnersInfo)!=null && (DataManager.gsxx.data.partnersInfo).size()>0){
-                for (DataManager.GSXX.DataBean.PartnersInfoBean p: DataManager.gsxx.data.partnersInfo) {
-                    p1.add(p.INV);
-                    p2.add(p.SCONFORM);
-                }
-                int size11 = p1.size();
-                int size21 = p2.size();
-                String[] arrayszy11 = p1.toArray(new String[size11]);
-                String[] arrayszy21 = p2.toArray(new String[size21]);
-                adapterzy123 = new MyGridZZAdapter(DetailsContentActivity.this, arrayszy11, arrayszy21,null,null,null);
-                myGridViewp.setAdapter(adapterzy123);
-                myGridViewp.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            }else{
-                c_people.setVisibility(View.VISIBLE);
+            if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9999") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9500") != -1) ){
+                String[] arrays31 = {"经营者：", "登记状态：","成立日期：","核准日期："};
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_daimatit.setText("注册号：");
+                c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
+                c_nametit.setText("名称：");
+                c_addresstit.setText("住所：");
+                c_tab2.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tab5.setVisibility(View.GONE);
+                c_tab6.setText("参加经营的家庭成员");
+
+                c_tv2.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                c_tv5.setVisibility(View.GONE);
+                c_tv6.setText("参加经营的家庭成员");
+
                 myGridViewp.setVisibility(View.GONE);
-            }
-
-        }
-        /**
-         * 农民专业合作社法人——企业类型9100
-         */
-        else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9100") != -1){
-            String[] arrays31 = {"法定代表人：", "登记状态：","成立日期：","核准日期："};
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_nametit.setText("名称：");
-            c_addresstit.setText("住所：");
-            c_limoney.setVisibility(View.VISIBLE);
-            c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf("."))+"万元"+DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
-
-
-            c_tab2.setVisibility(View.GONE);
-            c_tv2.setVisibility(View.GONE);
-            myGridViewp.setVisibility(View.GONE);
-            c_people.setVisibility(View.GONE);
-            c_stateLin.setVisibility(View.GONE);
-            c_tab3.setText("成员名册");
-            c_tv3.setText("成员名册");
-            c_tab5.setVisibility(View.GONE);
-            c_tv5.setVisibility(View.GONE);
-            myGridViewZYfz.setVisibility(View.GONE);
-            c_impPeoc_fzjgple.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
-            /**
-             * 成员名册
-             */
-
-            List<String> zy2 = new ArrayList<String>();//人员list
-            if((DataManager.gsxx.data.partnersInfo)!=null && (DataManager.gsxx.data.partnersInfo).size()>0){
-                for (DataManager.GSXX.DataBean.PartnersInfoBean p: DataManager.gsxx.data.partnersInfo) {
-                    zy2.add(p.INV);
-                }
-                int size2 = zy2.size();
-                String[] arrayszy2 = zy2.toArray(new String[size2]);
-                adapterzy = new MyGridZYAdapter(DetailsContentActivity.this, arrayszy2, null);
-                myGridViewZY.setAdapter(adapterzy);
-                myGridViewZY.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                c_Cpeople.setVisibility(View.GONE);
-                myGridViewZY.setVisibility(View.VISIBLE);
-            }else{
-                c_Cpeople.setVisibility(View.VISIBLE);
                 myGridViewZY.setVisibility(View.GONE);
+                myGridViewZYfz.setVisibility(View.GONE);
+
+                c_people.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_impPeoc_fzjgple.setVisibility(View.GONE);
+
             }
 
-        }
-        /**
-         * 合伙企业——企业类型453%
-         */
-        else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,3).indexOf("453") != -1){
-            arrays3[0]="登记状态：";
-            arrays3[4]="合伙期限自：";
-            arrays3[5]="合伙期限至：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_tab2.setText("合伙人");
-            c_tv2.setText("合伙人");
-            c_nametit.setText("名称：");
-            c_addresstit.setText("主要经营场所：");
-            c_stateLin.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-        }
-        /**
-         *  合伙企业分支机构——企业类型455%
-         */
-        else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,3).indexOf("455") != -1){
-            arrays3[0]="登记状态：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_nametit.setText("名称：");
-            c_addresstit.setText("经营场所：");
-            c_stateLin.setVisibility(View.GONE);
-            c_tab2.setVisibility(View.GONE);
-            c_tv2.setVisibility(View.GONE);
-            myGridViewp.setVisibility(View.GONE);
-            c_people.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_tab5.setVisibility(View.GONE);
-            c_tv5.setVisibility(View.GONE);
-            myGridViewZYfz.setVisibility(View.GONE);
-            c_impPeoc_fzjgple.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
-        }
-        /**
-         *  内资非公司企业法人
-         */
-        else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("3") != -1)){
-            c_tab2.setText("主管部门");
-            c_tv2.setText("主管部门（出资人）");
+            /**
+             * 个人独资企业——企业类型4540
+             */
+            else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("4540") != -1){
+                arrays3[0]="登记状态：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_tab2.setText("投资人");
+                c_tv2.setText("投资人");
+                c_nametit.setText("名称：");
+                c_addresstit.setText("住所：");
+                c_stateLin.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
+                /**
+                 * 投资人
+                 */
+                List<String> p1 = new ArrayList<String>();//投资人名称
+                List<String> p2 = new ArrayList<String>();//出资类型
+                if((DataManager.gsxx.data.partnersInfo)!=null && (DataManager.gsxx.data.partnersInfo).size()>0){
+                    for (DataManager.GSXX.DataBean.PartnersInfoBean p: DataManager.gsxx.data.partnersInfo) {
+                        p1.add(p.INV);
+                        p2.add(p.SCONFORM);
+                    }
+                    int size11 = p1.size();
+                    int size21 = p2.size();
+                    String[] arrayszy11 = p1.toArray(new String[size11]);
+                    String[] arrayszy21 = p2.toArray(new String[size21]);
+                    adapterzy123 = new MyGridZZAdapter(DetailsContentActivity.this, arrayszy11, arrayszy21,null,null,null);
+                    myGridViewp.setAdapter(adapterzy123);
+                    myGridViewp.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                }else{
+                    c_people.setVisibility(View.VISIBLE);
+                    myGridViewp.setVisibility(View.GONE);
+                }
+
+            }
+            /**
+             * 农民专业合作社法人——企业类型9100
+             */
+            else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9100") != -1){
+                String[] arrays31 = {"法定代表人：", "登记状态：","成立日期：","核准日期："};
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_nametit.setText("名称：");
+                c_addresstit.setText("住所：");
+                c_limoney.setVisibility(View.VISIBLE);
+                c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf("."))+"万元"+DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
+
+
+                c_tab2.setVisibility(View.GONE);
+                c_tv2.setVisibility(View.GONE);
+                myGridViewp.setVisibility(View.GONE);
+                c_people.setVisibility(View.GONE);
+                c_stateLin.setVisibility(View.GONE);
+                c_tab3.setText("成员名册");
+                c_tv3.setText("成员名册");
+                c_tab5.setVisibility(View.GONE);
+                c_tv5.setVisibility(View.GONE);
+                myGridViewZYfz.setVisibility(View.GONE);
+                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
+                /**
+                 * 成员名册
+                 */
+
+                List<String> zy2 = new ArrayList<String>();//人员list
+                if((DataManager.gsxx.data.partnersInfo)!=null && (DataManager.gsxx.data.partnersInfo).size()>0){
+                    for (DataManager.GSXX.DataBean.PartnersInfoBean p: DataManager.gsxx.data.partnersInfo) {
+                        zy2.add(p.INV);
+                    }
+                    int size2 = zy2.size();
+                    String[] arrayszy2 = zy2.toArray(new String[size2]);
+                    adapterzy = new MyGridZYAdapter(DetailsContentActivity.this, arrayszy2, null);
+                    myGridViewZY.setAdapter(adapterzy);
+                    myGridViewZY.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                    c_Cpeople.setVisibility(View.GONE);
+                    myGridViewZY.setVisibility(View.VISIBLE);
+                }else{
+                    c_Cpeople.setVisibility(View.VISIBLE);
+                    myGridViewZY.setVisibility(View.GONE);
+                }
+
+            }
+            /**
+             * 合伙企业——企业类型453%
+             */
+            else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,3).indexOf("453") != -1){
+                arrays3[0]="登记状态：";
+                arrays3[4]="合伙期限自：";
+                arrays3[5]="合伙期限至：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_tab2.setText("合伙人");
+                c_tv2.setText("合伙人");
+                c_nametit.setText("名称：");
+                c_addresstit.setText("主要经营场所：");
+                c_stateLin.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+            }
+            /**
+             *  合伙企业分支机构——企业类型455%
+             */
+            else if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,3).indexOf("455") != -1){
+                arrays3[0]="登记状态：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_nametit.setText("名称：");
+                c_addresstit.setText("经营场所：");
+                c_stateLin.setVisibility(View.GONE);
+                c_tab2.setVisibility(View.GONE);
+                c_tv2.setVisibility(View.GONE);
+                myGridViewp.setVisibility(View.GONE);
+                c_people.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_tab5.setVisibility(View.GONE);
+                c_tv5.setVisibility(View.GONE);
+                myGridViewZYfz.setVisibility(View.GONE);
+                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
+            }
+            /**
+             *  内资非公司企业法人
+             */
+            else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("3") != -1)){
+                c_tab2.setText("主管部门");
+                c_tv2.setText("主管部门（出资人）");
 //            LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) tabLa.getLayoutParams();
 //            linearParams.height = LayoutParams.WRAP_CONTENT;
 //            tabLa.setLayoutParams(linearParams);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_tab5.setVisibility(View.GONE);
-            c_tv5.setVisibility(View.GONE);
-            myGridViewZYfz.setVisibility(View.GONE);
-            c_impPeoc_fzjgple.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
-        }
-
-
-        /**
-         *  外商投资合伙企业
-         */
-        else  if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("54") != -1
-                || (DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("64") != -1){
-            arrays3[0]="执行事务合伙人：";
-            arrays3[1]="登记状态：";
-            arrays3[4]="合伙期限自：";
-            arrays3[5]="合伙期限至：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_tab2.setText("合伙人");
-            c_tv2.setText("合伙人");
-            c_nametit.setText("名称：");
-            c_addresstit.setText("主要经营场所：");
-            c_stateLin.setVisibility(View.GONE);
-            c_people.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-        }
-        /**
-         *  中外合作非法人企业
-         */
-        else  if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("53") != -1
-                || (DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("63") != -1){
-            arrays3[0]="登记状态：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_tab2.setVisibility(View.GONE);
-            c_tv2.setVisibility(View.GONE);
-            myGridViewp.setVisibility(View.GONE);
-            c_people.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
-            c_tab5.setText("各方合作");
-            c_tv5.setText("各方合作");
-            c_nametit.setText("名称：");
-            c_addresstit.setText("主要经营场所：");
-            c_stateLin.setVisibility(View.GONE);
-            List<String> list1=new ArrayList<>();
-            List<String> list2=new ArrayList<>();
-            for(int i = 0; i< DataManager.gsxx.data.partnersInfo.size(); i++){
-                list1.add(DataManager.gsxx.data.partnersInfo.get(i).INV);
-                list2.add("");
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_tab5.setVisibility(View.GONE);
+                c_tv5.setVisibility(View.GONE);
+                myGridViewZYfz.setVisibility(View.GONE);
+                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
             }
-            gfhzAdapter hcadapter2=new gfhzAdapter(DetailsContentActivity.this,list1,list2);
-            myGridViewZYfz.setVisibility(View.VISIBLE);
-            myGridViewZYfz.setAdapter(hcadapter2);
-        }
-        /**
-         *  内资公司法人——企业类型1%
-         */
-        else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("1") != -1)){
 
-        }
-        /**
-         *  内资分公司——企业类型2%
-         *  内资非公司企业法人分支机构——企业类型43%
-         *  内资非法人企业——企业类型41%、42%、44%、46%、47%
-         *  外资分支机构——企业类型5810、5820、5830、5890、6810、6820、6830、6890、71%
-         *  外国（地区）企业在中国境内从事生产经营活动——企业类型73%
-         *  个人独资企业分支机构——企业类型4560
-         *  农民专业合作社分支机构——企业类型9200
-         */
-        else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("2") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("43") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("41") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("42") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("44") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("46") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("47") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5810") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5820") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5830") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5890") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6810") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6820") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6830") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6890") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("71") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("73") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("4560") != -1)
-                || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9200") != -1)){
-            arrays3[0]="负责人：";
-            arrays3[1]="登记状态：";
-            List<String> lt = new ArrayList<String>();
-            lt.add(DataManager.gsxx.data.baseInfo.NAME);
-            lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
-            lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-            lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-            lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-            int size = lt.size();
-            arrays4 = lt.toArray(new String[size]);
-            adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
-            myGridView3.setAdapter(adapter2);
-            myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-            c_nametit.setText("名称：");
-            c_addresstit.setText("经营场所：");
-            c_stateLin.setVisibility(View.GONE);
-            c_tab2.setVisibility(View.GONE);
-            c_tv2.setVisibility(View.GONE);
-            myGridViewp.setVisibility(View.GONE);
-            c_people.setVisibility(View.GONE);
-            c_tab3.setVisibility(View.GONE);
-            c_tv3.setVisibility(View.GONE);
-            myGridViewZY.setVisibility(View.GONE);
-            c_Cpeople.setVisibility(View.GONE);
-            c_tab5.setVisibility(View.GONE);
-            c_tv5.setVisibility(View.GONE);
-            myGridViewZYfz.setVisibility(View.GONE);
-            c_impPeoc_fzjgple.setVisibility(View.GONE);
-            c_tab6.setVisibility(View.GONE);
-            c_tv6.setVisibility(View.GONE);
-            c_qsuan.setVisibility(View.GONE);
-            if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("43") != -1)){
-                c_daimatit.setText("注册号：");
-                try{
-                    if(DataManager.gsxx.data.baseInfo.REGNO!=null&&!DataManager.gsxx.data.baseInfo.REGNO.equals(null)&&!(DataManager.gsxx.data.baseInfo.REGNO).equals("")){
-                        c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);//
-                    }else{
-                        c_daima.setText("暂无信息");
+
+            /**
+             *  外商投资合伙企业
+             */
+            else  if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("54") != -1
+                    || (DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("64") != -1){
+                arrays3[0]="执行事务合伙人：";
+                arrays3[1]="登记状态：";
+                arrays3[4]="合伙期限自：";
+                arrays3[5]="合伙期限至：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_tab2.setText("合伙人");
+                c_tv2.setText("合伙人");
+                c_nametit.setText("名称：");
+                c_addresstit.setText("主要经营场所：");
+                c_stateLin.setVisibility(View.GONE);
+                c_people.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+            }
+            /**
+             *  中外合作非法人企业
+             */
+            else  if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("53") != -1
+                    || (DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("63") != -1){
+                arrays3[0]="登记状态：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_tab2.setVisibility(View.GONE);
+                c_tv2.setVisibility(View.GONE);
+                myGridViewp.setVisibility(View.GONE);
+                c_people.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
+                c_tab5.setText("各方合作");
+                c_tv5.setText("各方合作");
+                c_nametit.setText("名称：");
+                c_addresstit.setText("主要经营场所：");
+                c_stateLin.setVisibility(View.GONE);
+                List<String> list1=new ArrayList<>();
+                List<String> list2=new ArrayList<>();
+                for(int i = 0; i< DataManager.gsxx.data.partnersInfo.size(); i++){
+                    list1.add(DataManager.gsxx.data.partnersInfo.get(i).INV);
+                    list2.add("");
+                }
+                gfhzAdapter hcadapter2=new gfhzAdapter(DetailsContentActivity.this,list1,list2);
+                myGridViewZYfz.setVisibility(View.VISIBLE);
+                myGridViewZYfz.setAdapter(hcadapter2);
+            }
+            /**
+             *  内资公司法人——企业类型1%
+             */
+            else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("1") != -1)){
+
+            }
+            /**
+             *  内资分公司——企业类型2%
+             *  内资非公司企业法人分支机构——企业类型43%
+             *  内资非法人企业——企业类型41%、42%、44%、46%、47%
+             *  外资分支机构——企业类型5810、5820、5830、5890、6810、6820、6830、6890、71%
+             *  外国（地区）企业在中国境内从事生产经营活动——企业类型73%
+             *  个人独资企业分支机构——企业类型4560
+             *  农民专业合作社分支机构——企业类型9200
+             */
+            else if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,1).indexOf("2") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("43") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("41") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("42") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("44") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("46") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("47") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5810") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5820") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5830") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("5890") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6810") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6820") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6830") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("6890") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("71") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("73") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("4560") != -1)
+                    || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9200") != -1)){
+                arrays3[0]="负责人：";
+                arrays3[1]="登记状态：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                myGridView3.setAdapter(adapter2);
+                myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
+                c_nametit.setText("名称：");
+                c_addresstit.setText("经营场所：");
+                c_stateLin.setVisibility(View.GONE);
+                c_tab2.setVisibility(View.GONE);
+                c_tv2.setVisibility(View.GONE);
+                myGridViewp.setVisibility(View.GONE);
+                c_people.setVisibility(View.GONE);
+                c_tab3.setVisibility(View.GONE);
+                c_tv3.setVisibility(View.GONE);
+                myGridViewZY.setVisibility(View.GONE);
+                c_Cpeople.setVisibility(View.GONE);
+                c_tab5.setVisibility(View.GONE);
+                c_tv5.setVisibility(View.GONE);
+                myGridViewZYfz.setVisibility(View.GONE);
+                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_tab6.setVisibility(View.GONE);
+                c_tv6.setVisibility(View.GONE);
+                c_qsuan.setVisibility(View.GONE);
+                if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("43") != -1)){
+                    c_daimatit.setText("注册号：");
+                    try{
+                        if(DataManager.gsxx.data.baseInfo.REGNO!=null&&!DataManager.gsxx.data.baseInfo.REGNO.equals(null)&&!(DataManager.gsxx.data.baseInfo.REGNO).equals("")){
+                            c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);//
+                        }else{
+                            c_daima.setText("暂无信息");
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
                     }
-                }catch(Exception e){
-                    e.printStackTrace();
                 }
             }
-        }
+        }catch (Exception e){}
     }
 
     public void tsdetailsshow(int i){

@@ -34,11 +34,11 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/corporate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="法人代表babababab"
                     android:textColor="#636262"
                     android:textSize="14sp" />
@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="经营状态"
+                    android:layout_centerVertical="true"
                     android:textColor="#636262"
                     android:textSize="14sp" />
 
@@ -66,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="注册资金babababab"
+                    android:layout_centerVertical="true"
                     android:textColor="#636262"
                     android:textSize="14sp" />
 
@@ -77,6 +79,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:text="成立日期"
+                    android:layout_centerVertical="true"
                     android:textColor="#636262"
                     android:textSize="14sp" />
             </RelativeLayout>

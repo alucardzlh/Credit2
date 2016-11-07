@@ -201,6 +201,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         LoginStatus = csp.getLoginStatus();
         ViewUtils.inject(this);
 
+        try{
+            if(csp.getWelcome().equals("")){
+                WelcomeActivity.wd.dismiss();
+                csp.putWelcome("yes");
+            }
+        }catch (NullPointerException e){
+            WelcomeActivity.wd.dismiss();
+            csp.putWelcome("yes");
+        }
         ad = new WaitDialog(this);
         boolean falg = NetUtils.isConnectingToInternet(this);
         mLeftMenu = (SlidingMenu) findViewById(R.id.id_menu);
@@ -248,7 +257,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             MycomplaintsListActivity.handler.sendEmptyMessage(2);
                         }
                         break;
-                    case 5://跳我的关注
+                    case 5://跳我的关注909372219
                         Intent i3 = new Intent(MainActivity.this, MyconcernActivity.class);
                         startActivity(i3);
                         break;
@@ -257,6 +266,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         startActivity(i6);
                         break;
                     case 7:
+                        NewClaimTxT.setVisibility(View.GONE);
                         adapter1 = new NewClaimListAdapter(MainActivity.this, MyCliamList, 0);
                         NewClaimListview.setAdapter(adapter1);
                         adapter1.notifyDataSetChanged();
@@ -323,6 +333,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         i23.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i23);
                         overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
+                        break;
+                    case 13:
+                        Intent ie= new Intent(MainActivity.this, Main_SearchActivity.class);
+                        ie.putExtra("hit", "商标");
+                        startActivity(ie);
+                        break;
+                    case 14:
+                        Intent iw =new Intent(MainActivity.this, Main_SearchActivity.class);
+                        iw.putExtra("hit", "专利");
+                        startActivity(iw);
+                        break;
+                    case 15:
+                        Intent ia1 = new Intent(MainActivity.this, Main_SearchActivity.class);
+                        ia1.putExtra("hit", "失信人");
+                        startActivity(ia1);
                         break;
                     default:
                         com.example.credit.Utils.Toast.show("数据正在赶来的路上...");
@@ -459,6 +484,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Uri uri = Uri.parse(DataManager.MyNewAppS.data.VersionInfo.get(0).PATH);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+                MainActivity.this.finish();
             }
         });
         builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
@@ -476,25 +502,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
         myGridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i;
+                GsonUtil Request=null;
                 switch (position) {
                     case 0://商标查询
-                        i = new Intent(MainActivity.this, Main_SearchActivity.class);
-                        i.putExtra("hit", "商标");
-                        startActivity(i);
+                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+                        Request.add("token", MD5.MD5s("" + new Build().MODEL));
+                        Request.add("KeyNo", "");
+                        Request.add("deviceId", (new Build()).MODEL);
+                        Request.add("logType", 21);
+                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x211, true, false, true);
                         break;
                     case 1://专利查询
-                        i = new Intent(MainActivity.this, Main_SearchActivity.class);
-                        i.putExtra("hit", "专利");
-                        startActivity(i);
+                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+                        Request.add("token", MD5.MD5s("" + new Build().MODEL));
+                        Request.add("KeyNo", "");
+                        Request.add("deviceId", (new Build()).MODEL);
+                        Request.add("logType", 22);
+                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x212, true, false, true);
+
                         break;
                     case 2://招投标
                         startActivity(new Intent(MainActivity.this, Main_SearchActivity.class).putExtra("hit", "招投标"));
                         break;
                     case 3://失信
-                        i = new Intent(MainActivity.this, Main_SearchActivity.class);
-                        i.putExtra("hit", "失信人");
-                        startActivity(i);
+                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+                        Request.add("token", MD5.MD5s("" + new Build().MODEL));
+                        Request.add("KeyNo", "");
+                        Request.add("deviceId", (new Build()).MODEL);
+                        Request.add("logType", 26);
+                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x213, true, false, true);
                         break;
                 }
             }
@@ -519,7 +555,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 /**
  * 最新认领 开始只调用一次
  */
-        if (WelcomeActivity.fl=true) {
+        if (WelcomeActivity.fl==true) {
             WelcomeActivity.fl=false;
             handler.sendEmptyMessage(7);
         } else {//没有数据

@@ -87,6 +87,8 @@ public class RegisterActivity extends BaseActivity {
                 } else if ( Ruser.getText().length() != 11) {
                     Toast.show("手机号格式不正确...");
                 } else {
+                    setad.setEnabled(false);
+                    timer.start();
                     GsonUtil regiestRquerst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETAD, RequestMethod.GET);
                     regiestRquerst.setConnectTimeout(15000);
                     regiestRquerst.setReadTimeout(15000);
@@ -100,8 +102,8 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-    public static ProgressDialog pd;
-
+    public static ProgressDialog pd,pd1;
+    public static boolean flg=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,11 @@ public class RegisterActivity extends BaseActivity {
         pd = new ProgressDialog(this);
         pd.setMessage("请稍后...");
         pd.setCancelable(false);
+
+        pd1 = new ProgressDialog(this);
+        pd1 = new ProgressDialog(this);
+        pd1.setMessage("注册成功,正在登陆跳转,请稍后...");
+        pd1.setCancelable(false);
         init();
 
         handler = new Handler() {//注册成功
@@ -120,10 +127,22 @@ public class RegisterActivity extends BaseActivity {
                         pd.dismiss();
                         Toast.show("注册成功！");
                         finish();
+                        pd1.show();
+                        flg=true;
+                        GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.USERLOGIN, RequestMethod.GET);
+                        LoginRequest.add("token", MD5.MD5s(Ruser.getText().toString() + new Build().MODEL));
+                        LoginRequest.add("KeyNo", Ruser.getText().toString());
+                        LoginRequest.add("deviceId", new Build().MODEL);
+                        LoginRequest.add("password", Rrpwds.getText().toString());
+                        CallServer.getInstance().add(RegisterActivity.this, LoginRequest, MyhttpCallBack.getInstance(), 0x999, true, false, true);
+
                         break;
                     case 1:
-                        setad.setEnabled(false);
-                        timer.start();
+//                        setad.setEnabled(false);
+//                        timer.start();
+                        break;
+                    case 2:
+
                         break;
                 }
                 super.handleMessage(msg);

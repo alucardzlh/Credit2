@@ -30,12 +30,7 @@ public class ComplainListAdapter extends BaseAdapter {
     private Context context;
     ViewHolder vh = null;
     boolean Tag=false;
-
     private List<DataManager.MyComplaint.DataBean.ComplaintInfoBean> ComplainList;
-
-    public ComplainListAdapter(Context context) {
-        this.context = context;
-    }
 
     public ComplainListAdapter(Context context, List<DataManager.MyComplaint.DataBean.ComplaintInfoBean> ComplainList) {
         this.context = context;
@@ -120,12 +115,14 @@ public class ComplainListAdapter extends BaseAdapter {
         vh.complain_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 GsonUtil cancelRuerst =new GsonUtil(URLconstant.URLINSER+URLconstant.CANCELCOM, RequestMethod.GET);
                 cancelRuerst.add("token", MD5.MD5s(ComplainList.get(position).ID+new Build().MODEL));
                 cancelRuerst.add("KeyNo",ComplainList.get(position).ID);
                 cancelRuerst.add("deviceId",new Build().MODEL);
                 CallServer.getInstance().add(context,cancelRuerst, MyhttpCallBack.getInstance(),0x996,true,false,true);
                 MycomplaintsListActivity.pd.show();
+                MycomplaintsListActivity.listmycp.remove(position);
             }
         });
         /**

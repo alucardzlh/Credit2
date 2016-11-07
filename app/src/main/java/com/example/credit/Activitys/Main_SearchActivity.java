@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.credit.Adapters.syHisAdapter;
 import com.example.credit.Dialogs.WaitDialog;
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
@@ -58,21 +59,11 @@ public class Main_SearchActivity extends BaseActivity {
     ImageView search_bt;
     @ViewInject(R.id.search_et_cc2)
     ImageView search_et_cc;
-    @ViewInject(R.id.list2main)
-    ListView list2main;//下拉列表
 
     CreditSharePreferences csp=CreditSharePreferences.getLifeSharedPreferences();
 
     @ViewInject(R.id.his_yout)
-    LinearLayout his_yout;
-    @ViewInject(R.id.main_s1)
-    TextView main_s1;
-    @ViewInject(R.id.main_s2)
-    TextView main_s2;
-    @ViewInject(R.id.main_s3)
-    TextView main_s3;
-    @ViewInject(R.id.main_s4)
-    TextView main_s4;
+    ListView his_yout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,46 +151,17 @@ public class Main_SearchActivity extends BaseActivity {
                 }
             }
         };
-
-        if (csp.getmainHistory() != null && !(csp.getmainHistory()).equals("")) {
-            his_yout.setVisibility(View.VISIBLE);
-            String str = csp.getmainHistory();
-            String[] strh = str.split(",");
-            List<String> listh = new ArrayList<String>(Arrays.asList(strh));
-            if(listh.size()>0 && listh.size()<2){
-                main_s1.setText(listh.get(0));
-                main_s2.setVisibility(View.GONE);
-                main_s3.setVisibility(View.GONE);
-                main_s4.setVisibility(View.GONE);
-            }else if(listh.size()<3){
-                main_s1.setText(listh.get(0));
-                main_s2.setText(listh.get(1));
-                main_s3.setVisibility(View.GONE);
-                main_s4.setVisibility(View.GONE);
-            }else if(listh.size()<4){
-                main_s1.setText(listh.get(0));
-                main_s2.setText(listh.get(1));
-                main_s3.setText(listh.get(2));
-                main_s4.setVisibility(View.GONE);
-            }else if(listh.size()>3){
-                main_s1.setText(listh.get(0));
-                main_s2.setText(listh.get(1));
-                main_s3.setText(listh.get(2));
-                main_s4.setText(listh.get(3));
-            } else{
-                main_s1.setVisibility(View.GONE);
-                main_s2.setVisibility(View.GONE);
-                main_s3.setVisibility(View.GONE);
-                main_s4.setVisibility(View.GONE);
-            }
-
-        } else {
-            his_yout.setVisibility(View.GONE);
+        if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
+            syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
+            his_yout.setAdapter(adapter);
+            his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
+                }
+            });
         }
-        main_s1.setOnClickListener(listener);
-        main_s2.setOnClickListener(listener);
-        main_s3.setOnClickListener(listener);
-        main_s4.setOnClickListener(listener);
+
         search_et.addTextChangedListener(new TextWatcher() {//动态判断输入框中的字数并显示隐藏图标
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -210,16 +172,8 @@ public class Main_SearchActivity extends BaseActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (start >= 0) {
                     search_et_cc.setVisibility(View.VISIBLE);
-                    if(search_et.getText().toString().equals("")){
-                        list2main.setVisibility(View.GONE);
-                    }else{
-                        list2main.setVisibility(View.VISIBLE);
-                        spshow();
-                    }
                 } else {
                     search_et_cc.setVisibility(View.GONE);
-                        list2main.setVisibility(View.GONE);
-
                 }
             }
 
@@ -240,7 +194,6 @@ public class Main_SearchActivity extends BaseActivity {
         });
     }
     public void search() {
-        hisinit();
         wd.show();
         String urls = "";
         String nam = "";
@@ -291,88 +244,4 @@ public class Main_SearchActivity extends BaseActivity {
         }
     }
 
-    public void hisinit(){
-        //历史记录保存本地SP
-        String Tnameh = search_et.getText().toString() + ",";//历史字备用
-        if (csp.getmainHistory() != null && !(csp.getmainHistory()).equals("")) {
-            String str1 = csp.getmainHistory();
-            String[] strh = str1.split(",");
-            List<String> listh = new ArrayList<String>(Arrays.asList(strh));
-            if (listh != null && listh.size() < 4) {
-                String temp = "";
-                for (int i = 0; i < listh.size(); i++) {
-                    if (search_et.getText().toString().equals(listh.get(i))) {
-                        temp = listh.get(i);
-                    }
-                }
-                if (temp.equals("")) {
-                    csp.putmainHistory(str1 + Tnameh);
-                }
-            } else {
-                String temp = "";
-                for (int i = 0; i < listh.size(); i++) {
-                    if (search_et.getText().toString().equals(listh.get(i))) {
-                        temp = listh.get(i);
-                    }
-                }
-                if (temp.equals("")) {
-                    listh.remove(0);
-                    String strlists = "";
-                    for (int i = 0; i < listh.size(); i++) {
-                        strlists = strlists + listh.get(i) + ",";
-                    }
-                    csp.putmainHistory(strlists + Tnameh);
-                }
-            }
-        } else {
-            csp.putmainHistory(Tnameh);
-        }
-    }
-    View.OnClickListener listener=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.main_s1:
-                    search_et.setText(main_s1.getText().toString());
-                    break;
-                case R.id.main_s2:
-                    search_et.setText(main_s2.getText().toString());
-                    break;
-                case R.id.main_s3:
-                    search_et.setText(main_s3.getText().toString());
-                    break;
-                case R.id.main_s4:
-                    search_et.setText(main_s4.getText().toString());
-                    break;
-            }
-        }
-    };
-
-    public void spshow(){
-        final List<String> data_list = new ArrayList<String>();
-        List<String> list_test = new ArrayList<String>();//测试
-//        list_test.add("玉嫦娥");
-//        list_test.add("药物");
-//        list_test.add("江西");
-//        list_test.add("");
-//        list_test.add("Yoooooo");
-//        list_test.add("12138");
-//        list_test.add("233333");
-//        list_test.add("666666");
-        for(int i=0;i<list_test.size();i++){
-            if(!list_test.get(i).equals("") && (list_test.get(i)).indexOf(search_et.getText().toString()) != -1){
-                data_list.add(list_test.get(i));
-            }
-        }
-        ArrayAdapter<String> arr_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data_list);
-        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        list2main.setAdapter(arr_adapter);
-        list2main.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                search_et.setText(data_list.get(position));
-                list2main.setVisibility(View.GONE);
-        }
-        });
-    }
 }

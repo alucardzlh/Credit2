@@ -344,6 +344,7 @@
 
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/phonebtn"
                         android:layout_width="100dp"
                         android:layout_height="28dp"
                         android:layout_marginLeft="10dp"

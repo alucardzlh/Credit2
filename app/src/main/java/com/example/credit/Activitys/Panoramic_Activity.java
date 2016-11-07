@@ -16,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.credit.Dialogs.WaitDialog;
+import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
 import com.example.credit.Utils.MD5;
+import com.example.credit.Utils.URLconstant;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -33,7 +35,7 @@ public class Panoramic_Activity extends BaseActivity {
     LinearLayout b_return;//退出
     // @ViewInject(R.id.b_topname)
     TextView b_topname;//顶栏
-    String url = "http://101.201.211.27:8282/zhirong.credith5/overallView/overallView.do?";
+
     String KeyNo, deviceId, entname, priptype, regno,devicetype,token;
    LinearLayout web_error;
     WaitDialog wd;
@@ -77,7 +79,7 @@ public class Panoramic_Activity extends BaseActivity {
         //ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         ws.setUseWideViewPort(true);//自适应
         ws.setLoadWithOverviewMode(true);//自适应
-        fullview.loadUrl(url+KeyNo+deviceId+priptype+regno+entname+token+devicetype+"&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE);
+        fullview.loadUrl(URLconstant.QUNASHITUURL+KeyNo+deviceId+priptype+regno+entname+token+devicetype+"&C_PROVINCE="+CompanyDetailsActivity.ADD_PROVINCE);
         fullview.setWebViewClient( new WebViewClient(){
 
             @Override

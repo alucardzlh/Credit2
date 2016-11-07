@@ -144,24 +144,30 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                 GsonUtil MyClaimRuerst=null;
                 switch (checkedId){
                     case R.id.moren:
-                        try{ list1t.clear(); }catch (NullPointerException e){}
+                        try{ list1t.clear();
+                            list.clear();}catch (NullPointerException e){}
                         aMap.clear();
                         flag=false;
+                        Text1.setText(DataManager.getMapList.geocodes.get(0).formatted_address+"");
+                        Text2.setText("");
                         isFirstLoc = true;
                         break;
                     case R.id.walkbtn:
+                        try{ list.clear();}catch (NullPointerException e){}
                         MyClaimRuerst = new GsonUtil(URLconstant.MAPWALKING + "&origin="+nlng+","+nlat+"&destination="+lng+","+lat, RequestMethod.GET);
                         CallServer.getInstance().add(StartMapActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1141, true, false, true);
                         break;
+//                            "location": "115.857949,28.698126",
                     case R.id.drivbtn:
+                        try{ list.clear();}catch (NullPointerException e){}
                         MyClaimRuerst = new GsonUtil(URLconstant.MAPDRIVING + "&origin="+nlng+","+nlat+"&destination="+lng+","+lat, RequestMethod.GET);
                         CallServer.getInstance().add(StartMapActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1142, true, false, true);
                         break;
                     case R.id.busbtn:
-                        try{ list1t.clear(); }catch (NullPointerException e){}
+                        try{ list1t.clear();
+                            list.clear();}catch (NullPointerException e){}
                         try{
                             if(DataManager.getBusList.route.transits.size()>0 && DataManager.getBusList.route.transits != null){
-
                                 List<String> listx=new ArrayList<>();
                                 for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
                                     for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
@@ -207,8 +213,8 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                 switch (msg.what){
                     case 0://步行
                         try{ list1t.clear(); }catch (NullPointerException e){}
-                        aMap.clear();
                         Text1.setText("步行路线");
+                        aMap.clear();
                         if(DataManager.getwalkingList.route.paths.get(0).distance.length()>3){
                             km=Double.parseDouble(DataManager.getwalkingList.route.paths.get(0).distance)/1000+"";
                             if(km.indexOf(".") == -1){
@@ -325,19 +331,25 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.Textbtn://详情
-                    int size = list.size();
-                    String[] arr = list.toArray(new String[size]);
-                    showLK(Text1.getText().toString(),arr);
+                    try{
+                        if(list.size()>0 && list !=null){
+                            int size = list.size();
+                            String[] arr = list.toArray(new String[size]);
+                            showLK(Text1.getText().toString(),arr);
+                        }
+                    }catch (Exception e){}
                     break;
                 case R.id.Text1://路线选择
-                    List<String> listx=new ArrayList<>();
-                    for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
-                        for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
-                            listx.add(bus.name + "");
+                    if(Text1.equals("乘车路线")){
+                        List<String> listx=new ArrayList<>();
+                        for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
+                            for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
+                                listx.add(bus.name + "");
+                            }
                         }
+                        String[] arr1 = listx.toArray(new String[listx.size()]);
+                        showSelect("乘车路线选择",arr1);
                     }
-                    String[] arr1 = listx.toArray(new String[listx.size()]);
-                    showSelect("乘车路线选择",arr1);
                     break;
                 case R.id.maptyp1e:
                     if(TrFlag==false){
@@ -504,6 +516,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         + aMapLocation.getStreet() + ""
                         + aMapLocation.getStreetNum());
 //                    Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();GPS定位
+                Text1.setText(DataManager.getMapList.geocodes.get(0).formatted_address+"");
                 Toast.makeText(getApplicationContext(),  DataManager.getMapList.geocodes.get(0).formatted_address+"", Toast.LENGTH_LONG).show();//企业经纬度定位
                 isFirstLoc = false;
             }
@@ -573,6 +586,7 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         aMap.clear();
                         try{ list1t.clear(); }catch (NullPointerException e){}
                         Text1.setText("乘车路线");
+                        Text2.setText("");
                         //获取坐标
                         list=new ArrayList<>();//路况
                         list1=new ArrayList<>();//经度坐标

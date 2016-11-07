@@ -1314,6 +1314,7 @@ public class DataManager {
                 public String UNISCID;//统一社会信用代码
                 public String PRIPID;//主体身份代码
                 public String ENTTYPE;//市场主体类型
+                public String TEL;//电话号码 "TEL": "86660006",
 
             }
         }
@@ -2240,6 +2241,38 @@ public class DataManager {
 //                        public List<?> spaces;
                     }
                 }
+            }
+        }
+    }
+
+
+    public static getSgHis getSgHisList = new getSgHis();
+
+    /**
+     * 获取短信验证码
+     */
+    public static class getSgHis {
+        public String message;
+        public String status;
+        public DataBean data;
+        public String version;
+        public static class DataBean {
+            /**
+             * LOGTYPE : 21
+             * KEYWORDS : 玉嫦娥
+             * LOGID : 623579ce0bb9434bab536e23d0e58d45
+             * LOGTIME : 2016-11-03 13:24:24
+             * REMARK : null
+             * MEMBER_ID : null
+             */
+            public List<SearchHistoryBean> searchHistory;
+            public static class SearchHistoryBean {
+                public String LOGTYPE;
+                public String KEYWORDS;
+                public String LOGID;
+                public String LOGTIME;
+                public Object REMARK;
+                public Object MEMBER_ID;
             }
         }
     }

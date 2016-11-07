@@ -78,6 +78,7 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshVi
 
     public static List<DataManager.MyCommentlistr.DataBean.CommentInfoBean> listpl = new ArrayList<>();
     boolean falg=false;
+    int pindex=1;
     int por;
     AlertDialog.Builder builder2;
     public static AlertDialog dialog2;
@@ -254,10 +255,9 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshVi
             request14.add("memberId", csp.getID());
         }
         request14.add("status", 1);//评论状态（0未审核，1已审核通过 ,  2审核不通过）
-
-        if(falg==true){
-            request14.add("pageIndex", DataManager.MyCommentlistrS.data.Paging.CurrentPage+1);
-        }else{
+        request14.add("pageIndex", pindex);
+        request14.add("pageSize", 10);
+        if(falg!=true){
             wd.show();
         }
         CallServer.getInstance().add(CommentListActivity.this, request14, MyhttpCallBack.getInstance(), 0x201, true, false, true);
@@ -274,8 +274,9 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshVi
 
             @Override
             public void run() {
-                if(DataManager.MyCommentlistrS.data.Paging.TotalPage>DataManager.MyCommentlistrS.data.Paging.CurrentPage){
+                if(DataManager.MyCommentlistrS.data.Paging.TotalPage>pindex){
                     falg=true;
+                    pindex++;
                     intiow();
                 }else {
                     mPullToRefreshView.onFooterRefreshComplete();

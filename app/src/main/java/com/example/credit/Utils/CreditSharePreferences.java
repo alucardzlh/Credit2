@@ -412,4 +412,20 @@ public class CreditSharePreferences {
         }
     }
 
+    /**
+     * 引导页
+     * @return
+     */
+    public String getWelcome() {
+        if(sp!=null) {
+            return sp.getString("Welcome", null);
+        }else{
+            return "";
+        }
+    }
+    public void putWelcome(String Welcome) {
+        Editor editor = sp.edit();
+        editor.putString("Welcome", Welcome);
+        editor.commit();
+    }
 }

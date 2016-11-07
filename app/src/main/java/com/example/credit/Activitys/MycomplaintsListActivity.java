@@ -79,7 +79,7 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
                         MainActivity.getComplaint(MycomplaintsListActivity.this);
                         break;
                     case 2://取消投诉后数据源更新后更新UI
-                        listmycp.addAll(DataManager.myComplaint.data.complaintInfo);
+//                        listmycp.addAll(DataManager.myComplaint.data.complaintInfo);
                         Cadapter.setDataList(listmycp);
                         Cadapter.notifyDataSetChanged();
                         pd.dismiss();

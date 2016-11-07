@@ -11,6 +11,8 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class SearchListAdapter2 extends BaseAdapter {
 	private Context context;
 	private  List<search.DataBean.ResultBean> list;
+	int lastPosition = -1;
 	public SearchListAdapter2(Context context, List<search.DataBean.ResultBean> list) {
 		this.context = context;
 		this.list = list;
@@ -60,6 +63,13 @@ public class SearchListAdapter2 extends BaseAdapter {
 		}else{
 			vh=(ViewHolder) view.getTag();
 		}
+		if (position > lastPosition) {//这里就是动画的应用
+//			Animation animation = AnimationUtils.loadAnimation(context, R.anim.list_anim);
+			Animation animation = AnimationUtils.loadAnimation(context, (position > lastPosition) ? R.anim.list_anim : R.anim.list_anim);
+			view.startAnimation(animation);
+			lastPosition = position;
+		}
+
 		search.DataBean.ResultBean c=list.get(position);
 		switch (SearchFirmActivty.type){
 			case 0:
@@ -112,6 +122,7 @@ public class SearchListAdapter2 extends BaseAdapter {
 
 		vh.status.setText(c.REGSTATE_CN);
 		vh.time.setText(c.ESTDATE);
+
 		return view;
 	}
 	public class ViewHolder{

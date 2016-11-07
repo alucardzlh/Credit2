@@ -108,6 +108,7 @@ public class MyhttpCallBack implements HttpCallBack {
                         if(!jsonString.equals("")){
                             DataManager.NewClaimUtilsList = gson.fromJson(jsonString, DataManager.NewClaimUtils.class);
                             if (DataManager.NewClaimUtilsList.data.claimInfo != null && DataManager.NewClaimUtilsList.data.claimInfo.size() > 0) {
+                                WelcomeActivity.fl = true;
                                 MainActivity.MyCliamList = DataManager.NewClaimUtilsList.data.claimInfo;
                                 if (MainActivity.handler != null) {
                                     MainActivity.handler.sendEmptyMessage(7);
@@ -596,7 +597,6 @@ public class MyhttpCallBack implements HttpCallBack {
                                 MainActivity.loginImg(csp.getICONSTEAM());
                             }
                             LoginActivity.handler.sendEmptyMessage(0);
-                            LoginActivity.wd.dismiss();
                         }
                         break;
                     case 0x998://注册
@@ -755,7 +755,6 @@ public class MyhttpCallBack implements HttpCallBack {
                         jsonString = (String) response.get();
                         DataManager.disRoomMarList1 = gson.fromJson(jsonString, DataManager.disRoomMar.class);
                         break;
-
                     case 0x1132://地图showLocation&&showLocation({"status":0,"result":{"location":{"lng":115.86455138111218,"lat":28.703788358019084},"precise":1,"confidence":80,"level":"道路"}})
                         jsonString = (String) response.get();
                         DataManager.getMapList = gson.fromJson(jsonString, DataManager.getMap.class);
@@ -839,142 +838,113 @@ public class MyhttpCallBack implements HttpCallBack {
                         }
 
                         break;
-
+                    case 0x211://首页商标查询历史
+                        jsonString = (String) response.get();
+                        DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
+                        MainActivity.handler.sendEmptyMessage(13);
+                        break;
+                    case 0x212://首页专利查询历史
+                        jsonString = (String) response.get();
+                        DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
+                        MainActivity.handler.sendEmptyMessage(14);
+                        break;
+                    case 0x213://首页失信查询历史
+                        jsonString = (String) response.get();
+                        DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
+                        MainActivity.handler.sendEmptyMessage(15);
+                        break;
                     default:
                         break;
                 }
             }else{
-                Toast.show(map.get("message")+"");
-                switch (what) {
-                    case 0x022://搜索接口
-                        SearchFirmActivty.pd.dismiss();
-                        break;
-                    case 0x024://获取企业详情16宫格
-                        SearchFirmActivty.pd.dismiss();
-                        break;
-                    case 0x000://工商信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x001://行政审批
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x002://荣誉信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x003://扶持信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x004://抵押信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x005://出质信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x006://司法信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x007://预警信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x008://行政处罚
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x009://经营异常
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x010://专利信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x011://商标信息
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x012://著作权
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x013://广告资质
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x014://守合同重信用
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                    case 0x015://企业自主公示
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                        break;
-                    case 0x701://信用报告1
-                        ReportActivity.wd.dismiss();
-                        break;
-                    case 0x702://信用报告2
-                        Toast.show("邮件正在发送中...");
-                        break;
-                    case 0x996://个人中心取消投诉请求
-                        MycomplaintsListActivity.pd.dismiss();
-                        break;
-                    case 0x997://个人中心获取投诉列表
-                        MainActivity.pd.dismiss();
-                        break;
-                    case 0x204://发表评论
-                    case 0x205://回复评论
-                    case 0x201://公司我的评价链表
-
-                        if (CommentListActivity.wd != null) {
-                            CommentListActivity.wd.dismiss();
+                showdisplay(what);
+                switch (what){
+                    case 0x1132://地图showLocation&&showLocation({"status":0,"result":{"location":{"lng":115.86455138111218,"lat":28.703788358019084},"precise":1,"confidence":80,"level":"道路"}})
+                        jsonString = (String) response.get();
+                        DataManager.getMapList = gson.fromJson(jsonString, DataManager.getMap.class);
+                        if(DataManager.getMapList.status.equals("1")){
+                            try{
+                                if(DataManager.getMapList.geocodes!=null &&   DataManager.getMapList.geocodes.size()>0 ){
+                                    CompanyDetailsActivity.handler.sendEmptyMessage(501);
+                                }else{
+                                    Toast.show("公司位置异常，无法定位!");
+                                }
+                            }catch (Exception e){
+                                Toast.show("公司位置异常，无法定位!");
+                            }
+                        }else{
+                            Toast.show("公司位置异常，无法定位!");
                         }
-                        if (CompanyDetailsActivity.pd != null) {
-                            CompanyDetailsActivity.pd.dismiss();
-                        }
-                        if (ToCommentActivity.wd != null) {
-                            ToCommentActivity.wd.dismiss();
-                        }
-                        if (CommentListDetailsActivity.wd != null) {
-                            CommentListDetailsActivity.wd.dismiss();
+                        break;
+                    case 0x1141://步行{"status":"0","info":"OVER_DIRECTION_RANGE","infocode":"20803"}
+                        jsonString = (String) response.get();
+                        map = gson.fromJson(jsonString, new TypeToken<Map<String, Object>>() {
+                        }.getType());
+                        if (map.get("infocode").equals("10000")) {//请求正常
+                            DataManager.getwalkingList = gson.fromJson(jsonString, DataManager.getwalking.class);
+                            StartMapActivity.handler.sendEmptyMessage(0);
+                        } else if (map.get("infocode").equals("10001")) {
+                            Toast.show("key不正确或过期!");
+                        } else if (map.get("infocode").equals("10002")) {
+                            Toast.show("没有权限使用相应的服务或者请求接口的路径拼写错误!");
+                        } else if (map.get("infocode").equals("10003")) {
+                            Toast.show("访问已超出日访问量!");
+                        } else if (map.get("infocode").equals("10004")) {
+                            Toast.show("单位时间内访问过于频繁!");
+                        } else if (map.get("infocode").equals("10013")) {
+                            Toast.show("Key被删除!");
+                        } else if (map.get("infocode").equals("20800")) {
+                            Toast.show("规划点（包括起点、终点、途经点）不在中国陆地范围内!");
+                        } else if (map.get("infocode").equals("20801")) {
+                            Toast.show("划点（起点、终点、途经点）附近搜不到路!");
+                        } else if (map.get("infocode").equals("20802")) {
+                            Toast.show("路线计算失败，通常是由于道路连通关系导致!");
+                        } else if (map.get("infocode").equals("20803")) {
+                            Toast.show("起点终点距离过长!");
                         }
 
                         break;
-                    case 0x206://我的评价
-                        MainActivity.ad.dismiss();
-                        MainActivity.pd.dismiss();
-                        break;
-                    case 0x995:
-                    case 0x994://获取企业投诉列表
-                    case 0x993://提交企业投诉
-                    case 0x992://提交投诉附件
-                    case 0x991://提交投诉后刷新企业投诉
-                        if (ToComplaintActivity.pd != null) {
-                            ToComplaintActivity.pd.dismiss();
+                    case 0x1142://驾车
+                        jsonString = (String) response.get();
+                        map = gson.fromJson(jsonString, new TypeToken<Map<String, Object>>() {
+                        }.getType());
+                        if (map.get("infocode").equals("10000")) {//请求正常
+                            DataManager.getDrivingList = gson.fromJson(jsonString, DataManager.getDriving.class);
+                            StartMapActivity.handler.sendEmptyMessage(1);
+                        } else if (map.get("infocode").equals("10001")) {
+                            Toast.show("key不正确或过期!");
+                        } else if (map.get("infocode").equals("10002")) {
+                            Toast.show("没有权限使用相应的服务或者请求接口的路径拼写错误!");
+                        } else if (map.get("infocode").equals("10003")) {
+                            Toast.show("访问已超出日访问量!");
+                        } else if (map.get("infocode").equals("10004")) {
+                            Toast.show("单位时间内访问过于频繁!");
+                        } else if (map.get("infocode").equals("10013")) {
+                            Toast.show("Key被删除!");
+                        } else if (map.get("infocode").equals("20800")) {
+                            Toast.show("规划点（包括起点、终点、途经点）不在中国陆地范围内!");
+                        } else if (map.get("infocode").equals("20801")) {
+                            Toast.show("划点（起点、终点、途经点）附近搜不到路!");
+                        } else if (map.get("infocode").equals("20802")) {
+                            Toast.show("路线计算失败，通常是由于道路连通关系导致!");
+                        } else if (map.get("infocode").equals("20803")) {
+                            Toast.show("起点终点距离过长!");
                         }
-                        if (MycomplaintsListActivity.pd != null) {
-                            MycomplaintsListActivity.pd.dismiss();
+                        break;
+                    case 0x1143://公交
+                        jsonString = (String) response.get();
+                        try{
+                            DataManager.getBusList = gson.fromJson(jsonString, DataManager.getBus.class);
+                            StartMapActivity.handler.sendEmptyMessage(2);
+                        }catch (JsonSyntaxException e) {
+                            showdisplay(what);
+                            Toast.show("路线有变化,无法导航!");
                         }
-                        break;
-                    case 0x3031://我的认领列表{副}
-                    case 0x305://取消认领
-                    case 0x303://我的认领列表
-                    case 0x301://提交认领
-                    case 0x302://提交认领附件
-                        MainActivity.ad.dismiss();
-                        MainActivity.pd.dismiss();
-                        ToClaimActivity.wd.dismiss();
-                        break;
-                    case 0x101://关注企业
-                    case 0x102://取消关注企业
-                    case 0x103://我的关注列表
-                        CompanyDetailsActivity.waitDialog.dismiss();
-                        CompanyDetailsActivity.pd.dismiss();
-                        MainActivity.ad.dismiss();
-                        MainActivity.pd.dismiss();
-                        break;
-                    case 0x20111://查询评论列表
-                        CommentListDetailsActivity.wd.dismiss();
-                        break;
-                    case 0x999://查询评论列表
-                        LoginActivity.wd.dismiss();
-                        break;
-                    case 0x1001://商标
-                        Main_SearchActivity.wd.dismiss();
-                        break;
-                    case 0x1002://专利
-                        Main_SearchActivity.wd.dismiss();
-                        break;
-                    case 0x1005://失信人
-                        Main_SearchActivity.wd.dismiss();
-                        break;
-                    case 0x111://获取新闻
-                        WelcomeActivity.handler.sendEmptyMessage(10);
-
-                        break;
-                    case 0x110://获取APP最新版本
-                        WelcomeActivity.handler.sendEmptyMessage(10);
-                        Toast.show("连接服务器失败");
                         break;
                     default:
+                        Toast.show(map.get("message")+"");
                         break;
                 }
-
             }
         }catch (NullPointerException e) {
             showdisplay(what);
@@ -1002,6 +972,15 @@ public class MyhttpCallBack implements HttpCallBack {
 
     public void showdisplay(int what) {
         switch (what) {
+            case 0x112://获取APP首页轮播图
+                WelcomeActivity.handler.sendEmptyMessage(0);
+                break;
+            case 0x113://获取最新认领
+                WelcomeActivity.handler.sendEmptyMessage(2);
+                break;
+            case 0x114://获取热点
+                WelcomeActivity.handler.sendEmptyMessage(3);
+                break;
             case 0x022://搜索接口
                 SearchFirmActivty.pd.dismiss();
                 break;
@@ -1121,9 +1100,22 @@ public class MyhttpCallBack implements HttpCallBack {
                 break;
             case 0x111://获取新闻
                 WelcomeActivity.handler.sendEmptyMessage(10);
-
+                try{
+                    if(csp.getWelcome().equals("")){
+                        WelcomeActivity.wd.dismiss();
+                    }
+                }catch (NullPointerException e){
+                    WelcomeActivity.wd.dismiss();
+                }
                 break;
             case 0x110://获取APP最新版本
+                try{
+                    if(csp.getWelcome().equals("")){
+                        WelcomeActivity.wd.dismiss();
+                    }
+                }catch (NullPointerException e){
+                    WelcomeActivity.wd.dismiss();
+                }
                 WelcomeActivity.handler.sendEmptyMessage(10);
                 Toast.show("连接服务器失败");
                 break;

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -123,6 +124,9 @@ public class CompanyDetailsActivity extends BaseActivity {
     @ViewInject(R.id.addMar)
     LinearLayout addMar;//企业位置
 
+    @ViewInject(R.id.phonebtn)
+    LinearLayout phonebtn;//企业位置
+
     TitlePopup titlePopup;
     public static ProgressDialog pd;
     CreditSharePreferences csp;
@@ -130,6 +134,10 @@ public class CompanyDetailsActivity extends BaseActivity {
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
     public static String ADD_PROVINCE;
+
+    //拨打电话
+    AlertDialog.Builder builder1;
+    public static AlertDialog dialog1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -932,6 +940,25 @@ public class CompanyDetailsActivity extends BaseActivity {
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 
+        /**
+         * 拨打电话 dialog
+         */
+        builder1 = new AlertDialog.Builder(this);
+        builder1.setTitle("提示");
+        builder1.setMessage("是否给该企业拨打电话");
+        builder1.setPositiveButton("拨打", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                //启动
+                startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:"+DataManager.QJiugongGList.data.baseInfo.get(0).TEL)));
+//                Toast.show("此功能正在施工中...");
+            }
+        });
+        builder1.setNegativeButton("取消", null);
+        dialog1 = builder1.create();
+        dialog1.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+
+
         try{
             details_static.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN);//公司经营状态
         }catch (Exception e){}
@@ -963,7 +990,13 @@ public class CompanyDetailsActivity extends BaseActivity {
             if (DataManager.QJiugongGList.data.baseInfo.size()>0&&DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.equals("")) {
                 regcap.setText("无万元");
             } else {
-                regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.substring(0, DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.indexOf(".")) + "万元");
+                try{
+                    if(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.indexOf(".") !=-1){
+                        regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.substring(0, DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.indexOf(".")) + "万元");
+                    }else{
+                        regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
+                    }
+                }catch (Exception e){}
             }
 
         }
@@ -1009,6 +1042,15 @@ public class CompanyDetailsActivity extends BaseActivity {
                     e.printStackTrace();
                 }
 
+            }
+        });
+        /**
+         * 拨打电话
+         */
+        phonebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1.show();
             }
         });
 

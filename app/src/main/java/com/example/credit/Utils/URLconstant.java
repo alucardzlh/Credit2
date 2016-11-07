@@ -45,7 +45,7 @@ public class URLconstant {
 
     public static final String JUDICIALURL = "courtcaseInterface/queryJusticeInfo.do";//司法信息URL
 
-    public static final String INVESTMENTURL = "http://101.201.211.27:8282/zhirong.credith5/investAllViewController/investAllView.do";//New模块 投资全景Investment
+    public static final String INVESTMENTURL = "http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investallview.jsp?";//New模块 投资全景Investment
 
     public static final String REPORTURL1 ="MakePdfInterface/makePdf.do";//信用报告Report1
 
@@ -240,7 +240,9 @@ public class URLconstant {
 
     public static final String TBSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//招投标 废弃
 
-    public static final String JYSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//经营异常   废弃
+    public static final String QUNASHITUURL = "http://101.201.211.27:8282/zhirong.credith5//pages/baseinfo/allview.jsp?";//全景视图
+
+    public static final String JYSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//经营异常 废弃
 
     public static final String COMPANYNEWS="http://101.201.211.27:8282/zhirong.credith5/enterinfo/entnew.do";//企业新闻接口
 
@@ -248,15 +250,13 @@ public class URLconstant {
 
     public static final String TENDER="http://101.201.211.27:8282/zhirong.credith5/biddingInfoController/getBiddingInfolist.do";//招标接口Tender 59
 
-    public static final String TOUZILIAN="http://101.201.211.27:8282/zhirong.credith5/investViewController/investView.do";//投资链图
+    public static final String TOUZILIAN="http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investview.jsp?";//投资链图
 
     public static final String FAZHAN="http://101.201.211.27:8282/zhirong.credith5/entCourseController/entCourse.do";//发展历程
 
     public static final String SHOW="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//企业展示
 
     public static final String MAPSHOW="http://restapi.amap.com/v3/geocode/geo?output=JSON&key=97d1040d0aafc15e0272d237fbba1ef4&address=";//逆地理
-
-    public static final String MAPCEL=" http://restapi.amap.com/v3/distance?output=JSON&key=97d1040d0aafc15e0272d237fbba1ef4";//j距离测量
 
     public static final String MAPWALKING="http://restapi.amap.com/v3/direction/walking?key=97d1040d0aafc15e0272d237fbba1ef4";//步行walking
 

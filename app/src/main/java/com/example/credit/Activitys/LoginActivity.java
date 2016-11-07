@@ -63,7 +63,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-             finish();
+                if(RegisterActivity.flg){
+                    RegisterActivity.pd1.dismiss();
+                }else{
+                    LoginActivity.wd.dismiss();
+                }
+                finish();
 
             }
         };
@@ -156,7 +161,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 } else {
                     //Toast.show("通过判定");
-                    wd.show();;
+                    wd.show();
                     GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.USERLOGIN, RequestMethod.GET);
                     LoginRequest.add("token", MD5.MD5s(login_user.getText() + new Build().MODEL));
                     LoginRequest.add("KeyNo", login_user.getText().toString());

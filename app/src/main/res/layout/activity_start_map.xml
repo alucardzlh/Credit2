@@ -22,71 +22,6 @@
                 android:layout_height="0dp"/>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:background="@color/mic_white"
-            android:visibility="visible"
-            android:layout_margin="10dp"
-            android:padding="10dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/Text1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:visibility="visible"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="乘车路线"/>
-                <TextView
-                    android:id="@+id/Text2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="bottom|center"
-                    android:background="@color/mic_white"
-                    android:textSize="14sp"
-                    android:text=""/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/Textbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/blue2"
-                    android:text="详情"/>
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="bottom|center"
-                    android:textSize="16sp"
-                    android:background="@mipmap/blue_jt"
-                    android:text="公交路线"
-                    android:id="@+id/imageView3" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,6 +73,72 @@
                 android:layout_gravity="right"
                 android:text="路况"/>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:background="@color/mic_white"
+            android:visibility="visible"
+            android:layout_margin="10dp"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/Textbtn"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/Text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="地址地址地址地址地址地址地址地址地址地址地址地址地址地址地址"/>
+                <TextView
+                    android:id="@+id/Text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="bottom|center"
+                    android:background="@color/mic_white"
+                    android:textSize="12sp"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/Textbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue2"
+                    android:text="详情"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="bottom|center"
+                    android:textSize="16sp"
+                    android:background="@mipmap/blue_jt"
+                    android:text="公交路线"
+                    android:id="@+id/imageView3" />
+            </LinearLayout>
+
+        </RelativeLayout>
     </FrameLayout>
 
 </LinearLayout>

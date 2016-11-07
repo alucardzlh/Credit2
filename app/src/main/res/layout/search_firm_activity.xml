@@ -553,22 +553,13 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:visibility="gone">
-        <com.example.credit.Utils.PullToRefreshView
-            android:id="@+id/pull_refresh_view"
+        <ListView
+            android:id="@+id/search_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <ListView
-                android:id="@+id/search_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="#00000000"
-                android:listSelector="#00000000"
-                android:scrollbars="none"
-                android:visibility="gone" />
-        </com.example.credit.Utils.PullToRefreshView>
+            android:divider="#00000000"
+            android:listSelector="#00000000"
+            android:visibility="gone" />
     </LinearLayout>
     <!--城市选择布局-->
     <LinearLayout

@@ -102,7 +102,7 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
                         ComplaintsRuerst.add("KeyNo",DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
                         ComplaintsRuerst.add("deviceId",new Build().MODEL);
                         ComplaintsRuerst.add("status",1);
-                        ComplaintsRuerst.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
+                        ComplaintsRuerst.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
                         ComplaintsRuerst.add("pageIndex",1);
                         ComplaintsRuerst.add("pageSize",10);
                         CallServer.getInstance().add(MycomplaintsListActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x991, true, false, true);
@@ -202,7 +202,7 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
                     GsonUtil ComplaintsRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.DISROOM, RequestMethod.GET);
                     ComplaintsRuerst.add("token", MD5.MD5s("" + ( new Build()).MODEL));
                     ComplaintsRuerst.add("KeyNo","");
-                    ComplaintsRuerst.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
+                    ComplaintsRuerst.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
                     ComplaintsRuerst.add("deviceId",new Build().MODEL);
                     ComplaintsRuerst.add("pname","投诉管理");
                     CallServer.getInstance().add(MycomplaintsListActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x1000, true, false, true);
@@ -267,7 +267,7 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
                         ComplaintsRuerst.add("KeyNo",DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
                         ComplaintsRuerst.add("deviceId",new Build().MODEL);
                         ComplaintsRuerst.add("status",1);
-                        ComplaintsRuerst.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
+                        ComplaintsRuerst.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
                         ComplaintsRuerst.add("pageIndex", Integer.parseInt(DataManager.myComplaint.data.Paging.CurrentPage)+1);
                         CallServer.getInstance().add(MycomplaintsListActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x9941, true, false, true);
                     }

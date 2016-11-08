@@ -24,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,7 +59,7 @@ import java.util.Random;
 public class SearchFirmActivty extends BaseActivity implements GestureDetector.OnGestureListener {
     public static final String SEARCH_HISTORY = "search_history";
     public static final int NOHTTP_SEARCH = 0x022;
-    public static ContainsEmojiEditText searchEt;
+    public static EditText searchEt;
     public static ImageView search_et_cc;
     public static TextView downButton, city, capital, time, industry, selectCity, tab_frim, tab_illegal, tab_shareholder;
     TextView temp, tempprovince;
@@ -199,7 +200,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                         requst.setConnectTimeout(30000);
                                         requst.add("KeyNo", KeyNo);
                                         requst.add("token", token);
-                                        requst.add("C_PROVINCE",listsea.get(position).C_PROVINCE);
+                                        requst.add("provinceCode",listsea.get(position).C_PROVINCE);
                                         requst.add("deviceId", model);
                                         if(csp.getLoginStatus()){
                                             requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
@@ -211,7 +212,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                                             request121.add("token", token);
                                             request121.add("deviceId", model);
-                                            request121.add("C_PROVINCE",listsea.get(position).C_PROVINCE);
+                                            request121.add("provinceCode",listsea.get(position).C_PROVINCE);
                                             request121.add("KeyNo", KeyNo);
                                             if(csp.getLoginStatus()){
                                                 request121.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
@@ -224,7 +225,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                         CallServer.getInstance().add(SearchFirmActivty.this, requst, MyhttpCallBack.getInstance(), 0x024, true, false, true);
                                     }
                                 }catch (Exception e){
-                                    Toast.show("暂无信息!");
+//                                    Toast.show("暂无信息!");
                                 }
                             }
                         });
@@ -442,7 +443,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 
-        searchEt = (ContainsEmojiEditText) findViewById(R.id.search_et);
+        searchEt = (EditText) findViewById(R.id.search_et);
         search_et_cc = (ImageView) findViewById(R.id.search_et_cc);//叉叉
         //selectCity = (TextView) findViewById(R.id.selectCity);//旧版搜索城市
         //selectCity.setOnClickListener(this);////旧版搜索城市

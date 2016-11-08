@@ -555,14 +555,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 /**
  * 最新认领 开始只调用一次
  */
-        if (WelcomeActivity.fl==true) {
-            WelcomeActivity.fl=false;
-            handler.sendEmptyMessage(7);
-        } else {//没有数据
-            cliam_more.setVisibility(View.GONE);
-            btmore.setVisibility(View.GONE);
-            NewClaimTxT.setVisibility(View.VISIBLE);
-        }
+        try{
+            if (MyCliamList !=null && MyCliamList.size()>0) {
+                handler.sendEmptyMessage(7);
+            } else {//没有数据
+                cliam_more.setVisibility(View.GONE);
+                btmore.setVisibility(View.GONE);
+                NewClaimTxT.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){}
     }
 
     private void initView() {
@@ -991,21 +992,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+//    http://m.qi315.cn:8282/zhirong.credith5/baseinfo/GoToIndex.do?KeyNo=141000011988038869&localType=1&provinceCode=41
     public void TestShow(String str){
         String[] sr=str.split("\\?");
         String[] strA=sr[1].split("&");
         String token="";
         String KeyNo="";
+        String provinceCode="";
         for(int i=0;i<strA.length;i++){
             if ((strA[i]).indexOf("KeyNo") != -1) {
                 String[] strB=strA[i].split("=");
                 KeyNo=strB[1];
                 token = MD5.MD5s(strB[1] + (new Build()).MODEL);
             }
+            if ((strA[i]).indexOf("provinceCode") != -1) {
+                String[] strB=strA[i].split("=");
+                provinceCode=strB[1];
+            }
         }
         GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
         requst.add("KeyNo", KeyNo);
         requst.add("token", token);
+        requst.add("provinceCode", provinceCode);
         requst.add("deviceId", (new Build()).MODEL);
         if(csp.getLoginStatus()){
             requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42

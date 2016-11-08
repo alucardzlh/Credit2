@@ -1315,7 +1315,15 @@ public class DataManager {
                 public String PRIPID;//主体身份代码
                 public String ENTTYPE;//市场主体类型
                 public String TEL;//电话号码 "TEL": "86660006",
+                public String C_PROVINCE;// 省代码  "C_PROVINCE": "36"
 
+                public String WEBSITE;
+                public String POSTALCODE;
+                public String MAPX;
+                public String MAPY;
+                public String DOM;
+                public String WEBSITNAME;
+                public String EMAIL;
             }
         }
     }
@@ -2062,23 +2070,10 @@ public class DataManager {
             public String province;
             public String citycode;
             public String city;
-            public String district;
-            public NeighborhoodBean neighborhood;
-            public BuildingBean building;
             public String adcode;
             public String location;
             public String level;
-            public List<?> township;
-            public List<?> street;
-            public List<?> number;
-            public static class NeighborhoodBean {
-                public List<?> name;
-                public List<?> type;
-            }
-            public static class BuildingBean {
-                public List<?> name;
-                public List<?> type;
-            }
+
         }
     }
     public static getwalking getwalkingList = new getwalking();

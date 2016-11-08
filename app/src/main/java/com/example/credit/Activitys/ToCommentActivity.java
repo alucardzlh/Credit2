@@ -138,7 +138,7 @@ public class ToCommentActivity extends BaseActivity {
                         GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.HHOMM, RequestMethod.GET);
                         request14.add("KeyNo",KeyNo);
                         request14.add("token",token);
-                        request14.add("C_PROVINCE",CompanyDetailsActivity.ADD_PROVINCE);
+                        request14.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
                         request14.add("deviceId",deviceId);
                         request14.add("remark",To_details.getText().toString());
                         request14.add("memberId",csp.getID());

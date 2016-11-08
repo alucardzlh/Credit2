@@ -44,7 +44,6 @@ public class WelcomeActivity extends BaseActivity {
 
     CreditSharePreferences esp;
     public static Handler handler;
-    public static boolean fl=false;
     public static boolean red=true;
 
     //ViwePager

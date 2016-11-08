@@ -116,7 +116,7 @@ public class ReportActivity extends Activity {
                         GsonUtil request = new GsonUtil(URLconstant.URLINSER+URLconstant.REPORTURL2, RequestMethod.GET);
                         request.add("fileName",  DataManager.ReportText);
                         request.add("sendTo",xx1.getText().toString());//
-                        request.add("C_PROVINCE", CompanyDetailsActivity.ADD_PROVINCE);
+                        request.add("provinceCode", CompanyDetailsActivity.ProvinceCode);
                         CallServer.getInstance().add(ReportActivity.this, request, MyhttpCallBack.getInstance(), 0x702, true, false, true);
                         break;
                     case  1:
@@ -471,7 +471,7 @@ public class ReportActivity extends Activity {
                         GsonUtil request = new GsonUtil(URLconstant.URLINSER+URLconstant.REPORTURL1, RequestMethod.GET);
                         request.add("pripid",  DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
                         request.add("select",selectStr);//
-                        request.add("C_PROVINCE", CompanyDetailsActivity.ADD_PROVINCE);
+                        request.add("provinceCode", CompanyDetailsActivity.ProvinceCode);
                         request.add("entname",  DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);//
                         request.add("priptype",  DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);//
                         CallServer.getInstance().add(ReportActivity.this, request, MyhttpCallBack.getInstance(), 0x701, true, false, true);

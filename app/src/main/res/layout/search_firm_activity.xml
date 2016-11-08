@@ -67,7 +67,7 @@
             android:background="@drawable/edit_bg"
             android:orientation="horizontal">
 
-            <com.example.credit.Utils.ContainsEmojiEditText
+            <EditText
                 android:id="@+id/search_et"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
@@ -78,6 +78,7 @@
                 android:hint="请输入企业名称"
                 android:imeOptions="actionSearch"
                 android:lines="1"
+                android:maxEms="20"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textSize="14sp" />

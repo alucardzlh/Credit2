@@ -133,7 +133,7 @@ public class CompanyDetailsActivity extends BaseActivity {
     int type, posit,position;
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
-    public static String ADD_PROVINCE;
+    public static String ProvinceCode;
 
     //拨打电话
     AlertDialog.Builder builder1;
@@ -150,10 +150,10 @@ public class CompanyDetailsActivity extends BaseActivity {
         type = i.getIntExtra("type", 0);
         position = i.getIntExtra("position", 0);
 
-        ADD_PROVINCE =SearchFirmActivty.listsea.get(position).ADD_PROVINCE;
         model = ( new Build()).MODEL;//设备ID
 
         if (DataManager.QJiugongGList.data.baseInfo.size() > 0) {
+            ProvinceCode =DataManager.QJiugongGList.data.baseInfo.get(0).C_PROVINCE;//省代码
             KeyNo = DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID;//市场主体身份代码
             token = MD5.MD5s(KeyNo + model);//token 由 设备ID+市场主体身份代码 MD5生成
             regnore = DataManager.QJiugongGList.data.baseInfo.get(0).REGNO;//注册号
@@ -381,7 +381,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request0.add("token", token);
                         request0.add("deviceId", model);
                         request0.add("KeyNo", KeyNo);
-                        request0.add("C_PROVINCE", ADD_PROVINCE);
+                        request0.add("provinceCode", ProvinceCode);
                         request0.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         /**
                          * 记录用户进入九宫格
@@ -391,7 +391,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -410,7 +410,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         GsonUtil request1 = new GsonUtil(URLconstant.URLINSER + URLconstant.ADMINURL, RequestMethod.GET);
                         request1.add("token", token);
                         request1.add("deviceId", model);
-                        request1.add("C_PROVINCE", ADD_PROVINCE);
+                        request1.add("provinceCode", ProvinceCode);
                         request1.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request1.add("KeyNo", KeyNo);
                         if (!DataManager.String1.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
@@ -418,7 +418,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -439,7 +439,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         GsonUtil request2 = new GsonUtil(URLconstant.URLINSER + URLconstant.HONORURL, RequestMethod.GET);
                         request2.add("token", tokenr);
                         request2.add("deviceId", model);
-                        request2.add("C_PROVINCE", ADD_PROVINCE);
+                        request2.add("provinceCode", ProvinceCode);
                         request2.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request2.add("KeyNo", KeyNoR);
                         if (!DataManager.String2.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
@@ -447,7 +447,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -466,7 +466,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         GsonUtil request3 = new GsonUtil(URLconstant.URLINSER + URLconstant.SUPPORTURL, RequestMethod.GET);
                         request3.add("token", token);
                         request3.add("deviceId", model);
-                        request3.add("C_PROVINCE", ADD_PROVINCE);
+                        request3.add("provinceCode", ProvinceCode);
                         request3.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request3.add("KeyNo", KeyNo);
 //                        request3.add("pageIndex", 1);
@@ -477,7 +477,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -498,7 +498,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         mortinfoRequest.add("deviceId", model);
                         mortinfoRequest.add("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
                         mortinfoRequest.add("pageIndex", 1);
-                        mortinfoRequest.add("C_PROVINCE", ADD_PROVINCE);
+                        mortinfoRequest.add("provinceCode", ProvinceCode);
                         mortinfoRequest.add("pageSize", 10);
                         mortinfoRequest.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String4.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
@@ -506,7 +506,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -532,14 +532,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request5.add("token", token);
                         request5.add("deviceId", model);
                         request5.add("KeyNo", KeyNo);
-                        request5.add("C_PROVINCE", ADD_PROVINCE);
+                        request5.add("provinceCode", ProvinceCode);
                         request5.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String5.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -559,7 +559,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request6.add("token", token);
                         request6.add("deviceId", model);
                         request6.add("KeyNo", KeyNo);
-                        request6.add("C_PROVINCE", ADD_PROVINCE);
+                        request6.add("provinceCode", ProvinceCode);
                         request6.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request6.add("regnore", regnore);//注册号
                         if (!DataManager.String6.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
@@ -567,7 +567,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -587,14 +587,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request7.add("token", token);
                         request7.add("deviceId", model);
                         request7.add("KeyNo", KeyNo);
-                        request7.add("C_PROVINCE", ADD_PROVINCE);
+                        request7.add("provinceCode", ProvinceCode);
                         request7.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String7.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -614,14 +614,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request.add("token", token);
                         request.add("deviceId", model);
                         request.add("KeyNo", KeyNo);
-                        request.add("C_PROVINCE", ADD_PROVINCE);
+                        request.add("provinceCode", ProvinceCode);
                         request.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String8.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -641,7 +641,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request9.add("token", token);
                         request9.add("deviceId", model);
                         request9.add("KeyNo", KeyNo);
-                        request9.add("C_PROVINCE", ADD_PROVINCE);
+                        request9.add("provinceCode", ProvinceCode);
                         request9.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request9.add("pageIndex", 1);
                         request9.add("pageSize", 10);
@@ -650,7 +650,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -670,7 +670,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request10.add("token", token);
                         request10.add("deviceId", model);
                         request10.add("KeyNo", KeyNo);
-                        request10.add("C_PROVINCE", ADD_PROVINCE);
+                        request10.add("provinceCode", ProvinceCode);
                         request10.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request10.add("pageIndex", 1);
                         request10.add("pageSize", 10);
@@ -679,7 +679,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -699,7 +699,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request11.add("token", token);
                         request11.add("deviceId", model);
                         request11.add("KeyNo", KeyNo);
-                        request11.add("C_PROVINCE", ADD_PROVINCE);
+                        request11.add("provinceCode", ProvinceCode);
                         request11.add("pageIndex", 1);
                         request11.add("pageSize", 10);
                         request11.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
@@ -708,7 +708,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -728,7 +728,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request12.add("token", token);
                         request12.add("deviceId", model);
                         request12.add("KeyNo", KeyNo);
-                        request12.add("C_PROVINCE", ADD_PROVINCE);
+                        request12.add("provinceCode", ProvinceCode);
                         request12.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
 
                         if (!DataManager.String12.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
@@ -736,7 +736,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -756,7 +756,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request13.add("token", token);
                         request13.add("deviceId", model);
                         request13.add("KeyNo", KeyNo);
-                        request13.add("C_PROVINCE", ADD_PROVINCE);
+                        request13.add("provinceCode", ProvinceCode);
                         request13.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         request13.add("memberId", "");
                         request13.add("content", "");
@@ -765,7 +765,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -785,14 +785,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request14.add("token", token);
                         request14.add("deviceId", model);
                         request14.add("KeyNo", KeyNo);
-                        request14.add("C_PROVINCE", ADD_PROVINCE);
+                        request14.add("provinceCode", ProvinceCode);
                         request14.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String14.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -812,14 +812,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request15.add("token", token);
                         request15.add("deviceId", model);
                         request15.add("KeyNo", KeyNo);
-                        request15.add("C_PROVINCE", ADD_PROVINCE);
+                        request15.add("provinceCode", ProvinceCode);
                         request15.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         if (!DataManager.String15.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);
                             request121.add("deviceId", model);
                             request121.add("KeyNo", KeyNo);
-                            request121.add("C_PROVINCE", ADD_PROVINCE);
+                            request121.add("provinceCode", ProvinceCode);
                             request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
                             request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                             request121.add("memberId", csp.getID());
@@ -960,7 +960,7 @@ public class CompanyDetailsActivity extends BaseActivity {
 
 
         try{
-            details_static.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN);//公司经营状态
+            details_static.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN.substring(0,2));//公司经营状态
         }catch (Exception e){}
 
 
@@ -1036,7 +1036,7 @@ public class CompanyDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 GsonUtil MyClaimRuerst = null;
                 try {
-                    MyClaimRuerst = new GsonUtil(URLconstant.MAPSHOW + URLEncoder.encode(SearchFirmActivty.listsea.get(position).DOM, "utf-8"), RequestMethod.GET);
+                    MyClaimRuerst = new GsonUtil(URLconstant.MAPSHOW + URLEncoder.encode(DataManager.QJiugongGList.data.baseInfo.get(0).DOM, "utf-8"), RequestMethod.GET);
                     CallServer.getInstance().add(CompanyDetailsActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x1132, true, false, true);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -1128,7 +1128,9 @@ public class CompanyDetailsActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.pb_1://首页
                     Intent i1 = new Intent(CompanyDetailsActivity.this, MainActivity.class);
+                    i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i1);
+                    overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
                     finish();
                     break;
                 case R.id.pb_2://评论
@@ -1147,7 +1149,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request100.add("token", token);
                         request100.add("KeyNo", KeyNo);
                         request100.add("regnore", regnore);
-                        request100.add("C_PROVINCE",ADD_PROVINCE);
+                        request100.add("provinceCode",ProvinceCode);
                         request100.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE_CN);
                         request100.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                         CallServer.getInstance().add(CompanyDetailsActivity.this, request100, MyhttpCallBack.getInstance(), 0x601, true, false, true);
@@ -1160,7 +1162,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                     ComplaintsRuerst.add("KeyNo",KeyNo);
                     ComplaintsRuerst.add("deviceId", new Build().MODEL);
                     ComplaintsRuerst.add("status",1);
-                    ComplaintsRuerst.add("C_PROVINCE",ADD_PROVINCE);
+                    ComplaintsRuerst.add("provinceCode",ProvinceCode);
                     ComplaintsRuerst.add("pageIndex",1);
                     ComplaintsRuerst.add("pageSize",10);
                     CallServer.getInstance().add(CompanyDetailsActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x994, true, false, true);
@@ -1177,7 +1179,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             requestG.add("deviceId", model);
                             requestG.add("token", token);
                             requestG.add("KeyNo", KeyNo);
-                            requestG.add("C_PROVINCE",ADD_PROVINCE);
+                            requestG.add("provinceCode",ProvinceCode);
                             requestG.add("memberId", csp.getID());
                             CallServer.getInstance().add(CompanyDetailsActivity.this, requestG, MyhttpCallBack.getInstance(), 0x101, true, false, true);
                         } else {//当前状态为已关注，所以点击是取消关注
@@ -1188,7 +1190,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             requestN.add("deviceId", model);
                             requestN.add("token", token);
                             requestN.add("KeyNo", KeyNo);
-                            requestN.add("C_PROVINCE",ADD_PROVINCE);
+                            requestN.add("provinceCode",ProvinceCode);
                             requestN.add("memberId", csp.getID());
                             CallServer.getInstance().add(CompanyDetailsActivity.this, requestN, MyhttpCallBack.getInstance(), 0x102, true, false, true);
                         }

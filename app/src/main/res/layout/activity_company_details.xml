@@ -110,19 +110,19 @@
                         <!--android:layout_marginTop="20dp"-->
                         <!--android:layout_marginRight="20dp"-->
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/details_static"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:padding="5dip"
-                        android:layout_below="@id/d_more"
                         android:text="开业"
-                        android:layout_centerVertical="true"
                         android:background="@drawable/companydetails_tit"
                         android:textColor="@color/Qgreen"
-                        android:layout_marginRight="10dp"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        android:layout_below="@+id/d_more"
+                        android:layout_alignLeft="@+id/d_more"
+                        android:layout_alignStart="@+id/d_more" />
 
                 </RelativeLayout>
                 <LinearLayout

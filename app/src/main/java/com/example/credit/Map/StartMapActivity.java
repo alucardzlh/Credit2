@@ -340,16 +340,16 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                     }catch (Exception e){}
                     break;
                 case R.id.Text1://路线选择
-                    if(Text1.equals("乘车路线")){
-                        List<String> listx=new ArrayList<>();
-                        for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
-                            for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
-                                listx.add(bus.name + "");
-                            }
+                    if(Text1.getText().toString().equals("乘车路线")){
+                    List<String> listx=new ArrayList<>();
+                    for(int a=0;a<DataManager.getBusList.route.transits.size();a++) {
+                        for (DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.BusBean.BuslinesBean bus : DataManager.getBusList.route.transits.get(a).segments.get(0).bus.buslines) {
+                            listx.add(bus.name + "");
                         }
-                        String[] arr1 = listx.toArray(new String[listx.size()]);
-                        showSelect("乘车路线选择",arr1);
                     }
+                    String[] arr1 = listx.toArray(new String[listx.size()]);
+                    showSelect("乘车路线选择",arr1);
+                }
                     break;
                 case R.id.maptyp1e:
                     if(TrFlag==false){
@@ -591,6 +591,11 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         list=new ArrayList<>();//路况
                         list1=new ArrayList<>();//经度坐标
                         list2=new ArrayList<>();//纬度坐标
+                        try{
+                            list.clear();
+                            list1.clear();
+                            list2.clear();
+                        }catch (Exception e){}
                         for(int a=0;a<DataManager.getBusList.route.transits.get(index).segments.size();a++){
                             if(DataManager.getBusList.route.transits.get(index).segments.get(a).walking.steps.size()>0 && DataManager.getBusList.route.transits.get(index).segments.get(a).walking.steps != null){
                                 for(DataManager.getBus.RouteBean.TransitsBean.SegmentsBean.WalkingBean.StepsBean wa:DataManager.getBusList.route.transits.get(index).segments.get(a).walking.steps){
@@ -665,6 +670,9 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
                         //绘制途经点
                         list1t=new ArrayList<>();
                         list2t=new ArrayList<>();
+                        try{list1t.clear();
+                            list2t.clear();
+                        }catch (Exception e){}
                         for(int tl=0;tl<listtx.size();tl++){
                             String [] str=listtx.get(tl).split(";");
                             for(int i=0;i<str.length;i++){

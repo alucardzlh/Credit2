@@ -91,7 +91,7 @@ public class H5ViewActivity extends Activity {
                 break;
             case "7"://首页招投标
                 b_topname.setText("招投标");
-                str=URL+"?token="+"202cb962ac59075b964b07152d234b70"+"&KeyNo="+"&deviceId=123"+"&pageSize=20&pageIndex=0"+"&biddingTitle="+KeyNo+"&devicetype=1";
+                str=URL+"?token="+"202cb962ac59075b964b07152d234b70"+"&KeyNo="+KeyNo+"&deviceId=123"+"&pageSize=20&pageIndex=0"+"&devicetype=1";
                 break;
             case "8"://首页商标详情
                 b_topname.setText("商标详情");

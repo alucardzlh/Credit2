@@ -151,17 +151,18 @@ public class Main_SearchActivity extends BaseActivity {
                 }
             }
         };
-        if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
-            syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
-            his_yout.setAdapter(adapter);
-            his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
-                }
-            });
+        if(!hit.equals("招投标")){
+            if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
+                syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
+                his_yout.setAdapter(adapter);
+                his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
+                    }
+                });
+            }
         }
-
         search_et.addTextChangedListener(new TextWatcher() {//动态判断输入框中的字数并显示隐藏图标
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

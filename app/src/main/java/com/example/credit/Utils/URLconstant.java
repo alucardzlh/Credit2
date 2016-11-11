@@ -45,7 +45,7 @@ public class URLconstant {
 
     public static final String JUDICIALURL = "courtcaseInterface/queryJusticeInfo.do";//司法信息URL
 
-    public static final String INVESTMENTURL = "http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investallview.jsp?";//New模块 投资全景Investment
+    public static final String INVESTMENTURL = "http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investallview.jsp";//New模块 投资全景Investment
 
     public static final String REPORTURL1 ="MakePdfInterface/makePdf.do";//信用报告Report1
 
@@ -53,7 +53,6 @@ public class URLconstant {
 
     public static final String MORTINFO = "mortregInterface/queryMortregInfo";//抵押信息  动产抵押数据
     //- - - -- ----------------------- - - - -
-
 
     /**
      * 首页
@@ -91,7 +90,6 @@ public class URLconstant {
     public static final String NNOMM="activeInterface/createPraiseFailedqty.do";//差评接口
 
     public static final  String MMOMM="activeInterface/queryCommentInfo";//我的评价
-
 
     public static final  String YESFAVORITE="activeInterface/createFollowInfo";//关注接口
 
@@ -240,7 +238,7 @@ public class URLconstant {
 
     public static final String TBSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//招投标 废弃
 
-    public static final String QUNASHITUURL = "http://101.201.211.27:8282/zhirong.credith5//pages/baseinfo/allview.jsp?";//全景视图
+    public static final String QUNASHITUURL = "http://101.201.211.27:8282/zhirong.credith5//pages/baseinfo/allview.jsp";//全景视图
 
     public static final String JYSREACH="http://101.201.211.27:8282/zhirong.credith5/entShowController/entShow.do";//经营异常 废弃
 
@@ -250,7 +248,7 @@ public class URLconstant {
 
     public static final String TENDER="http://101.201.211.27:8282/zhirong.credith5/biddingInfoController/getBiddingInfolist.do";//招标接口Tender 59
 
-    public static final String TOUZILIAN="http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investview.jsp?";//投资链图
+    public static final String TOUZILIAN="http://101.201.211.27:8282/zhirong.credith5/pages/baseinfo/investview.jsp";//投资链图
 
     public static final String FAZHAN="http://101.201.211.27:8282/zhirong.credith5/entCourseController/entCourse.do";//发展历程
 
@@ -263,7 +261,5 @@ public class URLconstant {
     public static final String MAPBUS="http://restapi.amap.com/v3/direction/transit/integrated?output=JSON&key=97d1040d0aafc15e0272d237fbba1ef4";//公交transit
 
     public static final String MAPDRIVING="http://restapi.amap.com/v3/direction/driving?extensions=all&output=JSON&key=97d1040d0aafc15e0272d237fbba1ef4";//驾车driving
-
-
 
 }

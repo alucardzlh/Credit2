@@ -111,7 +111,9 @@ public class DetailsContentActivity extends BaseActivity {
     TextView c_type;//企业类型
 
     @ViewInject(R.id.c_stateLin)
-    LinearLayout c_stateLin;//经营状态小标题
+    LinearLayout c_stateLin;//经营状态小buju
+    @ViewInject(R.id.c_state_tit)
+    TextView c_state_tit;//经营状态tit
     @ViewInject(R.id.c_state)
     TextView c_state;//经营状态
 
@@ -123,35 +125,37 @@ public class DetailsContentActivity extends BaseActivity {
     @ViewInject(R.id.c_address)
     TextView c_address;//企业地址
 
+    @ViewInject(R.id.c_djjg_tit)
+    TextView c_djjg_tit;//登记机关tit
     @ViewInject(R.id.c_djjg)
     TextView c_djjg;//登记机关
 
     @ViewInject(R.id.myGridViewp)
     MyGridView myGridViewp;//投资列表
 
-    @ViewInject(R.id.c_people)
-    LinearLayout c_people;//投资列表null
+    @ViewInject(R.id.c_gudong_null)
+    LinearLayout c_gudong_null;//投资列表null
 
     @ViewInject(R.id.myGridViewZY)
     MyGridView myGridViewZY;//主要人员
 
-    @ViewInject(R.id.c_Cpeople)
-    LinearLayout c_Cpeople;//主要人员null
+    @ViewInject(R.id.c_people_null)
+    LinearLayout c_people_null;//主要人员null
 
     @ViewInject(R.id.GSmylist)
     MyListView GSmylist;//工商变更
 
-    @ViewInject(R.id.c_GS)
-    LinearLayout c_GS;//工商变更null
+    @ViewInject(R.id.c_GS_null)
+    LinearLayout c_GS_null;//工商变更null
 
     @ViewInject(R.id.myGridViewZYfz)
     MyListView myGridViewZYfz;//分支机构
 
-    @ViewInject(R.id.c_fzjg)
-    LinearLayout c_impPeoc_fzjgple;//分支机构null
+    @ViewInject(R.id.c_fzjg_null)
+    LinearLayout c_fzjg_null;//分支机构null
 
-    @ViewInject(R.id.c_qsuan)
-    LinearLayout c_qsuan;//清算null
+    @ViewInject(R.id.c_qsuan_null)
+    LinearLayout c_qsuan_null;//清算null
 
     public String[] arrays3 = {"注册资本：", "法定代表人：","成立日期：","核准日期：",
             "营业期限自：", "营业期限至："};
@@ -423,14 +427,10 @@ public class DetailsContentActivity extends BaseActivity {
 
         List<String> lt = new ArrayList<String>();
         if(DataManager.gsxx.data.baseInfo.REGCAP.equals("") || DataManager.gsxx.data.baseInfo.REGCAP.equals("null") || DataManager.gsxx.data.baseInfo.REGCAP==null){
-            lt.add("暂无信息");
+            lt.add(" ");
         }else{
             try{
-                if(DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".") == -1){
-                    lt.add(DataManager.gsxx.data.baseInfo.REGCAP+ "万元人民币");
-                }else{
-                    lt.add(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf(".")) + "万元人民币");
-                }
+                lt.add(DataManager.gsxx.data.baseInfo.REGCAP+ "万元人民币");
             }catch (Exception e){}
 
         }
@@ -438,28 +438,28 @@ public class DetailsContentActivity extends BaseActivity {
         if(DataManager.gsxx.data.baseInfo.NAME!=null&&!DataManager.gsxx.data.baseInfo.NAME.equals("")&&!DataManager.gsxx.data.baseInfo.NAME.equals(null)){
             lt.add(DataManager.gsxx.data.baseInfo.NAME);
         }else{
-            lt.add("暂无信息");
+            lt.add(" ");
         }
         if(DataManager.gsxx.data.baseInfo.ESTDATE!=null&&!DataManager.gsxx.data.baseInfo.ESTDATE.equals(null)&&!DataManager.gsxx.data.baseInfo.ESTDATE.equals("")){
             lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
         }else{
-            lt.add("暂无信息");
+            lt.add(" ");
         }
         if(DataManager.gsxx.data.baseInfo.APPRDATE!=null&&!DataManager.gsxx.data.baseInfo.APPRDATE.equals(null)&&!DataManager.gsxx.data.baseInfo.APPRDATE.equals("")){
             lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
         }else{
-            lt.add("暂无信息");
+            lt.add(" ");
         }
         if(DataManager.gsxx.data.baseInfo.OPFROM!=null&&!DataManager.gsxx.data.baseInfo.OPFROM.equals(null)&&!DataManager.gsxx.data.baseInfo.OPFROM.equals("")){
             lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
         }else{
-            lt.add("暂无信息");
+            lt.add(" ");
         }
 
         if(DataManager.gsxx.data.baseInfo.OPTO!=null&&!DataManager.gsxx.data.baseInfo.OPTO.equals(null)&&!DataManager.gsxx.data.baseInfo.OPTO.equals("")){
             lt.add(DataManager.gsxx.data.baseInfo.OPTO);
         }else{
-            lt.add("暂无信息");
+            lt.add(" ");
         }
 
         int size = lt.size();
@@ -470,13 +470,20 @@ public class DetailsContentActivity extends BaseActivity {
 
         b_topname.setText(Tname);
         /**
-         * 判断统一社会信用代码是否为空
+         * 判断统一社会信用代码 or 注册号是否为空
          */
         try{
             if(DataManager.gsxx.data.baseInfo.UNISCID!=null&&!DataManager.gsxx.data.baseInfo.UNISCID.equals(null)&&!(DataManager.gsxx.data.baseInfo.UNISCID).equals("")){
-                c_daima.setText(DataManager.gsxx.data.baseInfo.UNISCID);//
+                c_daimatit.setText("统一社会信用代码：");
+                c_daima.setText(DataManager.gsxx.data.baseInfo.UNISCID);
             }else{
-                c_daima.setText("暂无信息");
+                if(DataManager.gsxx.data.baseInfo.REGNO!=null&&!DataManager.gsxx.data.baseInfo.REGNO.equals(null)&&!(DataManager.gsxx.data.baseInfo.REGNO).equals("")){
+                    c_daimatit.setText("注册号：");
+                    c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
+                }else{
+                    c_daimatit.setText("注册号：");
+                    c_daima.setText(" ");
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -488,7 +495,7 @@ public class DetailsContentActivity extends BaseActivity {
             if(DataManager.gsxx.data.baseInfo.ENTNAME!=null&&!DataManager.gsxx.data.baseInfo.ENTNAME.equals(null)&&!(DataManager.gsxx.data.baseInfo.ENTNAME).equals("")){
                 c_name.setText(DataManager.gsxx.data.baseInfo.ENTNAME);//
             }else{
-                c_name.setText("暂无信息");
+                c_name.setText(" ");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -502,7 +509,7 @@ public class DetailsContentActivity extends BaseActivity {
             if(DataManager.gsxx.data.baseInfo.ENTNAME!=null&&!DataManager.gsxx.data.baseInfo.ENTNAME.equals(null)&&!(DataManager.gsxx.data.baseInfo.ENTNAME).equals("")){
                 c_name.setText(DataManager.gsxx.data.baseInfo.ENTNAME);//
             }else{
-                c_name.setText("暂无信息");
+                c_name.setText(" ");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -518,7 +525,7 @@ public class DetailsContentActivity extends BaseActivity {
                 if(DataManager.gsxx.data.baseInfo.ENTTYPE_CN!=null&&!DataManager.gsxx.data.baseInfo.ENTTYPE_CN.equals(null)&&!(DataManager.gsxx.data.baseInfo.ENTTYPE_CN).equals("")){
                     c_type.setText(DataManager.gsxx.data.baseInfo.ENTTYPE_CN);//企业类型
                 }else{
-                    c_type.setText("暂无信息");
+                    c_type.setText(" ");
                 }
             }
 
@@ -532,7 +539,7 @@ public class DetailsContentActivity extends BaseActivity {
             if(DataManager.gsxx.data.baseInfo.REGSTATE_CN!=null&&!DataManager.gsxx.data.baseInfo.REGSTATE_CN.equals(null)&&!(DataManager.gsxx.data.baseInfo.REGSTATE_CN).equals("")){
                 c_state.setText(DataManager.gsxx.data.baseInfo.REGSTATE_CN);//经营状态/
             }else{
-                c_state.setText("暂无信息");
+                c_state.setText(" ");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -544,7 +551,7 @@ public class DetailsContentActivity extends BaseActivity {
             if(DataManager.gsxx.data.baseInfo.OPSCOPE!=null&&!DataManager.gsxx.data.baseInfo.OPSCOPE.equals(null)&&!(DataManager.gsxx.data.baseInfo.OPSCOPE).equals("")){
                 c_fangwei.setText(DataManager.gsxx.data.baseInfo.OPSCOPE);//经营范围
             }else{
-                c_fangwei.setText("暂无信息");
+                c_fangwei.setText(" ");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -556,7 +563,7 @@ public class DetailsContentActivity extends BaseActivity {
             if(DataManager.gsxx.data.baseInfo.DOM!=null&&!DataManager.gsxx.data.baseInfo.DOM.equals(null)&&!(DataManager.gsxx.data.baseInfo.DOM).equals("")){
                 c_address.setText(DataManager.gsxx.data.baseInfo.DOM);//企业地址
             }else{
-                c_address.setText("暂无信息");
+                c_address.setText(" ");
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -566,7 +573,7 @@ public class DetailsContentActivity extends BaseActivity {
          */
         try{
             if(DataManager.gsxx.data.baseInfo.REGORG_CN==null|| DataManager.gsxx.data.baseInfo.REGORG_CN.equals(null)||(DataManager.gsxx.data.baseInfo.REGORG_CN).equals("")){
-                c_djjg.setText("暂无信息");
+                c_djjg.setText(" ");
             }else{
                 c_djjg.setText(DataManager.gsxx.data.baseInfo.REGORG_CN);//登记机关
             }
@@ -599,7 +606,7 @@ public class DetailsContentActivity extends BaseActivity {
             myGridViewp.setAdapter(adapterzy123);
             myGridViewp.setSelector(new ColorDrawable(Color.TRANSPARENT));
         }else{
-            c_people.setVisibility(View.VISIBLE);
+            c_gudong_null.setVisibility(View.VISIBLE);
             myGridViewp.setVisibility(View.GONE);
         }
         myGridViewp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -656,7 +663,7 @@ public class DetailsContentActivity extends BaseActivity {
             myGridViewZY.setAdapter(adapterzy);
             myGridViewZY.setSelector(new ColorDrawable(Color.TRANSPARENT));
         }else{
-            c_Cpeople.setVisibility(View.VISIBLE);
+            c_people_null.setVisibility(View.VISIBLE);
             myGridViewZY.setVisibility(View.GONE);
         }
         /**
@@ -666,7 +673,7 @@ public class DetailsContentActivity extends BaseActivity {
             FeiZhiAdapter hcadapter2=new FeiZhiAdapter(DetailsContentActivity.this, DataManager.gsxx.data.annualReportsInfo);
             myGridViewZYfz.setAdapter(hcadapter2);
         }else{
-            c_impPeoc_fzjgple.setVisibility(View.VISIBLE);
+            c_fzjg_null.setVisibility(View.VISIBLE);
             myGridViewZYfz.setVisibility(View.GONE);
         }
 
@@ -742,7 +749,7 @@ public class DetailsContentActivity extends BaseActivity {
             GSmylist.setAdapter(adapter1);
         }else{
             GSmylist.setVisibility(View.GONE);
-            c_GS.setVisibility(View.VISIBLE);
+            c_GS_null.setVisibility(View.VISIBLE);
         }
 
     }
@@ -769,10 +776,33 @@ public class DetailsContentActivity extends BaseActivity {
                 adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                c_daimatit.setText("注册号：");
-                c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
+//                c_daimatit.setText("注册号：");
+//                c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
                 c_nametit.setText("名称：");
                 c_addresstit.setText("住所：");
+
+                c_djjg_tit.setText("组成形成：");
+                try{
+                    if(DataManager.gsxx.data.baseInfo.COMPFORM_CN==null|| DataManager.gsxx.data.baseInfo.COMPFORM_CN.equals(null)||(DataManager.gsxx.data.baseInfo.COMPFORM_CN).equals("")){
+                        c_djjg.setText(" ");
+                    }else{
+                        c_djjg.setText(DataManager.gsxx.data.baseInfo.COMPFORM_CN);
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+
+                c_state_tit.setText("登记机关：");
+                try{
+                    if(DataManager.gsxx.data.baseInfo.REGORG_CN==null|| DataManager.gsxx.data.baseInfo.REGORG_CN.equals(null)||(DataManager.gsxx.data.baseInfo.REGORG_CN).equals("")){
+                        c_state.setText(" ");
+                    }else{
+                        c_state.setText(DataManager.gsxx.data.baseInfo.REGORG_CN);//登记机关
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 c_tab2.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
                 c_tab5.setVisibility(View.GONE);
@@ -787,9 +817,9 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridViewZY.setVisibility(View.GONE);
                 myGridViewZYfz.setVisibility(View.GONE);
 
-                c_people.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
-                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
+                c_fzjg_null.setVisibility(View.GONE);
 
             }
 
@@ -818,10 +848,10 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
                 /**
                  * 投资人
                  */
@@ -840,7 +870,7 @@ public class DetailsContentActivity extends BaseActivity {
                     myGridViewp.setAdapter(adapterzy123);
                     myGridViewp.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 }else{
-                    c_people.setVisibility(View.VISIBLE);
+                    c_gudong_null.setVisibility(View.VISIBLE);
                     myGridViewp.setVisibility(View.GONE);
                 }
 
@@ -863,23 +893,22 @@ public class DetailsContentActivity extends BaseActivity {
                 c_nametit.setText("名称：");
                 c_addresstit.setText("住所：");
                 c_limoney.setVisibility(View.VISIBLE);
-                c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP.substring(0, DataManager.gsxx.data.baseInfo.REGCAP.indexOf("."))+"万元"+DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
-
+                c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP+ "万元" + DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
 
                 c_tab2.setVisibility(View.GONE);
                 c_tv2.setVisibility(View.GONE);
                 myGridViewp.setVisibility(View.GONE);
-                c_people.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
                 c_stateLin.setVisibility(View.GONE);
                 c_tab3.setText("成员名册");
                 c_tv3.setText("成员名册");
                 c_tab5.setVisibility(View.GONE);
                 c_tv5.setVisibility(View.GONE);
                 myGridViewZYfz.setVisibility(View.GONE);
-                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_fzjg_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
                 /**
                  * 成员名册
                  */
@@ -894,10 +923,10 @@ public class DetailsContentActivity extends BaseActivity {
                     adapterzy = new MyGridZYAdapter(DetailsContentActivity.this, arrayszy2, null);
                     myGridViewZY.setAdapter(adapterzy);
                     myGridViewZY.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                    c_Cpeople.setVisibility(View.GONE);
+                    c_people_null.setVisibility(View.GONE);
                     myGridViewZY.setVisibility(View.VISIBLE);
                 }else{
-                    c_Cpeople.setVisibility(View.VISIBLE);
+                    c_people_null.setVisibility(View.VISIBLE);
                     myGridViewZY.setVisibility(View.GONE);
                 }
 
@@ -929,7 +958,7 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
             }
             /**
              *  合伙企业分支机构——企业类型455%
@@ -954,18 +983,18 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab2.setVisibility(View.GONE);
                 c_tv2.setVisibility(View.GONE);
                 myGridViewp.setVisibility(View.GONE);
-                c_people.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
                 c_tab5.setVisibility(View.GONE);
                 c_tv5.setVisibility(View.GONE);
                 myGridViewZYfz.setVisibility(View.GONE);
-                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_fzjg_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
             }
             /**
              *  内资非公司企业法人
@@ -979,14 +1008,14 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
                 c_tab5.setVisibility(View.GONE);
                 c_tv5.setVisibility(View.GONE);
                 myGridViewZYfz.setVisibility(View.GONE);
-                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_fzjg_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
             }
 
 
@@ -1016,11 +1045,11 @@ public class DetailsContentActivity extends BaseActivity {
                 c_nametit.setText("名称：");
                 c_addresstit.setText("主要经营场所：");
                 c_stateLin.setVisibility(View.GONE);
-                c_people.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
             }
             /**
              *  中外合作非法人企业
@@ -1043,14 +1072,14 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab2.setVisibility(View.GONE);
                 c_tv2.setVisibility(View.GONE);
                 myGridViewp.setVisibility(View.GONE);
-                c_people.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
                 c_tab5.setText("各方合作");
                 c_tv5.setText("各方合作");
                 c_nametit.setText("名称：");
@@ -1058,13 +1087,19 @@ public class DetailsContentActivity extends BaseActivity {
                 c_stateLin.setVisibility(View.GONE);
                 List<String> list1=new ArrayList<>();
                 List<String> list2=new ArrayList<>();
-                for(int i = 0; i< DataManager.gsxx.data.partnersInfo.size(); i++){
-                    list1.add(DataManager.gsxx.data.partnersInfo.get(i).INV);
-                    list2.add("");
+                if((DataManager.gsxx.data.partnersInfo)!=null && (DataManager.gsxx.data.partnersInfo).size()>0){
+                    for(int i = 0; i< DataManager.gsxx.data.partnersInfo.size(); i++){
+                        list1.add(DataManager.gsxx.data.partnersInfo.get(i).INV);
+                        list2.add("");
+                    }
+                    gfhzAdapter hcadapter2=new gfhzAdapter(DetailsContentActivity.this,list1,list2);
+                    myGridViewZYfz.setVisibility(View.VISIBLE);
+                    c_fzjg_null.setVisibility(View.GONE);
+                    myGridViewZYfz.setAdapter(hcadapter2);
+                }else{
+                    c_fzjg_null.setVisibility(View.VISIBLE);
+                    myGridViewZYfz.setVisibility(View.GONE);
                 }
-                gfhzAdapter hcadapter2=new gfhzAdapter(DetailsContentActivity.this,list1,list2);
-                myGridViewZYfz.setVisibility(View.VISIBLE);
-                myGridViewZYfz.setAdapter(hcadapter2);
             }
             /**
              *  内资公司法人——企业类型1%
@@ -1120,25 +1155,25 @@ public class DetailsContentActivity extends BaseActivity {
                 c_tab2.setVisibility(View.GONE);
                 c_tv2.setVisibility(View.GONE);
                 myGridViewp.setVisibility(View.GONE);
-                c_people.setVisibility(View.GONE);
+                c_gudong_null.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
-                c_Cpeople.setVisibility(View.GONE);
+                c_people_null.setVisibility(View.GONE);
                 c_tab5.setVisibility(View.GONE);
                 c_tv5.setVisibility(View.GONE);
                 myGridViewZYfz.setVisibility(View.GONE);
-                c_impPeoc_fzjgple.setVisibility(View.GONE);
+                c_fzjg_null.setVisibility(View.GONE);
                 c_tab6.setVisibility(View.GONE);
                 c_tv6.setVisibility(View.GONE);
-                c_qsuan.setVisibility(View.GONE);
+                c_qsuan_null.setVisibility(View.GONE);
                 if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,2).indexOf("43") != -1)){
                     c_daimatit.setText("注册号：");
                     try{
                         if(DataManager.gsxx.data.baseInfo.REGNO!=null&&!DataManager.gsxx.data.baseInfo.REGNO.equals(null)&&!(DataManager.gsxx.data.baseInfo.REGNO).equals("")){
                             c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);//
                         }else{
-                            c_daima.setText("暂无信息");
+                            c_daima.setText(" ");
                         }
                     }catch(Exception e){
                         e.printStackTrace();
@@ -1160,16 +1195,16 @@ public class DetailsContentActivity extends BaseActivity {
         TextView tsd_renjiao_fanshi= (TextView) view.findViewById(R.id.tsd_renjiao_fanshi);
         tsd_renjiao_fanshi.setText("认缴出资方式："+DataManager.gsxx.data.partnersInfo.get(i).SUBCONFORM);
         TextView tsd_renjiao_money= (TextView) view.findViewById(R.id.tsd_renjiao_money);
-        tsd_renjiao_money.setText("认缴出资额(万元)："+DataManager.gsxx.data.partnersInfo.get(i).SUBCONAMUSD);
+        tsd_renjiao_money.setText("认缴出资额(万元)："+DataManager.gsxx.data.partnersInfo.get(i).SUBCONAM);
         TextView tsd_renjiao_time= (TextView) view.findViewById(R.id.tsd_renjiao_time);
         tsd_renjiao_time.setText("认缴出资日期："+DataManager.gsxx.data.partnersInfo.get(i).CONDATE);
 
         TextView tsd_shijiao_fanshi= (TextView) view.findViewById(R.id.tsd_shijiao_fanshi);
-        tsd_shijiao_fanshi.setText("实缴出资方式："+DataManager.gsxx.data.partnersInfo.get(i).ACCONAM);
+        tsd_shijiao_fanshi.setText("实缴出资方式："+DataManager.gsxx.data.partnersInfo.get(i).SUBCONFORM);
         TextView tsd_shijiao_money= (TextView) view.findViewById(R.id.tsd_shijiao_money);
-        tsd_shijiao_money.setText("实缴出资额(万元)："+DataManager.gsxx.data.partnersInfo.get(i).ACCONAMUSD);
+        tsd_shijiao_money.setText("实缴出资额(万元)："+DataManager.gsxx.data.partnersInfo.get(i).ACCONAM);
         TextView tsd_shijiao_time= (TextView) view.findViewById(R.id.tsd_shijiao_time);
-        tsd_shijiao_time.setText("实缴额(万元)实缴出资日期：******");
+        tsd_shijiao_time.setText("实缴额(万元)实缴出资日期："+DataManager.gsxx.data.partnersInfo.get(i).CONDATE);
 
         new AlertDialog.Builder(DetailsContentActivity.this)
                 .setTitle("股东及出资")

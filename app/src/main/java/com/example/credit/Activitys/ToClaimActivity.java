@@ -202,6 +202,8 @@ public class ToClaimActivity extends BaseActivity implements OnItemLongClickList
             b_topname.setText("企业认领");
         }else{
             b_topname.setText("企业认领信息修改");
+            int num1=300-DataManager.NewClaimDilsList.data.claimInfo.get(0).REMARK.length();
+            claim_details_num.setText("您还可以输入"+num1+"个字");
             claim_emils.setText(DataManager.NewClaimDilsList.data.claimInfo.get(0).EMAIL);
             claim_phone.setText(DataManager.NewClaimDilsList.data.claimInfo.get(0).TEL);
             claim_details.setText(DataManager.NewClaimDilsList.data.claimInfo.get(0).REMARK);
@@ -383,7 +385,7 @@ public class ToClaimActivity extends BaseActivity implements OnItemLongClickList
                     }
                     break;
                 case R.id.claim_fj:
-                    if(myList.size()<=9){
+                    if(myList.size()<9){
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }else{

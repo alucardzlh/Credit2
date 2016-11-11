@@ -283,7 +283,7 @@ public class MyhttpCallBack implements HttpCallBack {
 ////                    CompanyDetailsActivity.handler.sendEmptyMessage(4);
 //                    break;
                 case 0x005://出质信息
-                    String jstring5 = (String) response.get();
+                    jsonString = (String) response.get();
                     DataManager.pledgeMarList = gson.fromJson(jsonString, DataManager.pledgeMar.class);
 
                     if (DataManager.pledgeMarList.data.pledgeInfo != null && DataManager.pledgeMarList.data.pledgeInfo.size() > 0) {

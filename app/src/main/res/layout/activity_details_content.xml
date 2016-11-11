@@ -346,6 +346,7 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/c_djjg_tit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="登记机关："
@@ -377,6 +378,7 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/c_state_tit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="登记状态："
@@ -415,7 +417,7 @@
                         android:layout_marginRight="10dp"
                         android:numColumns="2" />
                     <LinearLayout
-                        android:id="@+id/c_people"
+                        android:id="@+id/c_gudong_null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -458,7 +460,7 @@
                         android:layout_marginRight="10dp"
                         android:numColumns="2" />
                     <LinearLayout
-                        android:id="@+id/c_Cpeople"
+                        android:id="@+id/c_people_null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -504,7 +506,7 @@
                         android:divider="#00000000"
                         android:listSelector="#00000000" />
                     <LinearLayout
-                        android:id="@+id/c_GS"
+                        android:id="@+id/c_GS_null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -549,7 +551,7 @@
                         android:listSelector="#00000000" />
 
                     <LinearLayout
-                        android:id="@+id/c_fzjg"
+                        android:id="@+id/c_fzjg_null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -593,7 +595,7 @@
                         android:listSelector="#00000000" />
 
                     <LinearLayout
-                        android:id="@+id/c_qsuan"
+                        android:id="@+id/c_qsuan_null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

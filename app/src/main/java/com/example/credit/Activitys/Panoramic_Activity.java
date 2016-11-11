@@ -45,7 +45,7 @@ public class Panoramic_Activity extends BaseActivity {
         setContentView(R.layout.activity_panoramic);
         wd=new WaitDialog(this);
         Intent in = getIntent();
-        KeyNo = "KeyNo="+in.getStringExtra("KeyNo")+"&";
+        KeyNo = "?KeyNo="+in.getStringExtra("KeyNo")+"&";
         deviceId = "deviceId="+in.getStringExtra("deviceId")+"&";
         priptype ="priptype=" +in.getStringExtra("priptype")+"&";
         regno = "regno="+in.getStringExtra("regnore")+"&";

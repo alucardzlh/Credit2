@@ -72,33 +72,58 @@ public class MyGridAdapter41 extends BaseAdapter {
 		TextView tv1 = BaseViewHolder.get(convertView, R.id.tbv);
 		switch (arrays1[position]){
 			case "证照到期":
-				for(int i=0;i<DataManager.AlertInfoS.data.licenseExpires.size();i++){
+				if(DataManager.AlertInfoS.data.licenseExpires !=null && DataManager.AlertInfoS.data.licenseExpires.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.licenseExpires.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.licenseExpires.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
+
 				break;
 			case "证照过期":
-				for(int i=0;i<DataManager.AlertInfoS.data.licenseExpired.size();i++){
+				if(DataManager.AlertInfoS.data.licenseExpired !=null && DataManager.AlertInfoS.data.licenseExpired.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.licenseExpired.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.licenseExpired.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
 				break;
 			case "责令改正":
-				for(int i=0;i<DataManager.AlertInfoS.data.orderCorrection.size();i++){
+				if(DataManager.AlertInfoS.data.orderCorrection !=null && DataManager.AlertInfoS.data.orderCorrection.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.orderCorrection.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.orderCorrection.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
 				break;
 			case "欠贷信息":
-				for(int i=0;i<DataManager.AlertInfoS.data.oweLoan.size();i++){
+				if(DataManager.AlertInfoS.data.oweLoan !=null && DataManager.AlertInfoS.data.oweLoan.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.oweLoan.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.oweLoan.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
 				break;
 			case "欠税信息":
-				for(int i=0;i<DataManager.AlertInfoS.data.oweTax.size();i++){
+				if(DataManager.AlertInfoS.data.oweTax !=null && DataManager.AlertInfoS.data.oweTax.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.oweTax.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.oweTax.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
 				break;
 			case "欠薪信息":
-				for(int i=0;i<DataManager.AlertInfoS.data.oweSalary.size();i++){
+				if(DataManager.AlertInfoS.data.oweSalary !=null && DataManager.AlertInfoS.data.oweSalary.size()>0){
+					for(int i=0;i<DataManager.AlertInfoS.data.oweSalary.size();i++){
 						tv1.setText(arrays1[position]+"("+ DataManager.AlertInfoS.data.oweSalary.size()+")");
+					}
+				}else{
+					tv1.setText(arrays1[position]+"(0)");
 				}
 				break;
 		}

@@ -201,13 +201,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         LoginStatus = csp.getLoginStatus();
         ViewUtils.inject(this);
 
-        try{
-            if(csp.getWelcome().equals("")){
+        try {
+            if (csp.getWelcome().equals("")) {
                 WelcomeActivity.wd.dismiss();
                 csp.putWelcome("yes");
             }
-        }catch (NullPointerException e){
-            WelcomeActivity.wd.dismiss();
+        } catch (NullPointerException e) {
+            if (null != WelcomeActivity.wd && WelcomeActivity.wd.equals(null)) {
+                WelcomeActivity.wd.dismiss();
+            }
             csp.putWelcome("yes");
         }
         ad = new WaitDialog(this);
@@ -252,7 +254,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
                         if (!cn.getClassName().equals(MycomplaintsListActivity.class.getName())) {
                             pd.dismiss();
-                            startActivity(new Intent(MainActivity.this, MycomplaintsListActivity.class).putExtra("falgg",1));
+                            startActivity(new Intent(MainActivity.this, MycomplaintsListActivity.class).putExtra("falgg", 1));
                         } else {
                             MycomplaintsListActivity.handler.sendEmptyMessage(2);
                         }
@@ -266,26 +268,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         startActivity(i6);
                         break;
                     case 7:
-                        NewClaimTxT.setVisibility(View.GONE);
-                        adapter1 = new NewClaimListAdapter(MainActivity.this, MyCliamList, 0);
-                        NewClaimListview.setAdapter(adapter1);
-                        adapter1.notifyDataSetChanged();
-                        NewClaimListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                ad.show();
-                                String KeyNo = MyCliamList.get(position).PRIPID;//市场主体身份代码
-                                String token = MD5.MD5s(KeyNo + (new Build()).MODEL);
-                                GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
-                                requst.add("KeyNo", KeyNo);
-                                requst.add("token", token);
-                                requst.add("deviceId", (new Build()).MODEL);
-                                requst.add("memberId", csp.getID());
+                        try {
+                            if (MyCliamList != null && MyCliamList.size() > 0) {
+                                NewClaimTxT.setVisibility(View.GONE);
+                                adapter1 = new NewClaimListAdapter(MainActivity.this, MyCliamList, 0);
+                                NewClaimListview.setAdapter(adapter1);
+                                adapter1.notifyDataSetChanged();
+                                NewClaimListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        ad.show();
+                                        String KeyNo = MyCliamList.get(position).PRIPID;//市场主体身份代码
+                                        String token = MD5.MD5s(KeyNo + (new Build()).MODEL);
+                                        GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
+                                        requst.add("KeyNo", KeyNo);
+                                        requst.add("token", token);
+                                        requst.add("deviceId", (new Build()).MODEL);
+                                        requst.add("memberId", csp.getID());
 //                                requst.add("regnore", MyCliamList.get(position).REGNORE);
 //                                requst.add("priptype", MyCliamList.get(position).ENTTYPE);
-                                CallServer.getInstance().add(MainActivity.this, requst, MyhttpCallBack.getInstance(), 0x026, true, false, true);
+                                        CallServer.getInstance().add(MainActivity.this, requst, MyhttpCallBack.getInstance(), 0x026, true, false, true);
+                                    }
+                                });
+                            } else {//没有数据
+                                cliam_more.setVisibility(View.GONE);
+                                btmore.setVisibility(View.GONE);
+                                NewClaimTxT.setVisibility(View.VISIBLE);
                             }
-                        });
+                        } catch (Exception e) {
+                            cliam_more.setVisibility(View.GONE);
+                            btmore.setVisibility(View.GONE);
+                            NewClaimTxT.setVisibility(View.VISIBLE);
+                        }
                         break;
                     case 8://跳公司详情
                         ad.dismiss();
@@ -319,14 +333,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                          */
                         GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                         request121.add("token", MD5.MD5s(DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID + (new Build()).MODEL));
-                        request121.add("deviceId",  (new Build()).MODEL);
+                        request121.add("deviceId", (new Build()).MODEL);
                         request121.add("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
-                        if(csp.getLoginStatus()){
+                        if (csp.getLoginStatus()) {
                             request121.add("memberId", csp.getID());
                         }
-                        request121.add("regnore",DataManager.QJiugongGList.data.baseInfo.get(0).REGNO );
-                        request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME );
-                        request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE );
+                        request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                        request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                        request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
                         CallServer.getInstance().add(MainActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
                         ad.dismiss();
                         Intent i23 = new Intent(MainActivity.this, CompanyDetailsActivity.class);
@@ -335,12 +349,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
                         break;
                     case 13:
-                        Intent ie= new Intent(MainActivity.this, Main_SearchActivity.class);
+                        Intent ie = new Intent(MainActivity.this, Main_SearchActivity.class);
                         ie.putExtra("hit", "商标");
                         startActivity(ie);
                         break;
                     case 14:
-                        Intent iw =new Intent(MainActivity.this, Main_SearchActivity.class);
+                        Intent iw = new Intent(MainActivity.this, Main_SearchActivity.class);
                         iw.putExtra("hit", "专利");
                         startActivity(iw);
                         break;
@@ -366,7 +380,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         try {
             FileUtil.imgscache();//缓存轮播图base64
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -404,14 +418,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         });
-        try{
+        try {
             if (DataManager.MyNewAppS.message != null && DataManager.MyNewAppS.message.equals("success")) {
                 if (DataManager.MyNewAppS.data.VersionInfo != null & DataManager.MyNewAppS.data.VersionInfo.size() > 0) {
-                    for(int i=0;i<DataManager.MyNewAppS.data.VersionInfo.size();i++){
-                        if(DataManager.MyNewAppS.data.VersionInfo.get(i).TYPE.equals("1")){
+                    for (int i = 0; i < DataManager.MyNewAppS.data.VersionInfo.size(); i++) {
+                        if (DataManager.MyNewAppS.data.VersionInfo.get(i).TYPE.equals("1")) {
                             if (DataManager.MyNewAppS.data.VersionInfo.get(i).VERSION != null & DataManager.MyNewAppS.data.VersionInfo.get(i).PATH != null) {
                                 double in = Double.parseDouble(DataManager.MyNewAppS.data.VersionInfo.get(i).VERSION);//最新版本号
-                                double isn = Double.parseDouble( FileUtil.getVersionName(MainActivity.this));//当前版本号
+                                double isn = Double.parseDouble(FileUtil.getVersionName(MainActivity.this));//当前版本号
                                 if (isn < in) {
                                     dialog.show();
                                 }
@@ -420,31 +434,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     }
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         /**
          * 轮播
          */
         mImageCycleView = (ImageCycleView) findViewById(R.id.icv_topView);
         List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
         try {
-            if(WelcomeActivity.red){
-                if (DataManager.LBimgS.data.carouselInfo != null && DataManager.LBimgS.data.carouselInfo.size()>0) {
+            if (WelcomeActivity.red) {
+                if (DataManager.LBimgS.data.carouselInfo != null && DataManager.LBimgS.data.carouselInfo.size() > 0) {
                     //SD卡图片资源
                     for (int i = 0; i < DataManager.LBimgS.data.carouselInfo.size(); i++) {
 
-                        list.add(new ImageCycleView.ImageInfo(new File(Environment.getExternalStorageDirectory(),"/Credit/cache/CarouselImg" + i + ".jpg"),"",""));
+                        list.add(new ImageCycleView.ImageInfo(new File(Environment.getExternalStorageDirectory(), "/Credit/cache/CarouselImg" + i + ".jpg"), "", ""));
 //                list.add(new ImageCycleView.ImageInfo(base64Util.stringtoBitmap(DataManager.LBimgS.data.carouselInfo.get(i).PATH),"",""));
                     }
-                }else{
+                } else {
                     //res图片资源
                     list.add(new ImageCycleView.ImageInfo(R.drawable.banner1, "", ""));
                     list.add(new ImageCycleView.ImageInfo(R.drawable.banner2, "", ""));
                 }
-            }else{
+            } else {
                 list.add(new ImageCycleView.ImageInfo(R.drawable.banner1, "", ""));
                 list.add(new ImageCycleView.ImageInfo(R.drawable.banner2, "", ""));
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             list.add(new ImageCycleView.ImageInfo(R.drawable.banner1, "", ""));
             list.add(new ImageCycleView.ImageInfo(R.drawable.banner2, "", ""));
         }
@@ -495,6 +510,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+        DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener(){
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode== KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        };
+        dialog.setOnKeyListener(keylistener);
+        dialog.setCancelable(false);
 
         MyGridAdaptermMain adapters = new MyGridAdaptermMain(MainActivity.this, imgs1, txt);
         myGridViewMain.setAdapter(adapters);
@@ -502,7 +531,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         myGridViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GsonUtil Request=null;
+                GsonUtil Request = null;
                 switch (position) {
                     case 0://商标查询
                         Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
@@ -555,15 +584,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 /**
  * 最新认领 开始只调用一次
  */
-        try{
-            if (MyCliamList !=null && MyCliamList.size()>0) {
+        try {
+            if (MyCliamList != null && MyCliamList.size() > 0) {
                 handler.sendEmptyMessage(7);
             } else {//没有数据
                 cliam_more.setVisibility(View.GONE);
                 btmore.setVisibility(View.GONE);
                 NewClaimTxT.setVisibility(View.VISIBLE);
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+            cliam_more.setVisibility(View.GONE);
+            btmore.setVisibility(View.GONE);
+            NewClaimTxT.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initView() {
@@ -594,21 +627,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         set.setOnClickListener(listener);
         cliam_more.setOnClickListener(listener);
         myScrollView = (MyScrollView) findViewById(R.id.myScrollView1);
-        myScrollView.setOnScrollListener(new MyScrollView.OnScrollListener(){
+        myScrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
             /**
              * 监听滚动Y值变化，通过addView和removeView来实现悬停效果
              * @param scrollY
              */
             @Override
             public void onScroll(int scrollY) {
-                if(scrollY >= searchLayoutTop){
-                    if (topSearch.getParent()!=search_top2) {
+                if (scrollY >= searchLayoutTop) {
+                    if (topSearch.getParent() != search_top2) {
                         search_top1.removeView(topSearch);
                         search_top2.setVisibility(View.VISIBLE);
                         search_top2.addView(topSearch);
                     }
-                }else{
-                    if (topSearch.getParent()!=search_top1) {
+                } else {
+                    if (topSearch.getParent() != search_top1) {
                         search_top2.removeView(topSearch);
                         search_top2.setVisibility(View.GONE);
                         search_top1.addView(topSearch);
@@ -651,7 +684,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         GsonUtil MyconcernRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.MYFAVORITE, RequestMethod.GET);
                         MyconcernRuerst.add("deviceId", (new Build()).MODEL);
                         MyconcernRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));
-                        MyconcernRuerst.add("KeyNo","");
+                        MyconcernRuerst.add("KeyNo", "");
                         MyconcernRuerst.add("memberId", csp.getID());
                         CallServer.getInstance().add(MainActivity.this, MyconcernRuerst, MyhttpCallBack.getInstance(), 0x103, true, false, true);
                     }
@@ -719,17 +752,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         com.example.credit.Utils.Toast.show("请先登录账号");
                     } else {
                         GsonUtil ComplaintsRuerst1 = new GsonUtil(URLconstant.URLINSER + URLconstant.DISROOM, RequestMethod.GET);
-                        ComplaintsRuerst1.add("token", MD5.MD5s("" + ( new Build()).MODEL));
-                        ComplaintsRuerst1.add("KeyNo","");
-                        ComplaintsRuerst1.add("deviceId",new Build().MODEL);
-                        ComplaintsRuerst1.add("pname","行业");
+                        ComplaintsRuerst1.add("token", MD5.MD5s("" + (new Build()).MODEL));
+                        ComplaintsRuerst1.add("KeyNo", "");
+                        ComplaintsRuerst1.add("deviceId", new Build().MODEL);
+                        ComplaintsRuerst1.add("pname", "行业");
                         CallServer.getInstance().add(MainActivity.this, ComplaintsRuerst1, MyhttpCallBack.getInstance(), 0x100001, true, false, true);
 
                         GsonUtil ComplaintsRuerst2 = new GsonUtil(URLconstant.URLINSER + URLconstant.DISROOM, RequestMethod.GET);
-                        ComplaintsRuerst2.add("token", MD5.MD5s("" + ( new Build()).MODEL));
-                        ComplaintsRuerst2.add("KeyNo","");
-                        ComplaintsRuerst2.add("deviceId",new Build().MODEL);
-                        ComplaintsRuerst2.add("pname","学历");
+                        ComplaintsRuerst2.add("token", MD5.MD5s("" + (new Build()).MODEL));
+                        ComplaintsRuerst2.add("KeyNo", "");
+                        ComplaintsRuerst2.add("deviceId", new Build().MODEL);
+                        ComplaintsRuerst2.add("pname", "学历");
                         CallServer.getInstance().add(MainActivity.this, ComplaintsRuerst2, MyhttpCallBack.getInstance(), 0x100002, true, false, true);
 
                         Intent is = new Intent(MainActivity.this, UserSetActivity.class);
@@ -801,12 +834,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             ActivityCompat.requestPermissions(MainActivity.this, new
                                             String[]{Manifest.permission.CAMERA},
                                     1);
-                        }else{
+                        } else {
                             startActivityForResult(new Intent(MainActivity.this, CaptureActivity.class), 0);
                         }
                         return;
 
-                    }else{
+                    } else {
                         startActivityForResult(new Intent(MainActivity.this, CaptureActivity.class), 0);
                     }
 
@@ -822,18 +855,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public static void getComplaint(Activity activity) {
         GsonUtil ComplaintsRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCOMPLAIN, RequestMethod.GET);
-        ComplaintsRuerst.add("token",MD5.MD5s("" + ( new Build()).MODEL));//csp.getID()
+        ComplaintsRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));//csp.getID()
         ComplaintsRuerst.add("KeyNo", "");
         ComplaintsRuerst.add("deviceId", new Build().MODEL);
         ComplaintsRuerst.add("memberId", csp.getID());
-        ComplaintsRuerst.add("pageIndex",1);
-        ComplaintsRuerst.add("pageSize",10);
+        ComplaintsRuerst.add("pageIndex", 1);
+        ComplaintsRuerst.add("pageSize", 10);
         CallServer.getInstance().add(activity, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x997, true, false, true);
     }
+
     public void toggleMenu(View view) {
         mLeftMenu.toggle();
         settogg();
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void settogg() {
         if (SlidingMenu.isOpen) {
@@ -842,6 +877,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             togg.setBackground(getResources().getDrawable(R.drawable.gang3));
         }
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -855,6 +891,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
     private void isLogin() {
         LoginStatus = csp.getLoginStatus();
         if (LoginStatus) {//若当前状态为登录
@@ -876,6 +913,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             headimg.setImageResource(R.mipmap.me_icon02);
         }
     }
+
     public static void loginImg(String base64) {
         if (base64 != null) {
             try {
@@ -892,15 +930,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }
+
     @Override
     protected void onRestart() {
         isLogin();
-        GsonUtil NewClaimRequest=new GsonUtil(URLconstant.URLINSER + URLconstant.NEWCLAIM, RequestMethod.GET);//最新认领
+        GsonUtil NewClaimRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.NEWCLAIM, RequestMethod.GET);//最新认领
         NewClaimRequest.add("KeyNo", "");
         NewClaimRequest.add("token", MD5.MD5s("" + new Build().MODEL));
         NewClaimRequest.add("deviceId", new Build().MODEL);
         NewClaimRequest.add("status", 1);
-        CallServer.getInstance().add(MainActivity.this,NewClaimRequest, MyhttpCallBack.getInstance(),0x1133,true,false,true);
+        CallServer.getInstance().add(MainActivity.this, NewClaimRequest, MyhttpCallBack.getInstance(), 0x1133, true, false, true);
         super.onRestart();
     }
 
@@ -914,7 +953,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 GsonUtil request = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCITY, RequestMethod.GET);
                 CallServer.getInstance().add(this, request, MyhttpCallBack.getInstance(), NOHTTP_CITY, true, false, true);//获取城市
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             GsonUtil request = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCITY, RequestMethod.GET);
             CallServer.getInstance().add(this, request, MyhttpCallBack.getInstance(), NOHTTP_CITY, true, false, true);//获取城市
@@ -923,6 +962,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         CallServer.getInstance().add(this, new GsonUtil(URLconstant.URLINSER + URLconstant.GETINDUSTRY, RequestMethod.GET), MyhttpCallBack.getInstance(), NOHTTP_INDUSTRY, true, false, true);//获取行业
 
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
@@ -939,6 +979,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     /**
      * 横滑置顶监听器
      */
@@ -961,53 +1002,55 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus){
+        if (hasFocus) {
             searchLayoutTop = togg.getBottom();//获取ImageView的顶部位置
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
-        if (requestCode == 0){// 从二维码照相机回主页
+        if (requestCode == 0) {// 从二维码照相机回主页
             if (resultCode == RESULT_OK) {
 
                 Bundle bundle = intent.getExtras();
                 // 显示扫描到的内容
-                String str=bundle.getString("SCAN_RESULT");
-                if(str.indexOf("KeyNo") != -1){
+                String str = bundle.getString("SCAN_RESULT");
+                if (str.indexOf("KeyNo") != -1) {
                     TestShow(str);
-                }else{
+                } else {
                     com.example.credit.Utils.Toast.show("此二维码不是公司二维码");
                 }
 
             }
             if (resultCode == 300) {
                 Bundle bundle = intent.getExtras();
-                String str=bundle.getString("result");
-                if(str.indexOf("KeyNo") != -1){
+                String str = bundle.getString("result");
+                if (str.indexOf("KeyNo") != -1) {
                     TestShow(str);
-                }else{
+                } else {
                     com.example.credit.Utils.Toast.show("此二维码不是公司二维码");
                 }
             }
         }
     }
-//    http://m.qi315.cn:8282/zhirong.credith5/baseinfo/GoToIndex.do?KeyNo=141000011988038869&localType=1&provinceCode=41
-    public void TestShow(String str){
-        String[] sr=str.split("\\?");
-        String[] strA=sr[1].split("&");
-        String token="";
-        String KeyNo="";
-        String provinceCode="";
-        for(int i=0;i<strA.length;i++){
+
+    //    http://m.qi315.cn:8282/zhirong.credith5/baseinfo/GoToIndex.do?KeyNo=141000011988038869&localType=1&provinceCode=41
+    public void TestShow(String str) {
+        String[] sr = str.split("\\?");
+        String[] strA = sr[1].split("&");
+        String token = "";
+        String KeyNo = "";
+        String provinceCode = "";
+        for (int i = 0; i < strA.length; i++) {
             if ((strA[i]).indexOf("KeyNo") != -1) {
-                String[] strB=strA[i].split("=");
-                KeyNo=strB[1];
+                String[] strB = strA[i].split("=");
+                KeyNo = strB[1];
                 token = MD5.MD5s(strB[1] + (new Build()).MODEL);
             }
             if ((strA[i]).indexOf("provinceCode") != -1) {
-                String[] strB=strA[i].split("=");
-                provinceCode=strB[1];
+                String[] strB = strA[i].split("=");
+                provinceCode = strB[1];
             }
         }
         GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
@@ -1015,7 +1058,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         requst.add("token", token);
         requst.add("provinceCode", provinceCode);
         requst.add("deviceId", (new Build()).MODEL);
-        if(csp.getLoginStatus()){
+        if (csp.getLoginStatus()) {
             requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
         }
         CallServer.getInstance().add(MainActivity.this, requst, MyhttpCallBack.getInstance(), 0x027, true, false, true);
@@ -1023,8 +1066,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode==1){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){     //拒绝 =0
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {     //拒绝 =0
                 startActivityForResult(new Intent(MainActivity.this, CaptureActivity.class), 0);
             } else {
                 com.example.credit.Utils.Toast.show("权限获取失败!");

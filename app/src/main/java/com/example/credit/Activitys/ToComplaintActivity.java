@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemLongClickListener;
+
 import com.example.credit.Adapters.MyGridAdapterClaim;
 import com.example.credit.Adapters.MyGridAdapterClaim2;
 import com.example.credit.Entitys.DataManager;
@@ -85,20 +86,20 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
     CreditSharePreferences csp;
     private static final String IMAGE_FILE_NAME = "avatarImage.jpg";// 图片文件名称
-    private static String urlpath;			// 图片本地路径
-    private static final int REQUESTCODE_PICK = 0;		// 相册选图标记
-    private static final int REQUESTCODE_TAKE = 1;		// 相机拍照标记
-    private static final int REQUESTCODE_CUTTING = 2;	// 图片裁切标记
+    private static String urlpath;            // 图片本地路径
+    private static final int REQUESTCODE_PICK = 0;        // 相册选图标记
+    private static final int REQUESTCODE_TAKE = 1;        // 相机拍照标记
+    private static final int REQUESTCODE_CUTTING = 2;    // 图片裁切标记
     AlertDialog.Builder builder;
     public Drawable[] imgs1; //九张图片数组
-    int i=0;
-    int position,type;
-    List<String> listStirng=new ArrayList<>();
+    int i = 0;
+    int position, type;
+    List<String> listStirng = new ArrayList<>();
     public static Handler handler;
     public static ProgressDialog pd;
     MyGridAdapterClaim2 adapters;
-    ArrayList<Drawable> myList=new ArrayList<Drawable>();
-    boolean isShowDelete=false;//是否长按状态
+    ArrayList<Drawable> myList = new ArrayList<Drawable>();
+    boolean isShowDelete = false;//是否长按状态
 
 
     String str;
@@ -107,6 +108,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
     AlertDialog.Builder builder2;
     public static AlertDialog dialog2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,10 +136,10 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
     }
 
     private void initHandler() {
-        handler=new Handler(){
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                switch (msg.what){
+                switch (msg.what) {
                     case 0://提交图片成功成功
                         pd.dismiss();
                         dialog2.show();
@@ -147,7 +149,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                         /**
                          * 删除图片改容器
                          */
-                        for(int i=0;i<myList.size();i++){
+                        for (int i = 0; i < myList.size(); i++) {
                             BitmapDrawable bd = (BitmapDrawable) myList.get(i);
                             Bitmap bitmap = bd.getBitmap();
                             try {
@@ -157,41 +159,42 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                                 baos.close();
                                 byte[] buffer = baos.toByteArray();
                                 //将图片的字节流数据加密成base64字符输出
-                                String pic=Base64.encodeToString(buffer, 0, buffer.length,Base64.DEFAULT);
+                                String pic = Base64.encodeToString(buffer, 0, buffer.length, Base64.DEFAULT);
                                 listStirng.add(pic);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                        if(imgs1!=null||listStirng.size()>0){
-                            String attchmentDescS="";
-                            String attchmentSteamS="";
+                        if (imgs1 != null || listStirng.size() > 0) {
+                            String attchmentDescS = "";
+                            String attchmentSteamS = "";
                             /*for(int j=0;j<i;j++){
                                 attchmentDescS=attchmentDescS+"pic@";
                             }*/
-                            for(int c=0;c<listStirng.size();c++){
-                                attchmentDescS=attchmentDescS+"pic@";//
-                                attchmentSteamS=attchmentSteamS+listStirng.get(c)+"@";
+                            for (int c = 0; c < listStirng.size(); c++) {
+                                attchmentDescS = attchmentDescS + "pic@";//
+                                attchmentSteamS = attchmentSteamS + listStirng.get(c) + "@";
                             }
 
                             GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.ENCLOSUREURL, RequestMethod.POST);
-                            request14.add("deviceId",(new Build()).MODEL);
-                            request14.add("token",MD5.MD5s(DataManager.toComplain.data.relationId+ (new Build()).MODEL));
-                            request14.add("KeyNo",DataManager.toComplain.data.relationId);
-                            request14.add("memberId",csp.getID());
-                            request14.add("type","投诉");
-                            request14.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
-                            request14.add("attchmentDesc",attchmentDescS);//图片描述内容，多文件以@符号分割
-                            request14.add("attchmentSteam",attchmentSteamS);//base64码内容，多文件以@符号分割
+                            request14.add("deviceId", (new Build()).MODEL);
+                            request14.add("token", MD5.MD5s(DataManager.toComplain.data.relationId + (new Build()).MODEL));
+                            request14.add("KeyNo", DataManager.toComplain.data.relationId);
+                            request14.add("memberId", csp.getID());
+                            request14.add("type", "投诉");
+                            request14.add("provinceCode", CompanyDetailsActivity.ProvinceCode);
+                            request14.add("attchmentDesc", attchmentDescS);//图片描述内容，多文件以@符号分割
+                            request14.add("attchmentSteam", attchmentSteamS);//base64码内容，多文件以@符号分割
                             CallServer.getInstance().add(ToComplaintActivity.this, request14, MyhttpCallBack.getInstance(), 0x992, true, false, true);
-                        }else{
+                        } else {
                             pd.dismiss();
                             Toast.show("提交投诉成功,等待处理.");
                             MycomplaintsListActivity.handler.sendEmptyMessage(4);//通知投诉listview更新数据源重新适配UI
                             finish();
                         }
                         break;
-                    default:break;
+                    default:
+                        break;
                 }
                 super.handleMessage(msg);
             }
@@ -199,7 +202,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
     }
 
     public void init() {
-        pd=new ProgressDialog(ToComplaintActivity.this);
+        pd = new ProgressDialog(ToComplaintActivity.this);
         pd.setMessage("提交数据中，请稍后...");
         pd.setCancelable(false);
         b_topname.setText("我要投诉");
@@ -211,13 +214,13 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                 overridePendingTransition(R.anim.finish_tran_one, R.anim.finish_tran_two);
             }
         });
-        builder= new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择上传方式：");
         final String[] items = new String[]{"本地", "拍照"};
         builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                imgs1=new Drawable[9];
+                imgs1 = new Drawable[9];
                 switch (items[which]) {
                     case "本地":
                         Intent pickIntent = new Intent(Intent.ACTION_PICK, null);
@@ -270,12 +273,12 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // TODO Auto-generated method stub
-                ImageView bg= (ImageView)view.findViewById(R.id.ivc_items);
-                if(!isShowDelete){
+                ImageView bg = (ImageView) view.findViewById(R.id.ivc_items);
+                if (!isShowDelete) {
                     onThumbnailClick(bg);
-                }else{
+                } else {
                     delete(position);
-                    adapters=new MyGridAdapterClaim2(ToComplaintActivity.this,myList);
+                    adapters = new MyGridAdapterClaim2(ToComplaintActivity.this, myList);
                     adapters.setIsShowDelete(isShowDelete);
                     myGridViewtc.setAdapter(adapters);
                     adapters.notifyDataSetChanged();
@@ -283,7 +286,6 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
             }
         });
-
 
 
 //        /**
@@ -319,16 +321,9 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 //        }
 
 
-
-
-
         com_submit.setOnClickListener(listener);
         com_photo.setOnClickListener(listener);
         com_et_type.setOnClickListener(listener);
-
-
-
-
 
 
     }
@@ -343,10 +338,12 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                         Toast.show("投诉主题不能为空!");
                     } else if (com_et_conten.getText().toString().trim().equals("")) {
                         Toast.show("投诉内容不能为空!");
-                    } else if (com_et_conten.getText().toString().trim().length() < 15) {
-                        Toast.show("投诉内容不能少于15字!");
+                    } else if (com_et_conten.getText().toString().trim().length() < 5) {
+                        Toast.show("投诉内容不能少于5字!");
                     } else if (com_et_title.getText().toString().trim().length() < 3) {
                         Toast.show("投诉主题不能少于3个字!");
+                    } else if (com_et_type.getText().length()<1) {
+                        Toast.show("请选择投诉类型！");
                     } else {
                         pd.show();
                         GsonUtil ComRequerst = new GsonUtil(URLconstant.URLINSER + URLconstant.SEVECOM, RequestMethod.GET);
@@ -354,25 +351,29 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                         ComRequerst.add("KeyNo", DataManager.QJiugongGList.data.allCount.get(0).Pripid);
                         ComRequerst.add("deviceId", new Build().MODEL);
                         ComRequerst.add("memberId", csp.getID());
-                        ComRequerst.add("provinceCode",CompanyDetailsActivity.ProvinceCode);
+                        ComRequerst.add("provinceCode", CompanyDetailsActivity.ProvinceCode);
                         ComRequerst.add("title", com_et_title.getText().toString());
                         ComRequerst.add("remark", com_et_conten.getText().toString());
-                        ComRequerst.add("typeId",list1.get(strid));//投诉类型
+                        ComRequerst.add("typeId", list1.get(strid));//投诉类型
                         CallServer.getInstance().add(ToComplaintActivity.this, ComRequerst, MyhttpCallBack.getInstance(), 0x993, true, false, true);
                     }
                     break;
                 case R.id.com_photo:
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    if (myList.size() < 9) {
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        Toast.show("已达到附件上传最大限制");
+                    }
                     break;
                 case R.id.com_et_type:
-                    List<String> list2=new ArrayList<>();//name
-                    for(DataManager.disRoomMar.DataBean.DictionarieInfoBean dis:DataManager.disRoomMarList.data.dictionarieInfo){
+                    List<String> list2 = new ArrayList<>();//name
+                    for (DataManager.disRoomMar.DataBean.DictionarieInfoBean dis : DataManager.disRoomMarList.data.dictionarieInfo) {
                         list1.add(dis.ZD_ID);
                         list2.add(dis.NAME);
                     }
                     String[] tlist2 = list2.toArray(new String[list2.size()]);
-                    showSelect("类型",tlist2,com_et_type);
+                    showSelect("类型", tlist2, com_et_type);
                     break;
                 default:
                     break;
@@ -405,12 +406,12 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
         }
 
 
-
-
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     /**
      * 裁剪图片方法实现
+     *
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
@@ -473,13 +474,14 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
     /**
      * 执行删除方法
+     *
      * @param position
      */
     private void delete(int position) {
         ArrayList<Drawable> newList = new ArrayList<Drawable>();
-        if(isShowDelete){
+        if (isShowDelete) {
             myList.remove(position);
-            isShowDelete=false;
+            isShowDelete = false;
         }
         newList.addAll(myList);
         myList.clear();
@@ -492,7 +494,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
         if (isShowDelete) {
             isShowDelete = false;
         } else {
-            isShowDelete=true;
+            isShowDelete = true;
             adapters.setIsShowDelete(isShowDelete);
         }
         adapters.setIsShowDelete(isShowDelete);
@@ -502,6 +504,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
     /**
      * 显示大图
+     *
      * @param img
      */
     public void onThumbnailClick(ImageView img) {
@@ -522,6 +525,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
 
     /**
      * 获取图片
+     *
      * @param img
      * @return
      */
@@ -535,11 +539,11 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if(isShowDelete){
-                isShowDelete=false;
+            if (isShowDelete) {
+                isShowDelete = false;
                 adapters.setIsShowDelete(isShowDelete);
                 return false;
-            }else{
+            } else {
                 finish();
                 overridePendingTransition(R.anim.finish_tran_one, R.anim.finish_tran_two);
             }
@@ -550,19 +554,19 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
     /**
      * 上下滑动选择器
      */
-    public void showSelect(final String title, final String[] con,final TextView tv){
+    public void showSelect(final String title, final String[] con, final TextView tv) {
         View outerView = LayoutInflater.from(ToComplaintActivity.this).inflate(R.layout.wheel_view, null);
         WheelView wv = (WheelView) outerView.findViewById(R.id.wheel_view_wv);
         wv.setOffset(2);
         wv.setItems(Arrays.asList(con));
-        str ="";
-        strid =0;
+        str = "";
+        strid = 0;
         wv.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
 //                Toast.show("[Dialog]selectedIndex: " + selectedIndex + ", item: " + item);
-                str =item;
-                strid=selectedIndex-2;
+                str = item;
+                strid = selectedIndex - 2;
             }
         });
 
@@ -572,10 +576,10 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(!str.equals("")){
-                            tv.setText(str +"");
-                        }else{
-                            tv.setText(con[0]+"");
+                        if (!str.equals("")) {
+                            tv.setText(str + "");
+                        } else {
+                            tv.setText(con[0] + "");
                         }
                     }
                 })

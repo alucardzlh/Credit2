@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:text="认缴额(元)"/>
+                android:text="认缴额(万元)"/>
             <TextView
                 android:id="@+id/money"
                 android:layout_marginTop="5dp"
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:text="实缴额(元)"/>
+                android:text="实缴额(万元)"/>
             <TextView
                 android:id="@+id/true_money"
                 android:layout_marginTop="5dp"
@@ -147,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:text="认缴出资额(元)"
+                    android:text="认缴出资额(万元)"
                     />
                 <TextView
                     android:id="@+id/subscribed"
@@ -258,7 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
-                    android:text="实缴出资额(元)"
+                    android:text="实缴出资额(万元)"
                     />
                 <TextView
                     android:id="@+id/paid"
@@ -304,7 +304,8 @@
 
 
     </LinearLayout>
-<RelativeLayout
+
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"

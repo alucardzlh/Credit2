@@ -248,6 +248,7 @@ public class DataManager {
              * 登记信息
              */
             public static class BaseInfoBean {
+                public String COMPFORM_CN;
                 public String REGCAPCUR_CN;//注册资本(金)币种（中文名称）
                 public String D_ADDTIME;
                 public String REGCAP;//注册资本(金)
@@ -843,13 +844,14 @@ public class DataManager {
             }
 
             public static class EimpermitInfoBean {//企业自主公示许可信息
-                public String SUGREVREASON;
-                public String INVALIDDATE;
-                public String CANDATE;
-                public String EQUPLECANREA;
-                public String REVDATE;
-                public String INVALIDREA;
-                public String TYPE;
+                public String SUGREVREASON;//被吊销原因
+                public String INVALIDDATE;////其它无效日期
+                public String CANDATE;//注销日期
+                public String EQUPLECANREA;//注销原因
+                public String REVDATE;//被吊销日期
+                public String INVALIDREA;//其他无效原因
+                public String TYPE;//状态代码
+
                 public String LICNAME_CN;//许可文件名称
                 public String LICNO;//许可文件编号
                 public String VALFROM;//有效期起
@@ -861,14 +863,14 @@ public class DataManager {
             }
 
             public static class ShareholdersandInvestmentBean {//企业自主公示股东及出资信息
-                public String ACCONFORM_CN;//实缴出资方式CN
+                public String ACCONFORM_CN;//实缴出资方式CN*
                 public String ACCONDATE;//实缴出资日期
                 public String ACCONFORM;//实缴出资方式
-                public String CONDATE;
+                public String CONDATE;//认缴出资日期*
                 public String CONFORM;//认缴出资方式
                 public String SUBCONAM;//认缴额=认缴出资额
                 public String ACCONAM;//实缴额=实缴出资额
-                public String CONFORM_CN;//认缴出资方式CN
+                public String CONFORM_CN;//认缴出资方式CN=实缴出质方式
                 public String INV;//股东 发起人名字
                 public String PUBLICDATE;//认缴出资日期=公示日期
                 public String ACPUBLICDATE;//实缴公示日期

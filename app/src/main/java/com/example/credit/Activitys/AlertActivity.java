@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.credit.Adapters.MyGridAdapter4;
 import com.example.credit.Adapters.MyGridAdapter41;
 import com.example.credit.R;
+import com.example.credit.Utils.Toast;
 import com.example.credit.Views.MyGridView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -38,7 +39,7 @@ public class AlertActivity extends BaseActivity {
         setContentView(R.layout.activity_alert);
         ViewUtils.inject(this);
         Intent i=getIntent();
-         Tname=i.getStringExtra("Tname");
+        Tname=i.getStringExtra("Tname");
         init();
     }
 
@@ -58,12 +59,17 @@ public class AlertActivity extends BaseActivity {
         myGridView4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int index, long id) {
-                      TextView temp= (TextView) view.findViewById(R.id.tbv);
-                        Intent i1=new Intent(AlertActivity.this,Alert_CActivity.class);
-                        i1.putExtra("position",index);
-                        i1.putExtra("key",temp.getText().toString().substring(0,4));
-                        startActivity(i1);
-                        overridePendingTransition(R.anim.start_tran_one,R.anim.start_tran_two);
+                TextView temp= (TextView) view.findViewById(R.id.tbv);
+                if(!temp.getText().toString().substring(5,6).equals("0")){
+                    Intent i1=new Intent(AlertActivity.this,Alert_CActivity.class);
+                    i1.putExtra("position",index);
+                    i1.putExtra("key",temp.getText().toString().substring(0,4));
+                    startActivity(i1);
+                    overridePendingTransition(R.anim.start_tran_one,R.anim.start_tran_two);
+                }else{
+                    Toast.show("暂无数据!");
+                }
+
             }
         });
     }

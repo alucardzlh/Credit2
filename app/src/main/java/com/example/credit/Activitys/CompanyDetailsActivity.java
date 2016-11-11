@@ -991,11 +991,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                 regcap.setText("无万元");
             } else {
                 try{
-                    if(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.indexOf(".") !=-1){
-                        regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.substring(0, DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.indexOf(".")) + "万元");
-                    }else{
-                        regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
-                    }
+                    regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
                 }catch (Exception e){}
             }
 

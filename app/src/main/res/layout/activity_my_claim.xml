@@ -17,7 +17,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:onClick="@null"
-        android:divider="#00000000"
+        android:divider="@color/touming"
         android:focusable="true"
         android:scrollbars="none"
         android:focusableInTouchMode="true"

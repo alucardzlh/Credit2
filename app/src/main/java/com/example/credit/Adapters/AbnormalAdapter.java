@@ -56,7 +56,7 @@ public class AbnormalAdapter extends BaseAdapter {
         vh.a_tv0.setText(position+1+"");
         vh.a_tv1.setText(list.get(position).SPECAUSE_CN);
         vh.a_tv2.setText(list.get(position).ABNTIME);
-        vh.a_tv6.setText(list.get(position).DECORG);
+        vh.a_tv6.setText(list.get(position).DECORG_CN);
         vh.a_tv3.setText(list.get(position).REMEXCPRES_CN);
         vh.a_tv4.setText(list.get(position).REMDATE);
         vh.a_tv5.setText(list.get(position).REDECORG_CN);

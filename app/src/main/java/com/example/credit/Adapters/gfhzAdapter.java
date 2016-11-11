@@ -57,7 +57,7 @@ public class gfhzAdapter extends BaseAdapter {
             vh = (ViewHolder) view.getTag();
         }
 
-        vh.fz_tv1CXH.setText(position+"");
+        vh.fz_tv1CXH.setText(position+1+"");
         vh.fz_tv1CX1.setText("合作各方的名称：");
         vh.fz_tv1CX2.setText("责任形式：");
         vh.hitem_tv1C.setText(list1.get(position));

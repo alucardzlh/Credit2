@@ -50,7 +50,7 @@
                     android:singleLine="true"
                     android:maxLength="20"
                     android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.@"
-                    android:background="@drawable/bg_edittext"
+                    android:background="@drawable/bg_edittext_black"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
 
@@ -86,7 +86,7 @@
                     android:singleLine="true"
                     android:gravity="center_vertical"
                     android:hint="请输入手机号"
-                    android:background="@drawable/bg_edittext"
+                    android:background="@drawable/bg_edittext_black"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
 

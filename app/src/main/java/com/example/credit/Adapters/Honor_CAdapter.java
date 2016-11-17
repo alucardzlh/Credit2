@@ -54,7 +54,7 @@ public class Honor_CAdapter extends BaseAdapter {
         vh.hitem_tv1C.setText(list.get(position).HONORNAME);
         vh.hitem_tv2C.setText(list.get(position).HONORCONTENT);
         vh.hitem_tv3C.setText(list.get(position).ORGAN);
-        vh.hitem_tv4C.setText(list.get(position).C_UNIQUE_CODE);
+        vh.hitem_tv4C.setText(list.get(position).ANNUAL);
         return view;
     }
 

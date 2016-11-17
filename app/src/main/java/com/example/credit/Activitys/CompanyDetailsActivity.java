@@ -434,14 +434,12 @@ public class CompanyDetailsActivity extends BaseActivity {
                 case 2://荣誉信息
                     if (!DataManager.QJiugongGList.data.allCount.get(0).HonorCount.equals("0")) {
                         waitDialog.show();
-                        String KeyNoR = DataManager.QJiugongGList.data.baseInfo.get(0).REGNO;//注册号
-                        String tokenr = MD5.MD5s(KeyNoR + model);//token 由 设备ID+/注册号 MD5生成
                         GsonUtil request2 = new GsonUtil(URLconstant.URLINSER + URLconstant.HONORURL, RequestMethod.GET);
-                        request2.add("token", tokenr);
+                        request2.add("token", token);
                         request2.add("deviceId", model);
                         request2.add("provinceCode", ProvinceCode);
                         request2.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request2.add("KeyNo", KeyNoR);
+                        request2.add("KeyNo", KeyNo);
                         if (!DataManager.String2.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
                             GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
                             request121.add("token", token);

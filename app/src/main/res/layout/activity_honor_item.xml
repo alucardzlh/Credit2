@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="荣誉名称"
+            android:text="荣誉名称："
             android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="荣誉类型"
+            android:text="荣誉类型："
             android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="授予机关"
+            android:text="授予机关："
             android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="说明"
+            android:text="授予时间："
             android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />

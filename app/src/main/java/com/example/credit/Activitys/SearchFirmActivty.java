@@ -185,9 +185,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 try{
-                                    if(listsea.get(position).REGSTATE_CN.equals("注销")){
-                                        Toast.show("该企业已注销!!!");
-                                    }else{
                                         po = position;
                                         pd.show();
                                         String KeyNo =listsea.get(position).PRIPID;//市场主体身份代码
@@ -223,7 +220,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                             CallServer.getInstance().add(SearchFirmActivty.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
                                         }
                                         CallServer.getInstance().add(SearchFirmActivty.this, requst, MyhttpCallBack.getInstance(), 0x024, true, false, true);
-                                    }
                                 }catch (Exception e){
 //                                    Toast.show("暂无信息!");
                                 }

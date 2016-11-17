@@ -427,7 +427,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 double in = Double.parseDouble(DataManager.MyNewAppS.data.VersionInfo.get(i).VERSION);//最新版本号
                                 double isn = Double.parseDouble(FileUtil.getVersionName(MainActivity.this));//当前版本号
                                 if (isn < in) {
-                                    dialog.show();
+//                                    dialog.show();
                                 }
                             }
                         }
@@ -899,12 +899,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
             login.setText("退出登录");
             if (!csp.getICONSTEAM().equals("")) {
 //                headimg.setImageBitmap(base64Util.stringtoBitmap(csp.getICONSTEAM()));
-
-                File file = new File(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg");
-                if (file.exists()) {//获取本地图片路径是否存在
-                    headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 100, 100));
-                    // Picasso.with(MainActivity.this).load(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 80, 80)).into(headimg);
-
+                try{
+                    File file = new File(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg");
+                    if (file.exists()) {//获取本地图片路径是否存在
+//                        if(csp.getICONSTEAM().substring(11,12).equals("p")){
+//                            headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.png", 100, 100));
+//                        }else{
+                            headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 100, 100));
+//                        }
+//                        headimg.setImageBitmap(Environment.getExternalStorageDirectory()+ "/Credit/loginImg.png");
+//                        headimg.setImageBitmap(base64Util.stringtoBitmap(csp.getICONSTEAM()));
+                        // Picasso.with(MainActivity.this).load(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 80, 80)).into(headimg);
+                    }
+                }catch (Exception e){
                 }
             }
         } else {//若当前状态未未登录

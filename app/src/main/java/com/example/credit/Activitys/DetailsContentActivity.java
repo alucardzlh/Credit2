@@ -130,6 +130,20 @@ public class DetailsContentActivity extends BaseActivity {
     @ViewInject(R.id.c_djjg)
     TextView c_djjg;//登记机关
 
+    @ViewInject(R.id.c_newType1)
+    LinearLayout c_newType1;//吊销凭证/注销原因
+    @ViewInject(R.id.c_new_type1_tit)
+    TextView c_new_type1_tit;//
+    @ViewInject(R.id.c_new_type1)
+    TextView c_new_type1;//
+
+    @ViewInject(R.id.c_newType2)
+    LinearLayout c_newType2;//吊销/注销时间
+    @ViewInject(R.id.c_new_type2_tit)
+    TextView c_new_type2_tit;//登记机关tit
+    @ViewInject(R.id.c_new_type2)
+    TextView c_new_type2;//
+
     @ViewInject(R.id.myGridViewp)
     MyGridView myGridViewp;//投资列表
 
@@ -580,6 +594,28 @@ public class DetailsContentActivity extends BaseActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
+        /**
+         * 根据公司状态 判断是否是 吊销 或 注销  来显示 [吊销凭证/注销原因]  [吊销/注销时间]
+         */
+        try{
+            if(DataManager.gsxx.data.baseInfo.REGSTATE_CN.equals("吊销")){
+                c_newType1.setVisibility(View.VISIBLE);
+                c_new_type1_tit.setText("吊销凭证：");
+                c_new_type1.setText(DataManager.gsxx.data.baseInfo.REVOKEORCANCEL+"");
+                c_newType2.setVisibility(View.VISIBLE);
+                c_new_type2_tit.setText("吊销时间：");
+                c_new_type2.setText(DataManager.gsxx.data.baseInfo.REVOKEORCANCELTIME+"");
+            }else if(DataManager.gsxx.data.baseInfo.REGSTATE_CN.equals("注销")){
+                c_newType1.setVisibility(View.VISIBLE);
+                c_new_type1_tit.setText("注销原因：");
+                c_new_type1.setText(DataManager.gsxx.data.baseInfo.REVOKEORCANCEL+"");
+                c_newType2.setVisibility(View.VISIBLE);
+                c_new_type2_tit.setText("注销时间：");
+                c_new_type2.setText(DataManager.gsxx.data.baseInfo.REVOKEORCANCELTIME+"");
+            }
+
+        }catch (Exception e){}
+
 
         /**
          * 股东及出资

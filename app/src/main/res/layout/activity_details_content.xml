@@ -396,6 +396,72 @@
                             android:textColor="#57737D"
                             android:textSize="@dimen/ctest_size" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/c_newType1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/c_new_type1_tit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="吊销凭证/注销原因："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_new_type1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="开业"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/c_newType2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/details_con_bg"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp"
+                        android:visibility="gone"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/c_new_type2_tit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="吊销/注销时间："
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/ctitle_size" />
+
+                        <TextView
+                            android:id="@+id/c_new_type2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="开业"
+                            android:textStyle="bold"
+                            android:textColor="#57737D"
+                            android:textSize="@dimen/ctest_size" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/c_tv2"

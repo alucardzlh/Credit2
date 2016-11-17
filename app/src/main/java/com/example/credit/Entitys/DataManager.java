@@ -248,6 +248,9 @@ public class DataManager {
              * 登记信息
              */
             public static class BaseInfoBean {
+                public String REVOKEORCANCELTIME;//吊销/注销时间
+                public String REVOKEORCANCEL;//吊销凭证/注销原因
+
                 public String COMPFORM_CN;
                 public String REGCAPCUR_CN;//注册资本(金)币种（中文名称）
                 public String D_ADDTIME;

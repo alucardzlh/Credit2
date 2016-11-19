@@ -437,6 +437,8 @@ public class DataManager {
                 public String VALFROM;//有效期自
                 public String LICANTH;//许可机关
                 public String VALTO;//有效期止
+                public String LICITEM;//许可内容   zlh追加
+                public String CERTIFICATE_DATE;//发证日期    zlh追加
 
             }
 

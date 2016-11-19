@@ -87,8 +87,8 @@ public class Admin_Adapter extends BaseAdapter {
             vh.aname.setText(temp_admin.LICNAME);
             vh.ano.setText(temp_admin.VALFROM+"至"+temp_admin.VALTO);
             vh.atime.setText(temp_admin.LICANTH);
-            vh.aoffice.setText("");
-            vh.adate.setText("");
+            vh.aoffice.setText(temp_admin.LICITEM);
+            vh.adate.setText(temp_admin.CERTIFICATE_DATE);
         }
 
         if(otherList!=null) {

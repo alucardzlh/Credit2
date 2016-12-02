@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
 import com.example.credit.Views.BaseViewHolder;
 
@@ -61,6 +62,7 @@ public class MyGridAdapter3 extends BaseAdapter {
 		}
 		TextView tv1 = BaseViewHolder.get(convertView, R.id.tv3_item1);
 		TextView tv2 = BaseViewHolder.get(convertView, R.id.tv3_item2);
+
 		tv1.setText(arrays1[position]);
 		tv2.setText(arrays2[position]);
 		return convertView;

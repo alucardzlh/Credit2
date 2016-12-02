@@ -791,7 +791,9 @@ public class DetailsContentActivity extends BaseActivity {
     }
 
     /**
+     *
      * 根据企业类型修改
+     *
      */
     public void enttypeShow(){
 //        Toast.show((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE));
@@ -1178,11 +1180,19 @@ public class DetailsContentActivity extends BaseActivity {
                 lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
                 lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
                 lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
-                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
-                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
-                int size = lt.size();
-                arrays4 = lt.toArray(new String[size]);
-                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                //                农民专业合作社分支机构——企业类型9200
+                if(((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9200") != -1)) {
+                    String[] arrays3s = {"负责人：", "登记状态：","成立日期：","核准日期："};
+                    int size = lt.size();
+                    arrays4 = lt.toArray(new String[size]);
+                    adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3s, arrays4);
+                }else{
+                    lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                    lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                    int size = lt.size();
+                    arrays4 = lt.toArray(new String[size]);
+                    adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+                }
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 c_nametit.setText("名称：");

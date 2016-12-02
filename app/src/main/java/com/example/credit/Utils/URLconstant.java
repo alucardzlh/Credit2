@@ -75,6 +75,11 @@ public class URLconstant {
     public static final String GETINDUSTRY = "baseinfoInterface/queryindustry.do";//获取行业门类      没参    返回  data    industry：  EC_VALUE：行业门类代码   EC_NAME：行业门类名字
 
 
+    public static final String GETPATENTTYPE = "patentInterface/queryPatentClass.do";//获取专利分类接口数据
+
+    public static final String GETBRANDTYPE = "brandInterface/queryBrandClass.do";//获取商标分类接口数据Brand
+
+
     /**
      * 自主业务
      */

@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.credit.Adapters.HomeAdapter;
 import com.example.credit.Adapters.SearchAutoData;
 import com.example.credit.Adapters.SearchListAdapter2;
 import com.example.credit.Entitys.DataManager;
@@ -45,6 +50,9 @@ import com.example.credit.Utils.PullToRefreshView;
 import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.CustomPopupwindow;
+import com.example.credit.Views.DividerItemDecoration;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.yolanda.nohttp.RequestMethod;
 
 import java.util.ArrayList;
@@ -68,7 +76,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     ImageView search_bt;
     public static boolean city_check = false, capital_check = false, time_check = false, industry_check = false, tab_frim_check = false, tab_illegal_check = false, tab_shareholder_check = false;
     FrameLayout his_sra;
-    LinearLayout select,arrowBack,searchContent;
+    LinearLayout select, arrowBack, searchContent;
     ListView menu_one;
     public static ListView menu_two;
     ViewGroup.MarginLayoutParams oneLayoutParams;
@@ -104,32 +112,39 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     public static int type;
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
-    int t=2;
-    int sum=1;
+    int t = 2;
+    int sum = 1;
     int por;
     Intent i;
     String Setname;
     String hit;
     String Urls;//地址集合
-    LinearLayout typeSD,search_list_layout;
+    LinearLayout typeSD, search_list_layout;
 
     private int number = 10; // 每次获取多少条数据
     private int maxpage; // 总共有多少页
     private boolean loadfinish = true; // 指示数据是否加载完成
     SearchListAdapter2 adapter2;
     View footer;
+
+    @ViewInject(R.id.recycler)
+    RecyclerView recycler;
+    private List<String> DataList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_firm_activity);
+        ViewUtils.inject(this);
         i = getIntent();
         type = i.getIntExtra("type", 0);
         initView();
         try {
-            if(DataManager.citysList.data.city !=null){
+            if (DataManager.citysList.data.city != null) {
                 initCityData();
             }
-        }catch (Exception E){}
+        } catch (Exception E) {
+        }
 
 
         search_bt = (ImageView) findViewById(R.id.search_bt);
@@ -142,38 +157,38 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         search_list_layout.setVisibility(View.VISIBLE);
                         falg = 2;//设置搜索结果时的默认值
                         pd.dismiss();
-                        Animation animation = (Animation)AnimationUtils.loadAnimation(SearchFirmActivty.this, R.anim.list_anim);
+                        Animation animation = (Animation) AnimationUtils.loadAnimation(SearchFirmActivty.this, R.anim.list_anim);
                         LayoutAnimationController lac = new LayoutAnimationController(animation);
-                        try{
-                            if(DataManager.searchListMore.data.Result!=null && DataManager.searchListMore.data.Result.size()>0){
+                        try {
+                            if (DataManager.searchListMore.data.Result != null && DataManager.searchListMore.data.Result.size() > 0) {
                                 if (search_list.getFooterViewsCount() > 0) { // 如果有底部视图
                                     search_list.removeFooterView(footer);
                                 }
                                 loadfinish = true; // 加载完成
-                                por=listsea.size()-1;
+                                por = listsea.size() - 1;
                                 t++;
-                                for(DataManager.search.DataBean.ResultBean r:DataManager.searchListMore.data.Result){
+                                for (DataManager.search.DataBean.ResultBean r : DataManager.searchListMore.data.Result) {
                                     listseaMore.add(r);
                                 }
                                 listsea.addAll(listseaMore);
                                 adapter2.notifyDataSetChanged();
 //                            por=listsea.size()-1;
-                            }else{
-                                if(DataManager.searchList.data.Result!=null && DataManager.searchList.data.Result.size()>0){
-                                    maxpage=Integer.parseInt(DataManager.searchList.data.Paging.TotalPage);//统计总共多少页
+                            } else {
+                                if (DataManager.searchList.data.Result != null && DataManager.searchList.data.Result.size() > 0) {
+                                    maxpage = Integer.parseInt(DataManager.searchList.data.Paging.TotalPage);//统计总共多少页
                                     search_list.setLayoutAnimation(lac);
                                     listsea = DataManager.searchList.data.Result;
-                                    android.widget.Toast.makeText(SearchFirmActivty.this, "已搜索到" + DataManager.searchList.data.Paging.TotalResult+ "条数据", android.widget.Toast.LENGTH_SHORT).show();
+                                    android.widget.Toast.makeText(SearchFirmActivty.this, "已搜索到" + DataManager.searchList.data.Paging.TotalResult + "条数据", android.widget.Toast.LENGTH_SHORT).show();
                                     adapter2 = new SearchListAdapter2(SearchFirmActivty.this, listsea);
                                     search_list.setAdapter(adapter2);
                                 }
                             }
-                        }catch (NullPointerException e){
-                            if(DataManager.searchList.data.Result!=null && DataManager.searchList.data.Result.size()>0){
-                                maxpage=Integer.parseInt(DataManager.searchList.data.Paging.TotalPage);//统计总共多少页
+                        } catch (NullPointerException e) {
+                            if (DataManager.searchList.data.Result != null && DataManager.searchList.data.Result.size() > 0) {
+                                maxpage = Integer.parseInt(DataManager.searchList.data.Paging.TotalPage);//统计总共多少页
                                 listsea = DataManager.searchList.data.Result;
                                 search_list.setLayoutAnimation(lac);
-                                android.widget.Toast.makeText(SearchFirmActivty.this, "已搜索到" + DataManager.searchList.data.Paging.TotalResult+ "条数据", android.widget.Toast.LENGTH_SHORT).show();
+                                android.widget.Toast.makeText(SearchFirmActivty.this, "已搜索到" + DataManager.searchList.data.Paging.TotalResult + "条数据", android.widget.Toast.LENGTH_SHORT).show();
                                 adapter2 = new SearchListAdapter2(SearchFirmActivty.this, listsea);
                                 search_list.setAdapter(adapter2);
                             }
@@ -184,43 +199,43 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                try{
-                                        po = position;
-                                        pd.show();
-                                        String KeyNo =listsea.get(position).PRIPID;//市场主体身份代码
-                                        String token = MD5.MD5s(KeyNo + model);
-                                        /**
-                                         * 获取九宫格数据
-                                         */
-                                        GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
-                                        requst.setReadTimeout(30000);
-                                        requst.setConnectTimeout(30000);
-                                        requst.add("KeyNo", KeyNo);
-                                        requst.add("token", token);
-                                        requst.add("provinceCode",listsea.get(position).C_PROVINCE);
-                                        requst.add("deviceId", model);
-                                        if(csp.getLoginStatus()){
-                                            requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
+                                try {
+                                    po = position;
+                                    pd.show();
+                                    String KeyNo = listsea.get(position).PRIPID;//市场主体身份代码
+                                    String token = MD5.MD5s(KeyNo + model);
+                                    /**
+                                     * 获取九宫格数据
+                                     */
+                                    GsonUtil requst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETITEMNUM, RequestMethod.GET);
+                                    requst.setReadTimeout(30000);
+                                    requst.setConnectTimeout(30000);
+                                    requst.add("KeyNo", KeyNo);
+                                    requst.add("token", token);
+                                    requst.add("provinceCode", listsea.get(position).C_PROVINCE);
+                                    requst.add("deviceId", model);
+                                    if (csp.getLoginStatus()) {
+                                        requst.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
+                                    }
+                                    /**
+                                     * 记录公司浏览量
+                                     */
+                                    if (!DataManager.StringZero.equals(listsea.get(position).ENTNAME)) {
+                                        GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                        request121.add("token", token);
+                                        request121.add("deviceId", model);
+                                        request121.add("provinceCode", listsea.get(position).C_PROVINCE);
+                                        request121.add("KeyNo", KeyNo);
+                                        if (csp.getLoginStatus()) {
+                                            request121.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
                                         }
-                                        /**
-                                         * 记录公司浏览量
-                                         */
-                                        if(!DataManager.StringZero.equals(listsea.get(position).ENTNAME)) {
-                                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                                            request121.add("token", token);
-                                            request121.add("deviceId", model);
-                                            request121.add("provinceCode",listsea.get(position).C_PROVINCE);
-                                            request121.add("KeyNo", KeyNo);
-                                            if(csp.getLoginStatus()){
-                                                request121.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42
-                                            }
-                                            request121.add("regnore",listsea.get(position).REGNO );
-                                            request121.add("entname", listsea.get(position).ENTNAME );
-                                            request121.add("enttype", listsea.get(position).ENTTYPE );
-                                            CallServer.getInstance().add(SearchFirmActivty.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
-                                        }
-                                        CallServer.getInstance().add(SearchFirmActivty.this, requst, MyhttpCallBack.getInstance(), 0x024, true, false, true);
-                                }catch (Exception e){
+                                        request121.add("regnore", listsea.get(position).REGNO);
+                                        request121.add("entname", listsea.get(position).ENTNAME);
+                                        request121.add("enttype", listsea.get(position).ENTTYPE);
+                                        CallServer.getInstance().add(SearchFirmActivty.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                                    }
+                                    CallServer.getInstance().add(SearchFirmActivty.this, requst, MyhttpCallBack.getInstance(), 0x024, true, false, true);
+                                } catch (Exception e) {
 //                                    Toast.show("暂无信息!");
                                 }
                             }
@@ -230,18 +245,18 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         pd.dismiss();
 //                        DataManager.StringZero= DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME;
                         Intent i = new Intent(SearchFirmActivty.this, CompanyDetailsActivity.class);
-                        i.putExtra("position",po);
+                        i.putExtra("position", po);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
-                        cityindex=null;
-                        provinceindex=null;
-                        industryindex=null;
+                        cityindex = null;
+                        provinceindex = null;
+                        industryindex = null;
                         overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
                         break;
                     case 110:
-                        if(!searchEt.getText().toString().trim().equals("")){
+                        if (!searchEt.getText().toString().trim().equals("")) {
                             GETsearch();
-                        }else{
+                        } else {
                             Toast.show("搜索关键字不能为空!!!");
                         }
                         break;
@@ -333,9 +348,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {//捕获数组越界异常用于处理城市选择器的不限
                     select.setVisibility(View.GONE);
-                    if(!searchEt.getText().toString().trim().equals("")){
+                    if (!searchEt.getText().toString().trim().equals("")) {
                         GETsearch();
-                    }else{
+                    } else {
                         Toast.show("搜索关键字不能为空!!!");
                     }
                     if (his_sra.getVisibility() == View.GONE) {//当历史界面隐藏
@@ -368,9 +383,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         temp = (TextView) view.findViewById(R.id.menu_two_tv);
                         select.setVisibility(View.GONE);
                         //falg=2;
-                        if(!searchEt.getText().toString().trim().equals("")){
+                        if (!searchEt.getText().toString().trim().equals("")) {
                             GETsearch();
-                        }else{
+                        } else {
                             Toast.show("搜索关键字不能为空!!!");
                         }
                         if (his_sra.getVisibility() == View.GONE) {//当历史界面隐藏
@@ -415,9 +430,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
      * 初始化UI组建
      */
     private void initView() {
-        search_list_layout= (LinearLayout) findViewById(R.id.search_list_layout);
+        search_list_layout = (LinearLayout) findViewById(R.id.search_list_layout);
 
-        typeSD= (LinearLayout) findViewById(R.id.typeSD);
+        typeSD = (LinearLayout) findViewById(R.id.typeSD);
 
         builder = new AlertDialog.Builder(this);
         builder.setTitle("是否登录");
@@ -426,7 +441,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                startActivity(new Intent(SearchFirmActivty.this,LoginActivity.class));
+                startActivity(new Intent(SearchFirmActivty.this, LoginActivity.class));
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -496,9 +511,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
                     //处理事件
-                    if(!searchEt.getText().toString().trim().equals("")){
+                    if (!searchEt.getText().toString().trim().equals("")) {
                         GETsearch();
-                    }else{
+                    } else {
                         Toast.show("搜索关键字不能为空!!!");
                     }
                     return true;
@@ -548,26 +563,28 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         //根据type判断查询类型
         switch (type) {
             case 0:
-                Setname=i.getStringExtra("Setname");
-                if(!Setname.equals("")){
+                Setname = i.getStringExtra("Setname");
+                if (!Setname.equals("")) {
                     searchEt.setText(Setname);
                 }
                 searchEt.setHint("请输入企业名称");
-                Urls= URLconstant.URLINSER + URLconstant.SEARCHURL;
+                Urls = URLconstant.URLINSER + URLconstant.SEARCHURL;
                 break;
             case 1:
                 searchEt.setHint("请输入法人名称");
-                Urls= URLconstant.URLINSER + URLconstant.SEARCHURL;
+                Urls = URLconstant.URLINSER + URLconstant.SEARCHURL;
                 break;
             case 2:
                 searchEt.setHint("请输入品牌名称");
-                Urls= URLconstant.URLINSER + URLconstant.SEARCHURL;
+                Urls = URLconstant.URLINSER + URLconstant.SEARCHURL;
                 break;
             case 3:
                 searchEt.setHint("请输入失信名称");
-                Urls= URLconstant.URLINSER + URLconstant.SEARCHURL;
+                Urls = URLconstant.URLINSER + URLconstant.SEARCHURL;
                 break;
         }
+
+
 
     }
 
@@ -753,13 +770,14 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 
                         }
                         try {
-                            if(DataManager.HYDataList.data.industry !=null){
+                            if (DataManager.HYDataList.data.industry != null) {
                                 popupwindow = new CustomPopupwindow(SearchFirmActivty.this, null, DataManager.HYDataList.data.industry);
                             }
-                        }catch (Exception e){}
+                        } catch (Exception e) {
+                        }
 
                         popupwindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                        popupwindow.setHeight(getWindowManager().getDefaultDisplay().getHeight()/2);
+                        popupwindow.setHeight(getWindowManager().getDefaultDisplay().getHeight() / 2);
                         popupwindow.showAtDropDownLeft(v);
                         time_check = false;
                         city_check = false;
@@ -770,9 +788,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 
                 case R.id.search_bt://搜索按钮
                     select.setVisibility(View.GONE);
-                    if(!searchEt.getText().toString().trim().equals("")){
+                    if (!searchEt.getText().toString().trim().equals("")) {
                         GETsearch();
-                    }else{
+                    } else {
                         Toast.show("搜索关键字不能为空!!!");
                     }
                     break;
@@ -792,9 +810,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 case R.id.arrow_back:
                     finish();
                     overridePendingTransition(R.anim.finish_tran_one, R.anim.finish_tran_two);
-                    cityindex=null;
-                    provinceindex=null;
-                    industryindex=null;
+                    cityindex = null;
+                    provinceindex = null;
+                    industryindex = null;
                     break;
                 case R.id.tab_frim:
                     if (!tab_frim_check) {
@@ -856,9 +874,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(listsea.size()<=0){
+        if (listsea.size() <= 0) {
             return gDetector.onTouchEvent(event);
-        }else{
+        } else {
             return super.onTouchEvent(event);
         }
     }
@@ -886,6 +904,8 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         mTextView10.setOnClickListener(textbt);
         his_nullbt = (ImageView) findViewById(R.id.his_nullbt);
         his_nullbt.setOnClickListener(textbt);
+
+
     }
 
     /**
@@ -898,7 +918,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             String str = csp.getHistory();
             String[] strh = str.split(",");
             List<String> listh = new ArrayList<String>(Arrays.asList(strh));
+            DataManager.DataList=new ArrayList<>(Arrays.asList(strh));
             if (listh != null && listh.size() > 0) {
+
                 his_nullbt.setVisibility(View.VISIBLE);
                 for (int i = R.id.txt1; i <= R.id.txt10; i++) {
                     ((TextView) findViewById(i)).setText(getKeyword(listh));
@@ -1003,6 +1025,15 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 startAnimations2();
                 break;
         }
+        //if(this.DataList.size()==0){randomText();}
+
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+        recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL_LIST));
+        recycler.setNestedScrollingEnabled(false);
+        recycler.setAdapter(new HomeAdapter(this,DataManager.DataList));
+
+        //recycler.setItemAnimator(new DefaultItemAnimator());
+
     }
 
     private Random random = new Random();//随机数
@@ -1021,8 +1052,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         } else if (endX - beginX > minMove && Math.abs(velocityX) > minVelocity) {   //右滑
             startAnimations1();
             randomText();
-        } else
-        if (beginY - endY > minMove && Math.abs(velocityY) > minVelocity) {   //上滑
+        } else if (beginY - endY > minMove && Math.abs(velocityY) > minVelocity) {   //上滑
             startAnimations2();
             randomText();
         } else if (endY - beginY > minMove && Math.abs(velocityY) > minVelocity) {   //下滑
@@ -1159,9 +1189,9 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             request.add("deviceId", model);//设备ID
             request.add("token", Tks);//加密结果
             request.add("searchKey", Tname);//string搜索关键字
-            if (!csp.getLoginStatus()){
+            if (!csp.getLoginStatus()) {
                 request.add("memberId", "");
-            }else{
+            } else {
                 request.add("memberId", csp.getID());//记录用户ID
             }
             //根据type判断查询类型
@@ -1234,7 +1264,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         if (t <= Integer.parseInt(DataManager.searchList.data.Paging.TotalPage)) {
                             GsonUtil request = new GsonUtil(URLconstant.URLINSER + URLconstant.SEARCHURL, RequestMethod.GET);
                             request.setReadTimeout(50000);
-                            request.add("token",  MD5.MD5s(searchEt.getText().toString() + model));//加密结果
+                            request.add("token", MD5.MD5s(searchEt.getText().toString() + model));//加密结果
                             request.add("searchKey", searchEt.getText().toString());//string搜索关键字
                             request.add("deviceId", model);//设备ID
                             request.add("memberId", csp.getID());//86D9D7F53FCA45DD93E2D83DFCA0CB42  记录用户搜索关键字
@@ -1279,7 +1309,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                             CallServer.getInstance().add(SearchFirmActivty.this, request, MyhttpCallBack.getInstance(), 0x0221, true, false, true);
                             t++;
                             sum++;
-                        }else{
+                        } else {
                             Toast.show("没有更多数据了！");
                         }
                     }

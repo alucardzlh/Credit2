@@ -349,19 +349,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
                         break;
                     case 13:
+                        ad.dismiss();
                         Intent ie = new Intent(MainActivity.this, Main_SearchActivity.class);
                         ie.putExtra("hit", "商标");
                         startActivity(ie);
                         break;
                     case 14:
+                        ad.dismiss();
                         Intent iw = new Intent(MainActivity.this, Main_SearchActivity.class);
                         iw.putExtra("hit", "专利");
                         startActivity(iw);
-                        break;
-                    case 15:
-                        Intent ia1 = new Intent(MainActivity.this, Main_SearchActivity.class);
-                        ia1.putExtra("hit", "失信人");
-                        startActivity(ia1);
                         break;
                     default:
                         com.example.credit.Utils.Toast.show("数据正在赶来的路上...");
@@ -534,32 +531,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 GsonUtil Request = null;
                 switch (position) {
                     case 0://商标查询
-                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+                        ad.show();
+                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.GETBRANDTYPE, RequestMethod.GET);///商标分类
                         Request.add("token", MD5.MD5s("" + new Build().MODEL));
                         Request.add("KeyNo", "");
                         Request.add("deviceId", (new Build()).MODEL);
-                        Request.add("logType", 21);
-                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x211, true, false, true);
+                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x212, true, false, true);
                         break;
                     case 1://专利查询
-                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+                        ad.show();
+                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.GETPATENTTYPE, RequestMethod.GET);//专利分类
                         Request.add("token", MD5.MD5s("" + new Build().MODEL));
                         Request.add("KeyNo", "");
                         Request.add("deviceId", (new Build()).MODEL);
                         Request.add("logType", 22);
-                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x212, true, false, true);
+                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x213, true, false, true);
 
                         break;
                     case 2://招投标
                         startActivity(new Intent(MainActivity.this, Main_SearchActivity.class).putExtra("hit", "招投标"));
                         break;
                     case 3://失信
-                        Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
-                        Request.add("token", MD5.MD5s("" + new Build().MODEL));
-                        Request.add("KeyNo", "");
-                        Request.add("deviceId", (new Build()).MODEL);
-                        Request.add("logType", 26);
-                        CallServer.getInstance().add(MainActivity.this, Request, MyhttpCallBack.getInstance(), 0x213, true, false, true);
+                        startActivity(new Intent(MainActivity.this, Main_SearchActivity.class).putExtra("hit", "失信人"));
                         break;
                 }
             }

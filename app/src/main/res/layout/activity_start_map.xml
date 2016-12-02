@@ -97,7 +97,7 @@
                     android:visibility="visible"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="地址地址地址地址地址地址地址地址地址地址地址地址地址地址地址"/>
+                    android:text="正在加载...                                                                     "/>
                 <TextView
                     android:id="@+id/Text2"
                     android:layout_width="match_parent"

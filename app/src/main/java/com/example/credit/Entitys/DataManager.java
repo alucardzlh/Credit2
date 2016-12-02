@@ -2246,12 +2246,12 @@ public class DataManager {
             }
         }
     }
-
+    public static List<String> DataList=new ArrayList<>();
 
     public static getSgHis getSgHisList = new getSgHis();
 
     /**
-     * 获取短信验证码
+     * 获取专项 历史
      */
     public static class getSgHis {
         public String message;
@@ -2275,6 +2275,52 @@ public class DataManager {
                 public String LOGTIME;
                 public Object REMARK;
                 public Object MEMBER_ID;
+            }
+        }
+    }
+
+    public static getsgType getsgTypeList = new getsgType();
+    /**
+     * 获取商标分类
+     */
+    public static class getsgType {
+        public String message;
+        public String status;
+        public DataBean data;
+        public String version;
+
+        public static class DataBean {
+            /**
+             * STSUTS : 0
+             * ID : 2
+             * CLASSNAME : 颜料油漆
+             */
+            public List<BrandClassBean> brandClass;
+            public static class BrandClassBean {
+                public String STSUTS;
+                public String ID;
+                public String CLASSNAME;
+            }
+        }
+    }
+    public static getZLType getZLTypeList = new getZLType();
+    /**
+     * 获取专利分类
+     */
+    public static class getZLType {
+        public String message;
+        public String status;
+        public DataBean data;
+        public String version;
+
+        public static class DataBean {
+            /**
+             * PATENTTYPE : 发明公布
+             */
+            public List<PatentClassBean> PatentClass;
+
+            public static class PatentClassBean {
+                public String PATENTTYPE;
             }
         }
     }

@@ -56,8 +56,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="35dp"
-            android:layout_gravity="center_vertical"
-            />
+            android:layout_gravity="center_vertical" />
         <!--android:layout_marginRight="10dp"-->
         <LinearLayout
             android:layout_width="0dp"
@@ -342,26 +341,6 @@
 
     </LinearLayout>
     <!--下灰线-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/dim_foreground_material_dark" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/holo_green_dark"
-        android:orientation="horizontal"
-        android:visibility="gone"></LinearLayout>
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:visibility="gone" />
-    <!--历史记录-->
     <FrameLayout
         android:id="@+id/his_sra"
         android:layout_width="match_parent"
@@ -425,6 +404,15 @@
                 android:textSize="18sp"
                 android:visibility="gone" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone">
+
+            </android.support.v7.widget.RecyclerView>
+            <!--原历史记录-->
             <LinearLayout
                 android:id="@+id/searchContent"
                 android:layout_width="fill_parent"
@@ -545,6 +533,27 @@
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dim_foreground_material_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_green_dark"
+        android:orientation="horizontal"
+        android:visibility="gone"></LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:visibility="gone" />
+    <!--历史记录-->
     <!--搜索结果list-->
     <LinearLayout
         android:id="@+id/search_list_layout"
@@ -554,6 +563,7 @@
         android:background="@android:color/white"
         android:orientation="vertical"
         android:visibility="gone">
+
         <ListView
             android:id="@+id/search_list"
             android:layout_width="match_parent"
@@ -579,8 +589,7 @@
             android:contextClickable="false"
             android:divider="@color/dim_foreground_disabled_material_dark"
             android:dividerHeight="0.5dip"
-            android:textFilterEnabled="true">
-        </ListView>
+            android:textFilterEnabled="true"></ListView>
 
         <ListView
             android:id="@+id/menu_two"
@@ -595,4 +604,5 @@
         </ListView>
     </LinearLayout>
     <!--android:layout_weight="0.8"-->
-    <include layout="@layout/public_bottom_view"/></LinearLayout>
+    <include layout="@layout/public_bottom_view" />
+</LinearLayout>

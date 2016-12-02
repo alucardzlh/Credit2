@@ -86,7 +86,12 @@ public class Public_Detail_ctivity extends BaseActivity {
             list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENCONTENT);
             list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).JUDAUTH);
             list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENDECISSDATE);
-            list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENDECCONTENT);
+            if(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENDECCONTENT.indexOf("<br/>") != -1){
+                list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENDECCONTENT.replaceAll("<br/>","\n"));
+            }else{
+                list1.add(DataManager.punishMarDriList.data.otCaseInfo.get(position).PENDECCONTENT);
+            }
+
             list2 = Arrays.asList(getResources().getStringArray(R.array.punish_c));
 
         } else if (state.equals("copyright")) {//著作

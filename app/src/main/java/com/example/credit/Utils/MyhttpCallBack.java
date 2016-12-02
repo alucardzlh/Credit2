@@ -842,20 +842,20 @@ public class MyhttpCallBack implements HttpCallBack {
                     }
 
                     break;
-                case 0x211://首页商标查询历史
+                case 0x211://专项栏 商标  专利  失信查询历史
                     jsonString = (String) response.get();
                     DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
+                    Main_SearchActivity.handler.sendEmptyMessage(10);
+                    break;
+                case 0x212://首页商标查询分类
+                    jsonString = (String) response.get();
+                    DataManager.getsgTypeList = gson.fromJson(jsonString, DataManager.getsgType.class);
                     MainActivity.handler.sendEmptyMessage(13);
                     break;
-                case 0x212://首页专利查询历史
+                case 0x213://首页专利查询分类
                     jsonString = (String) response.get();
-                    DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
+                    DataManager.getZLTypeList = gson.fromJson(jsonString, DataManager.getZLType.class);
                     MainActivity.handler.sendEmptyMessage(14);
-                    break;
-                case 0x213://首页失信查询历史
-                    jsonString = (String) response.get();
-                    DataManager.getSgHisList = gson.fromJson(jsonString, DataManager.getSgHis.class);
-                    MainActivity.handler.sendEmptyMessage(15);
                     break;
                 default:
                     break;

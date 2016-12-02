@@ -1,6 +1,5 @@
 package com.example.credit.Activitys;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -14,21 +13,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.credit.Adapters.syHisAdapter;
-import com.example.credit.Dialogs.WaitDialog;
+import com.example.credit.Dialogs.*;
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
 import com.example.credit.Services.CallServer;
-import com.example.credit.Utils.ContainsEmojiEditText;
 import com.example.credit.Utils.CreditSharePreferences;
 import com.example.credit.Utils.GsonUtil;
 import com.example.credit.Utils.MD5;
@@ -40,7 +35,6 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.yolanda.nohttp.RequestMethod;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,6 +58,19 @@ public class Main_SearchActivity extends BaseActivity {
 
     @ViewInject(R.id.his_yout)
     ListView his_yout;
+
+    @ViewInject(R.id.mser_type)
+    LinearLayout mser_type;
+    @ViewInject(R.id.mser_type1)
+    LinearLayout mser_type1;
+    @ViewInject(R.id.mser_type2)
+    LinearLayout mser_type2;
+    List<String> list=new ArrayList<>();
+    List<String> list1=new ArrayList<>();
+    @ViewInject(R.id.text1)
+    public static TextView text1;
+    @ViewInject(R.id.text2)
+    public static TextView text2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +80,36 @@ public class Main_SearchActivity extends BaseActivity {
         Intent i = getIntent();
         hit = i.getStringExtra("hit");
         search_et.setHint("请输入" + hit + "信息");
+        if (hit.equals("失信人") || hit.equals("招投标")) {
+            mser_type.setVisibility(View.GONE);
+        }else{
+            list.clear();
+            list1.clear();
+            if(hit.equals("商标")){
+                list.add("不限类型");
+                for(DataManager.getsgType.DataBean.BrandClassBean sg:DataManager.getsgTypeList.data.brandClass){
+                    list.add(sg.CLASSNAME+"");
+                }
+                list1.add("不限状态");
+                list1.add("商标注册申请中");
+                list1.add("商标注册申请受理通知书发文");
+                list1.add("商标注册申请等待受理");
+                text1.setText(list.get(0)+"");
+                text2.setText(list1.get(0)+"");
+            }else if(hit.equals("专利")){
+                list.add("不限类型");
+                for(DataManager.getZLType.DataBean.PatentClassBean zl:DataManager.getZLTypeList.data.PatentClass){
+                    list.add(zl.PATENTTYPE+"");
+                }
+                list1.add("不限时间");
+                list1.add("2016");
+                list1.add("2015");
+                list1.add("2014");
+                text1.setText(list.get(0)+"");
+                text2.setText(list1.get(0)+"");
+            }
+        }
+
         arrow_backm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +181,21 @@ public class Main_SearchActivity extends BaseActivity {
                         i.putExtra("TotalPage", DataManager.MyDishonestyS.data.Paging.TotalPage);
                         startActivity(i);
                         break;
+
+                    case 10:
+                        if(!hit.equals("招投标")){
+                            if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
+                                syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
+                                his_yout.setAdapter(adapter);
+                                his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
+                                    }
+                                });
+                            }
+                        }
+                        break;
                     case 500:
                         wd.dismiss();
                         Toast.show("暂无数据!");
@@ -151,18 +203,6 @@ public class Main_SearchActivity extends BaseActivity {
                 }
             }
         };
-        if(!hit.equals("招投标")){
-            if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
-                syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
-                his_yout.setAdapter(adapter);
-                his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
-                    }
-                });
-            }
-        }
         search_et.addTextChangedListener(new TextWatcher() {//动态判断输入框中的字数并显示隐藏图标
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -193,6 +233,21 @@ public class Main_SearchActivity extends BaseActivity {
                 search_et.setText("");
             }
         });
+        mser_type1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MorePopWindow morePopWindow = new MorePopWindow(Main_SearchActivity.this,list);
+                morePopWindow.showPopupWindow(mser_type1);
+            }
+        });
+        mser_type2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddPopWindow addPopWindow = new AddPopWindow(Main_SearchActivity.this,list1);
+                addPopWindow.showPopupWindow(mser_type2);
+            }
+        });
+
     }
     public void search() {
         wd.show();
@@ -241,8 +296,66 @@ public class Main_SearchActivity extends BaseActivity {
                 ComplaintsRuerst.add("pageIndex", 1);
                 ComplaintsRuerst.add("pageSize", 10);
             }
+            if ( hit.equals("商标")) {
+                if(!text1.equals("不限类型")){
+                    for(DataManager.getsgType.DataBean.BrandClassBean sg:DataManager.getsgTypeList.data.brandClass){
+                        if(text1.getText().toString().equals(sg.CLASSNAME)){
+                            ComplaintsRuerst.add("classifyId", sg.ID);
+                            break;
+                        }
+                    }
+
+                }
+                if(!text2.getText().toString().equals("不限状态")){
+                    ComplaintsRuerst.add("brandStauts", text2.getText().toString());
+
+                }
+            }
+            if (hit.equals("专利")) {
+                if(!text1.equals("不限类型")){
+                    for(DataManager.getZLType.DataBean.PatentClassBean zl:DataManager.getZLTypeList.data.PatentClass){
+                        if(text1.getText().toString().equals(zl.PATENTTYPE)){
+                            ComplaintsRuerst.add("classifyId", zl.PATENTTYPE);
+                            break;
+                        }
+                    }
+                }
+                if(!text2.equals("不限时间")){
+                    ComplaintsRuerst.add("classifyTime", text2.getText().toString());
+
+                }
+            }
             CallServer.getInstance().add(Main_SearchActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), num, true, false, true);
         }
     }
 
+    @Override
+    protected void onRestart() {
+
+        super.onRestart();
+    }
+
+    @Override
+    protected void onResume() {
+        if(!hit.equals("招投标")){
+
+            GsonUtil Request = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//最新热点
+            Request.add("token", MD5.MD5s("" + new Build().MODEL));
+            Request.add("KeyNo", "");
+            Request.add("deviceId", (new Build()).MODEL);
+            switch (hit) {
+                case "商标":
+                    Request.add("logType", 21);
+                    break;
+                case "专利":
+                    Request.add("logType", 22);
+                    break;
+                case "失信人":
+                    Request.add("logType", 26);
+                    break;
+            }
+            CallServer.getInstance().add(Main_SearchActivity.this, Request, MyhttpCallBack.getInstance(), 0x211, true, false, true);
+        }
+        super.onResume();
+    }
 }

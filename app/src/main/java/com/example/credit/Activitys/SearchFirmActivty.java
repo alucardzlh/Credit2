@@ -3,6 +3,7 @@ package com.example.credit.Activitys;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.CustomPopupwindow;
 import com.example.credit.Views.DividerItemDecoration;
+import com.example.credit.Views.FlowTagLayout;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.yolanda.nohttp.RequestMethod;
@@ -59,6 +61,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static com.example.credit.R.id.search_et;
 
 /**
  * 搜索界面
@@ -129,7 +133,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 
     @ViewInject(R.id.recycler)
     RecyclerView recycler;
+    @ViewInject(R.id.ftlayout)
+    FlowTagLayout ftlayout;
     private List<String> DataList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -454,7 +461,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 
-        searchEt = (EditText) findViewById(R.id.search_et);
+        searchEt = (EditText) findViewById(search_et);
         search_et_cc = (ImageView) findViewById(R.id.search_et_cc);//叉叉
         //selectCity = (TextView) findViewById(R.id.selectCity);//旧版搜索城市
         //selectCity.setOnClickListener(this);////旧版搜索城市
@@ -920,7 +927,17 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             List<String> listh = new ArrayList<String>(Arrays.asList(strh));
             DataManager.DataList=new ArrayList<>(Arrays.asList(strh));
             if (listh != null && listh.size() > 0) {
-
+                for(String tag :strh){
+                    final TextView textView=makeTextView();
+                    textView.setText(tag);
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            searchEt.setText(textView.getText().toString());
+                        }
+                    });
+                    ftlayout.addView(textView);
+                }
                 his_nullbt.setVisibility(View.VISIBLE);
                 for (int i = R.id.txt1; i <= R.id.txt10; i++) {
                     ((TextView) findViewById(i)).setText(getKeyword(listh));
@@ -933,6 +950,14 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             history_list_null.setVisibility(View.VISIBLE);
         }
 
+
+    }
+
+    private TextView makeTextView(){
+        TextView textView = new TextView(this);
+        textView.setBackgroundResource(R.drawable.ftlayout_tag_bg);
+        textView.setTextColor(Color.WHITE);
+        return textView;
     }
 
     /**
@@ -1025,14 +1050,13 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 startAnimations2();
                 break;
         }
-        //if(this.DataList.size()==0){randomText();}
 
         recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL_LIST));
         recycler.setNestedScrollingEnabled(false);
         recycler.setAdapter(new HomeAdapter(this,DataManager.DataList));
-
         //recycler.setItemAnimator(new DefaultItemAnimator());
+
 
     }
 

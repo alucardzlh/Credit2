@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -116,7 +117,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     public static int type;
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
-    int t = 2;
+    int t = 2;//页码
     int sum = 1;
     int por;
     Intent i;
@@ -174,6 +175,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                 loadfinish = true; // 加载完成
                                 por = listsea.size() - 1;
                                 t++;
+                                listseaMore.clear();
                                 for (DataManager.search.DataBean.ResultBean r : DataManager.searchListMore.data.Result) {
                                     listseaMore.add(r);
                                 }
@@ -911,8 +913,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         mTextView10.setOnClickListener(textbt);
         his_nullbt = (ImageView) findViewById(R.id.his_nullbt);
         his_nullbt.setOnClickListener(textbt);
-
-
     }
 
     /**
@@ -925,10 +925,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             String str = csp.getHistory();
             String[] strh = str.split(",");
             List<String> listh = new ArrayList<String>(Arrays.asList(strh));
-            DataManager.DataList=new ArrayList<>(Arrays.asList(strh));
+            DataManager.DataList = new ArrayList<>(Arrays.asList(strh));
             if (listh != null && listh.size() > 0) {
-                for(String tag :strh){
-                    final TextView textView=makeTextView();
+                for (String tag : strh) {
+                    final TextView textView = makeTextView();
                     textView.setText(tag);
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -953,10 +953,11 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 
     }
 
-    private TextView makeTextView(){
+    private TextView makeTextView() {
         TextView textView = new TextView(this);
         textView.setBackgroundResource(R.drawable.ftlayout_tag_bg);
         textView.setTextColor(Color.WHITE);
+
         return textView;
     }
 
@@ -1051,10 +1052,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 break;
         }
 
-        recycler.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
-        recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL_LIST));
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        recycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL_LIST));
         recycler.setNestedScrollingEnabled(false);
-        recycler.setAdapter(new HomeAdapter(this,DataManager.DataList));
+        recycler.setAdapter(new HomeAdapter(this, DataManager.DataList));
         //recycler.setItemAnimator(new DefaultItemAnimator());
 
 
@@ -1160,7 +1161,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
      * MD5加密+搜索历史+进度条+搜索请求方法
      */
     public void GETsearch() {
-
+        if (listseaMore.size() != 0) {
+            listseaMore.clear();
+            t=2;
+        }
         //model = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
         String Tname = searchEt.getText().toString();
         String Tks = MD5.MD5s(Tname + model);
@@ -1331,7 +1335,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                 request.add("cityCode", cityindex);
                             }
                             CallServer.getInstance().add(SearchFirmActivty.this, request, MyhttpCallBack.getInstance(), 0x0221, true, false, true);
-                            t++;
+                            //t++;
                             sum++;
                         } else {
                             Toast.show("没有更多数据了！");

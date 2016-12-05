@@ -178,6 +178,7 @@ public class MyhttpCallBack implements HttpCallBack {
                     break;
                 case 0x0221://搜索加载更多
                     jsonString = (String) response.get();
+
                     DataManager.searchListMore = gson.fromJson(jsonString, DataManager.search.class);
                     if (DataManager.searchListMore.data.Result != null && DataManager.searchListMore.data.Result.size() > 0) {
                         SearchFirmActivty.handler.sendEmptyMessage(0);

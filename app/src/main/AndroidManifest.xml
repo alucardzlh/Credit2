@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <!--拨打电话-->
+    <!-- 拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- iBeancon功能所需权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -40,9 +40,10 @@
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Black.NoTitleBar">
-        <!--<meta-data-->
-            <!--android:name="com.amap.api.v2.apikey"-->
-            <!--android:value="5ced9a6479fea084051ffe6bfd5297a9b" />-->
+
+        <!-- <meta-data -->
+        <!-- android:name="com.amap.api.v2.apikey" -->
+        <!-- android:value="5ced9a6479fea084051ffe6bfd5297a9b" /> -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8002fe481e92dacbf68e1700c465d768" />
@@ -66,8 +67,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activitys.CompanyDetailsActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activitys.MainActivity"
@@ -264,6 +265,7 @@
             android:name=".QRCode_app.TestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".QRCode_app.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -284,11 +286,19 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Map.StartMapActivity"
+        <activity
+            android:name=".Map.StartMapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
-
+        <activity android:name=".Activitys.czpwd1Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Activitys.czpwd2Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Activitys.czpwd3Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

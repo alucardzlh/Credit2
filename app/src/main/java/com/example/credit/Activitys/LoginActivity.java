@@ -50,6 +50,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @ViewInject(R.id.pwd_c)
     ImageView pwd_c;//密码清除按钮
 
+    @ViewInject(R.id.fot)
+    TextView fot;//找回密码
+
     public static Handler handler;
     public static WaitDialog wd;
 
@@ -86,6 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
         login.setOnClickListener(this);
         regiest.setOnClickListener(this);
+        fot.setOnClickListener(this);
         user_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +177,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.regiest:
                 Intent i=new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(i);
+                break;
+            case R.id.fot:
+                startActivity(new Intent(LoginActivity.this,czpwd1Activity.class));
                 break;
             default:
                 break;

@@ -121,7 +121,16 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
                         break;
                     case 7://跳转提交投诉
                         pd.dismiss();
-                        startActivity(new Intent(MycomplaintsListActivity.this, ToComplaintActivity.class));
+                        if(DataManager.disRoomMarList.status.equals("1")){
+                            if (DataManager.disRoomMarList.data.dictionarieInfo.size() > 0) {
+                                pd.dismiss();
+                                startActivity(new Intent(MycomplaintsListActivity.this, ToComplaintActivity.class));
+                            }else{
+                                Toast.show("投诉功能暂时关闭!");
+                            }
+                        }else{
+                            Toast.show("投诉功能暂时关闭!");
+                        }
                         break;
                     case 500:
                         pd.dismiss();
@@ -155,7 +164,9 @@ public class MycomplaintsListActivity extends BaseActivity implements  PullToRef
         });
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-        listmycp = DataManager.myComplaint.data.complaintInfo;
+        if(DataManager.myComplaint.status.equals("1")){
+            listmycp = DataManager.myComplaint.data.complaintInfo;
+        }
         Cadapter = new ComplainListAdapter(MycomplaintsListActivity.this,listmycp);
         Intent i = getIntent();
         ttype= i.getIntExtra("key", 0);

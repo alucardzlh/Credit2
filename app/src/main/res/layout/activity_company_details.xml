@@ -438,7 +438,8 @@
                 <com.example.credit.Views.RoundImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:background="@mipmap/btm_0"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/card"
                     android:id="@+id/roundImageView" />
 
                 <TextView
@@ -448,9 +449,7 @@
                     android:layout_gravity="center"
                     android:textSize="12sp"
                     android:textColor="@color/white"
-                    android:text="关于我"/>
-
-
+                    android:text="企业名片"/>
             </LinearLayout>
         </FrameLayout>
 

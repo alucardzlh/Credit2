@@ -2324,5 +2324,36 @@ public class DataManager {
             }
         }
     }
+    public static getczpwd getczpwdList = new getczpwd();
+    /**
+     * 获取找回密码
+     */
+    public static class getczpwd {
+        public String code;
+        public String message;
+        public String version;
+        public String status;
+        public List<DataBean> data;
+        public static class DataBean {
+            public String EMAIL;
+            public String USERNAME;
+            public String ID;
+        }
+    }
+
+    public static getczpwdresult getczpwdresultList = new getczpwdresult();
+    /**
+     * 获取找回密码-重置密码结果
+     */
+    public static class getczpwdresult {
+        public DataBean data;
+        public String message;
+        public String version;
+        public String status;
+        public static class DataBean {
+            public String result;
+        }
+    }
+
 }
 

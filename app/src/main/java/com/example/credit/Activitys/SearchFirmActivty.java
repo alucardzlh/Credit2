@@ -118,7 +118,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
     int t = 2;//页码
-    int sum = 1;
     int por;
     Intent i;
     String Setname;
@@ -1071,20 +1070,19 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         float endX = e2.getX();
         float beginY = e1.getY();
         float endY = e2.getY();
-        if (beginX - endX > minMove && Math.abs(velocityX) > minVelocity) {   //左滑
-            startAnimations1();
-            randomText();
-        } else if (endX - beginX > minMove && Math.abs(velocityX) > minVelocity) {   //右滑
-            startAnimations1();
-            randomText();
-        } else if (beginY - endY > minMove && Math.abs(velocityY) > minVelocity) {   //上滑
-            startAnimations2();
-            randomText();
-        } else if (endY - beginY > minMove && Math.abs(velocityY) > minVelocity) {   //下滑
-            startAnimations2();
-            randomText();
-        }
-//        randomTanslate();
+//        if (beginX - endX > minMove && Math.abs(velocityX) > minVelocity) {   //左滑
+//            startAnimations1();
+//            randomText();
+//        } else if (endX - beginX > minMove && Math.abs(velocityX) > minVelocity) {   //右滑
+//            startAnimations1();
+//            randomText();
+//        } else if (beginY - endY > minMove && Math.abs(velocityY) > minVelocity) {   //上滑
+//            startAnimations2();
+//            randomText();
+//        } else if (endY - beginY > minMove && Math.abs(velocityY) > minVelocity) {   //下滑
+//            startAnimations2();
+//            randomText();
+//        }
         return false;
     }
 
@@ -1335,8 +1333,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                 request.add("cityCode", cityindex);
                             }
                             CallServer.getInstance().add(SearchFirmActivty.this, request, MyhttpCallBack.getInstance(), 0x0221, true, false, true);
-                            //t++;
-                            sum++;
                         } else {
                             Toast.show("没有更多数据了！");
                         }

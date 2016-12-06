@@ -133,6 +133,7 @@ public class URLconstant {
 
     public static final String GETAD = "smsInterface/sendSmsVerificationCode.do";//获取短信验证码
 
+    public static final String FORGETPASSWORD = "memberInterface/forgetpassword.do";//找回密码forgetpassword
 
     /**http://101.201.211.27:8282/zhirong.creditcard/Interface/
      *     ==========================================   旧地址入口  =====================================================

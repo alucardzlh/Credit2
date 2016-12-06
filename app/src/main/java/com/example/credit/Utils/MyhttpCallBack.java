@@ -23,6 +23,8 @@ import com.example.credit.Activitys.ToComplaintActivity;
 import com.example.credit.Activitys.TrademarkActivity;
 import com.example.credit.Activitys.UserSetActivity;
 import com.example.credit.Activitys.WelcomeActivity;
+import com.example.credit.Activitys.czpwd1Activity;
+import com.example.credit.Activitys.czpwd3Activity;
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.Map.StartMapActivity;
 import com.google.gson.Gson;
@@ -427,11 +429,7 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x201://评论
                     jsonString = (String) response.get();
                     DataManager.MyCommentlistrS = gson.fromJson(jsonString, DataManager.MyCommentlistr.class);
-                    if (DataManager.MyCommentlistrS.data.commentInfo != null && DataManager.MyCommentlistrS.data.commentInfo.size() > 0) {
-                        CommentListActivity.handler.sendEmptyMessage(0);
-                    } else {
-                        CommentListActivity.handler.sendEmptyMessage(500);
-                    }
+                    CommentListActivity.handler.sendEmptyMessage(0);
                     break;
                 case 0x202://点赞
                     String jstring202 = (String) response.get();
@@ -746,11 +744,7 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x1000://投诉类型字典
                     jsonString = (String) response.get();
                     DataManager.disRoomMarList = gson.fromJson(jsonString, DataManager.disRoomMar.class);
-                    if (DataManager.disRoomMarList.data.dictionarieInfo.size() > 0) {
-                        MycomplaintsListActivity.handler.sendEmptyMessage(7);
-                    } else {
-                        MycomplaintsListActivity.handler.sendEmptyMessage(500);
-                    }
+                    MycomplaintsListActivity.handler.sendEmptyMessage(7);
                     break;
                 case 0x100001://行业 字典
                     jsonString = (String) response.get();
@@ -857,6 +851,16 @@ public class MyhttpCallBack implements HttpCallBack {
                     jsonString = (String) response.get();
                     DataManager.getZLTypeList = gson.fromJson(jsonString, DataManager.getZLType.class);
                     MainActivity.handler.sendEmptyMessage(14);
+                    break;
+                case 0x214://忘记密码
+                    jsonString = (String) response.get();
+                    DataManager.getczpwdList = gson.fromJson(jsonString, DataManager.getczpwd.class);
+                    czpwd1Activity.handler.sendEmptyMessage(0);
+                    break;
+                case 0x215://忘记密码
+                    jsonString = (String) response.get();
+                    DataManager.getczpwdresultList = gson.fromJson(jsonString, DataManager.getczpwdresult.class);
+                    czpwd3Activity.handler.sendEmptyMessage(0);
                     break;
                 default:
                     break;

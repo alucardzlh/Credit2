@@ -101,27 +101,34 @@ public class CommentListActivity extends BaseActivity implements PullToRefreshVi
                 super.handleMessage(msg);
                 switch (msg.what) {
                     case 0:
-                        if(falg==false){
-                            listpl=DataManager.MyCommentlistrS.data.commentInfo;
+                        if(DataManager.MyCommentlistrS.status.equals("1")){
+                            if (DataManager.MyCommentlistrS.data.commentInfo != null && DataManager.MyCommentlistrS.data.commentInfo.size() > 0) {
+                                if(falg==false){
+                                    listpl=DataManager.MyCommentlistrS.data.commentInfo;
+                                }else{
+                                    por=listpl.size()-1;
+                                    listpl.addAll(DataManager.MyCommentlistrS.data.commentInfo);
+                                }
+                                if(listpl.size()>0){
+                                    mPullToRefreshView.setVisibility(View.VISIBLE);
+                                    commentNull.setVisibility(View.GONE);
+                                }
+                                Rit();
+                                if(falg==false) {
+                                    wd.dismiss();
+                                }
+                            }else{
+                                if(falg==false) {
+                                    wd.dismiss();
+                                }
+                                mPullToRefreshView.setVisibility(View.GONE);
+                                commentNull.setVisibility(View.VISIBLE);
+                            }
                         }else{
-                            por=listpl.size()-1;
-                            listpl.addAll(DataManager.MyCommentlistrS.data.commentInfo);
-                        }
-                        if(listpl.size()>0){
-                            mPullToRefreshView.setVisibility(View.VISIBLE);
-                            commentNull.setVisibility(View.GONE);
-                        }
-                        Rit();
-                        if(falg==false) {
                             wd.dismiss();
+                            mPullToRefreshView.setVisibility(View.GONE);
+                            commentNull.setVisibility(View.VISIBLE);
                         }
-                        break;
-                    case 500:
-                        if(falg==false) {
-                            wd.dismiss();
-                        }
-                        mPullToRefreshView.setVisibility(View.GONE);
-                        commentNull.setVisibility(View.VISIBLE);
                         break;
                 }
             }

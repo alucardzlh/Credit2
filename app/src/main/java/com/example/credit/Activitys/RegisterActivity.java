@@ -40,6 +40,10 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.yolanda.nohttp.RequestMethod;
 
+/**
+ * 用户注册
+ */
+
 public class RegisterActivity extends BaseActivity {
     @ViewInject(R.id.b_return)
     ImageView b_return;
@@ -48,16 +52,26 @@ public class RegisterActivity extends BaseActivity {
     android.support.v7.widget.AppCompatEditText Ruser;//用户名
     @ViewInject(R.id.Ruser_c)
     ImageView Ruser_c; //用户名 消除
+
+
+    @ViewInject(R.id.Remail)
+    android.support.v7.widget.AppCompatEditText Remail;//邮箱
+    @ViewInject(R.id.Remail_c)
+    ImageView Remail_c; //邮箱 消除
+
     @ViewInject(R.id.Rpwd)
     android.support.v7.widget.AppCompatEditText Rpwd;//密码
     @ViewInject(R.id.Rpwd_c)
     ImageView Rpwd_c; //密码 消除
+
     @ViewInject(R.id.Rrpwds)
     android.support.v7.widget.AppCompatEditText Rrpwds;//确认密码
     @ViewInject(R.id.Rrpwds_c)
     ImageView Rrpwds_c; //确认密码 消除
+
     @ViewInject(R.id.regiest_ing)
     LinearLayout regiest_ing;//注册
+
     public static Handler handler;
 
     @ViewInject(R.id.phone)
@@ -67,11 +81,14 @@ public class RegisterActivity extends BaseActivity {
 
 
 
-    @OnClick({R.id.Ruser_c, R.id.Rpwd_c, R.id.Rrpwds_c,R.id.setad})
+    @OnClick({R.id.Ruser_c,R.id.Remail_c, R.id.Rpwd_c, R.id.Rrpwds_c,R.id.setad})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.Ruser_c:
                 Ruser.setText("");
+                break;
+            case R.id.Remail_c:
+                Remail.setText("");
                 break;
             case R.id.Rpwd_c:
                 Rpwd.setText("");
@@ -79,7 +96,7 @@ public class RegisterActivity extends BaseActivity {
             case R.id.Rrpwds_c:
                 Rrpwds.setText("");
                 break;
-            case R.id.setad:
+            case R.id.setad://暂时关闭
                 if (Ruser.getText().toString().trim().equals("") ) {
                     Toast.show("手机号不能为空...");
                 } else if (!FileUtil.isNumeric(Ruser.getText().toString().trim())) {
@@ -191,7 +208,30 @@ public class RegisterActivity extends BaseActivity {
                 }
             }
         });
+        Remail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (start > 0) {
+                    Remail_c.setVisibility(View.VISIBLE);
+                } else {
+                    Remail_c.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    Remail_c.setVisibility(View.VISIBLE);
+                } else {
+                    Remail_c.setVisibility(View.GONE);
+                }
+            }
+        });
         Rpwd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -259,20 +299,27 @@ public class RegisterActivity extends BaseActivity {
                         Toast.show("手机号格式不正确...");
                     } else if ( Ruser.getText().length() != 11) {
                         Toast.show("手机号格式不正确...");
+                    } else if (Remail.getText().toString().trim().equals("") ) {
+                        Toast.show("绑定邮箱不能为空...");
+                    }else if (!FileUtil.isEmail(Remail.getText().toString().trim())) {
+                        Toast.show("绑定邮箱格式不正确...");
                     }  else if (Rpwd.getText().length() < 6 ) {
                         Toast.show("密码长度至少6位...");
                     } else if (!Rpwd.getText().toString().trim().equals(Rrpwds.getText().toString().trim()) ) {
                         Toast.show("两次密码输入不一致...");
-                    } else if (phone.getText().toString().trim().equals("")) {
-                        Toast.show("验证码不能为空...");
-                    } else {
+                    }
+//                    else if (phone.getText().toString().trim().equals("")) {
+//                        Toast.show("验证码不能为空...");
+//                    }
+                    else {
                         pd.show();
                         GsonUtil regiestRquerst = new GsonUtil(URLconstant.URLINSER + URLconstant.REVISEUSER, RequestMethod.GET);
                         regiestRquerst.add("token", MD5.MD5s(Ruser.getText() + new Build().MODEL));
                         regiestRquerst.add("KeyNo", Ruser.getText().toString());
                         regiestRquerst.add("deviceId", new Build().MODEL);
                         regiestRquerst.add("openType", 0);//0为注册 1为修改
-                        regiestRquerst.add("code", phone.getText().toString());//验证码
+//                        regiestRquerst.add("code", phone.getText().toString());//验证码
+                        regiestRquerst.add("email", Remail.getText().toString());//绑定邮箱
                         regiestRquerst.add("password", Rrpwds.getText().toString());
                         CallServer.getInstance().add(RegisterActivity.this, regiestRquerst, MyhttpCallBack.getInstance(), 0x998, true, false, true);
                     }

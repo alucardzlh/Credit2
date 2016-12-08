@@ -86,15 +86,25 @@ public class czpwd3Activity extends BaseActivity {
         czbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wd.show();
-                GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.FORGETPASSWORD, RequestMethod.GET);
-                LoginRequest.add("token", MD5.MD5s(DataManager.getczpwdList.data.get(0).ID + new Build().MODEL));
-                LoginRequest.add("KeyNo", DataManager.getczpwdList.data.get(0).ID);
-                LoginRequest.add("deviceId", new Build().MODEL);
-                LoginRequest.add("username", DataManager.getczpwdList.data.get(0).USERNAME);
-                LoginRequest.add("czpwd", cz3.getText().toString());
-                LoginRequest.add("type", 1);
-                CallServer.getInstance().add(czpwd3Activity.this, LoginRequest, MyhttpCallBack.getInstance(), 0x215, true, false, true);
+               if (cz2.getText().toString().trim().length() == 0 || cz3.getText().toString().trim().length() == 0) {
+                    Toast.show("密码不能为空...");
+
+                } else if (cz2.getText().length() < 6 || cz3.getText().length() < 6) {
+                    Toast.show("密码长度至少6位...");
+
+                } else if (!cz3.getText().toString().equals(cz2.getText().toString())) {
+                    Toast.show("两次密码输入不一致...");
+                } else {
+                    wd.show();
+                    GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.FORGETPASSWORD, RequestMethod.GET);
+                    LoginRequest.add("token", MD5.MD5s(DataManager.getczpwdList.data.get(0).ID + new Build().MODEL));
+                    LoginRequest.add("KeyNo", DataManager.getczpwdList.data.get(0).ID);
+                    LoginRequest.add("deviceId", new Build().MODEL);
+                    LoginRequest.add("username", DataManager.getczpwdList.data.get(0).USERNAME);
+                    LoginRequest.add("czpwd", cz3.getText().toString());
+                    LoginRequest.add("type", 1);
+                    CallServer.getInstance().add(czpwd3Activity.this, LoginRequest, MyhttpCallBack.getInstance(), 0x215, true, false, true);
+                }
             }
         });
         handler=new Handler(){

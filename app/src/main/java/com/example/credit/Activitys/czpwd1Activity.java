@@ -61,14 +61,18 @@ public class czpwd1Activity extends BaseActivity {
         txbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                wd.show();
-                GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.FORGETPASSWORD, RequestMethod.GET);
-                LoginRequest.add("token", MD5.MD5s(tx1.getText().toString().trim() + new Build().MODEL));
-                LoginRequest.add("KeyNo", tx1.getText().toString().trim());
-                LoginRequest.add("deviceId", new Build().MODEL);
-                LoginRequest.add("email", tx2.getText().toString().trim());
-                LoginRequest.add("type", 0);
-                CallServer.getInstance().add(czpwd1Activity.this, LoginRequest, MyhttpCallBack.getInstance(), 0x214, true, false, true);
+                if(!tx1.getText().toString().trim().equals("")){
+                    wd.show();
+                    GsonUtil LoginRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.FORGETPASSWORD, RequestMethod.GET);
+                    LoginRequest.add("token", MD5.MD5s(tx1.getText().toString().trim() + new Build().MODEL));
+                    LoginRequest.add("KeyNo", tx1.getText().toString().trim());
+                    LoginRequest.add("deviceId", new Build().MODEL);
+//                LoginRequest.add("email", tx2.getText().toString().trim());
+                    LoginRequest.add("type", 0);
+                    CallServer.getInstance().add(czpwd1Activity.this, LoginRequest, MyhttpCallBack.getInstance(), 0x214, true, false, true);
+                }else{
+                    Toast.show("账号不能为空!");
+                }
             }
         });
          handler=new Handler(){

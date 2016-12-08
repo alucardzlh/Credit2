@@ -49,7 +49,7 @@ public class czpwd2Activity extends BaseActivity {
             }
         });
         yz1.setText(DataManager.getczpwdList.data.get(0).USERNAME+"");
-        yz2.setText(DataManager.getczpwdList.data.get(0).EMAIL+"");
+//        yz2.setText(DataManager.getczpwdList.data.get(0).EMAIL+"");
         yzbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -609,7 +609,10 @@ public class MyhttpCallBack implements HttpCallBack {
                     if (map.get("message").equals("success")) {//注册成功{"message":"success","status":"1","data":{"affectedRow":"1"},"version":"v1.0"}
                         RegisterActivity.handler.sendEmptyMessage(0);
                     } else {//注册失败
-                        Toast.show("注册失败 , " + map.get("message").toString()+" !!!");
+                        Toast.show("注册失败 , " + map.get("message").toString()+" !");
+                        if(RegisterActivity.pd!=null){
+                            RegisterActivity.pd.dismiss();
+                        }
                     }
                     break;
                 case 0x9981://注册时 获取短信

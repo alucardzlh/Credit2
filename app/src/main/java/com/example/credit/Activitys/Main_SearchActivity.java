@@ -312,7 +312,7 @@ public class Main_SearchActivity extends BaseActivity {
                 }
             }
             if (hit.equals("专利")) {
-                if(!text1.equals("不限类型")){
+                if(!text1.getText().toString().equals("不限类型")){
                     for(DataManager.getZLType.DataBean.PatentClassBean zl:DataManager.getZLTypeList.data.PatentClass){
                         if(text1.getText().toString().equals(zl.PATENTTYPE)){
                             ComplaintsRuerst.add("classifyId", zl.PATENTTYPE);
@@ -320,7 +320,7 @@ public class Main_SearchActivity extends BaseActivity {
                         }
                     }
                 }
-                if(!text2.equals("不限时间")){
+                if(!text2.getText().toString().equals("不限时间")){
                     ComplaintsRuerst.add("classifyTime", text2.getText().toString());
 
                 }

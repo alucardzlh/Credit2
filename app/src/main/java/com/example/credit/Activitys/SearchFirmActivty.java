@@ -502,7 +502,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         history_list_null = (TextView) findViewById(R.id.history_list_null);
         csp = CreditSharePreferences.getLifeSharedPreferences();
         if (csp.getHistory() == null || csp.getHistory().equals("")) {//给历史记录赋初始值
-            String Tnameh = "余江县龙溪养蜂专业合作社,江西圆融医疗器械有限公司,景德镇市第一炉面包房,江西梦娜袜业有限公司,江西工商联合投资有限公司,江西智容科技有限公司,南昌和平大厦实业发展公司,贵溪市幸福树电器有限公司,德兴市华清汽车销售服务有限公司,江西新星建筑装饰工程有限公司,";//历史字备用
+            String Tnameh ="江西智容,泰豪科技,江铃控股,中国瑞林,南昌工业控股,南昌和平大厦实业发展公司,江西梦娜袜业有限公司,江西工商联合投资有限公司,江西城投,煌上煌";//历史字备用
             csp.putHistory(Tnameh);
         }
         /**

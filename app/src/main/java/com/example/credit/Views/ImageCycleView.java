@@ -179,7 +179,7 @@ public class ImageCycleView extends FrameLayout {
 
 	/**
 	 * 初始化view控件
-	 * @author 代凯男
+	 * @author
 	 */
 	private void initView() {
 		View.inflate(mContext, R.layout.view_image_cycle, this);
@@ -315,9 +315,14 @@ public class ImageCycleView extends FrameLayout {
 			this.text = text;
 			this.value = value;
 		}
+		public ImageInfo(Object image, String text, Object value,String url){
+			this(image,text,value);
+			this.url=url;
+		}
 		public Object image;
 		public String text="";
 		public Object value;
+		public String url;
 	}
 
 

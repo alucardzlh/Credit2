@@ -83,7 +83,7 @@ public class CompanyDetailsActivity extends BaseActivity {
     public String[] arrays1 = {"工商信息", "行政审批", "荣誉信息", "扶持信息",
             "抵押信息", "出质信息", "司法信息", "预警信息",
             "行政处罚", "经营异常", "专利信息", "商标信息",
-            "著作权", "广告资质", "守合同重信用", "企业自主公示","投资全景"};
+            "著作权", "广告资质", "守合同重信用", "企业自主公示", "投资全景"};
     public int[] imgs1 = {R.mipmap.icon1, R.mipmap.icon2,
             R.mipmap.icon3, R.mipmap.icon4,
             R.mipmap.icon5, R.mipmap.icon6,
@@ -127,10 +127,13 @@ public class CompanyDetailsActivity extends BaseActivity {
     @ViewInject(R.id.phonebtn)
     LinearLayout phonebtn;//企业位置
 
+    @ViewInject(R.id.datatime)
+    TextView datatime;//更新时间
+
     TitlePopup titlePopup;
     public static ProgressDialog pd;
     CreditSharePreferences csp;
-    int type, posit,position;
+    int type, posit, position;
     AlertDialog.Builder builder;
     public static AlertDialog dialog;
     public static String ProvinceCode;
@@ -138,6 +141,7 @@ public class CompanyDetailsActivity extends BaseActivity {
     //拨打电话
     AlertDialog.Builder builder1;
     public static AlertDialog dialog1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,18 +154,28 @@ public class CompanyDetailsActivity extends BaseActivity {
         type = i.getIntExtra("type", 0);
         position = i.getIntExtra("position", 0);
 
-        model = ( new Build()).MODEL;//设备ID
+        model = (new Build()).MODEL;//设备ID
 
-        if (DataManager.QJiugongGList.data.baseInfo.size() > 0) {
-            ProvinceCode =DataManager.QJiugongGList.data.baseInfo.get(0).C_PROVINCE;//省代码
-            KeyNo = DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID;//市场主体身份代码
-            token = MD5.MD5s(KeyNo + model);//token 由 设备ID+市场主体身份代码 MD5生成
-            regnore = DataManager.QJiugongGList.data.baseInfo.get(0).REGNO;//注册号
-        } else {
+        try {
+            if (DataManager.QJiugongGList.data.baseInfo.size() > 0) {
+                ProvinceCode = DataManager.QJiugongGList.data.baseInfo.get(0).C_PROVINCE;//省代码
+                KeyNo = DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID;//市场主体身份代码
+                token = MD5.MD5s(KeyNo + model);//token 由 设备ID+市场主体身份代码 MD5生成
+                regnore = DataManager.QJiugongGList.data.baseInfo.get(0).REGNO;//注册号
+            } else {
+                Toast.show("暂无数据...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             Toast.show("暂无数据...");
         }
 
-        init();//初始化16宫格等
+        try {
+            init();//初始化16宫格等
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.show("初始化失败");
+        }
 
         MyGridAdapters adapters = new MyGridAdapters(CompanyDetailsActivity.this, imgs1);
         myGridView1.setAdapter(adapters);
@@ -350,14 +364,14 @@ public class CompanyDetailsActivity extends BaseActivity {
                         break;
                     case 501:
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                            if (ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                                     || ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                                     || ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED
                                     || ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) {
                                 ActivityCompat.requestPermissions(CompanyDetailsActivity.this, new
                                                 String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         1);
-                            }else{
+                            } else {
                                 startActivity(new Intent(CompanyDetailsActivity.this, StartMapActivity.class));
                             }
                             return;
@@ -948,8 +962,30 @@ public class CompanyDetailsActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                //启动
-                startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:"+DataManager.QJiugongGList.data.baseInfo.get(0).TEL)));
+                //startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + DataManager.QJiugongGList.data.baseInfo.get(0).TEL)));
 //                Toast.show("此功能正在施工中...");
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.CALL_PHONE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //申请WRITE_EXTERNAL_STORAGE权限
+                        ActivityCompat.requestPermissions(CompanyDetailsActivity.this, new
+                                        String[]{Manifest.permission.CALL_PHONE},
+                                9);
+                    } else {
+                        startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + DataManager.QJiugongGList.data.baseInfo.get(0).TEL)));
+                    }
+                    if(ContextCompat.checkSelfPermission(CompanyDetailsActivity.this, Manifest.permission.CALL_PHONE)
+                            != PackageManager.PERMISSION_GRANTED){Toast.show("权限失败，请到应用设置中开启。");}
+                    return;
+
+                } else {
+                    startActivity(new Intent("android.intent.action.CALL", Uri.parse("tel:" + DataManager.QJiugongGList.data.baseInfo.get(0).TEL)));
+                }
+
+
+
+
             }
         });
         builder1.setNegativeButton("取消", null);
@@ -957,15 +993,17 @@ public class CompanyDetailsActivity extends BaseActivity {
         dialog1.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 
 
-        try{
-            details_static.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN.substring(0,2));//公司经营状态
-        }catch (Exception e){}
-
-
-
-        if (DataManager.QJiugongGList.data.allCount.size() > 0) {
-            details_tit1.setText(DataManager.QJiugongGList.data.allCount.get(0).PageView+" 次");
+        try {
+            details_static.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN.substring(0, 2));//公司经营状态
+        } catch (Exception e) {
         }
+
+
+
+            if (DataManager.QJiugongGList.data.allCount.size() > 0) {
+                details_tit1.setText(DataManager.QJiugongGList.data.allCount.get(0).PageView + " 次");
+            }
+
 
 //        if(DataManager.QJiugongGList.data.allCount.get(0).IsClaim=="1"||DataManager.QJiugongGList.data.allCount.get(0).IsClaim.equals("1")){
 //            details_tit3.setText("已认领");
@@ -974,32 +1012,33 @@ public class CompanyDetailsActivity extends BaseActivity {
 //        }else {
 //            details_tit3.setText("未认领");
 //        }
-        if (DataManager.QJiugongGList.data.baseInfo.size()==0||DataManager.QJiugongGList.data.baseInfo.get(0).NAME.equals("")) {
+        if (DataManager.QJiugongGList.data.baseInfo.size() == 0 || DataManager.QJiugongGList.data.baseInfo.get(0).NAME.equals("")) {
             name.setText("无");
         } else {
             name.setText(DataManager.QJiugongGList.data.baseInfo.get(0).NAME);
         }
 
 
-        if (DataManager.QJiugongGList.data.baseInfo.size()!=0&&(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).indexOf("分公司") != -1) {
+        if (DataManager.QJiugongGList.data.baseInfo.size() != 0 && (DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).indexOf("分公司") != -1) {
             gai1.setText("负责人");
             regcap.setText("无");
         } else {
-            if (DataManager.QJiugongGList.data.baseInfo.size()>0&&DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.equals("")) {
+            if (DataManager.QJiugongGList.data.baseInfo.size() > 0 && DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP.equals("")) {
                 regcap.setText("无万元");
             } else {
-                try{
+                try {
                     regcap.setText(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
         }
         List<String> userList1 = Arrays.asList(getResources().getStringArray(R.array.ENTTYPE_id));
         List<String> userList2 = Arrays.asList(getResources().getStringArray(R.array.ENTTYPE_name));
-        for(int z=0;z<userList1.size();z++){
-            int size=userList1.get(z).length();
-            if(DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE.length()>=size){
-                if((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,size).indexOf(userList1.get(z)) != -1){
+        for (int z = 0; z < userList1.size(); z++) {
+            int size = userList1.get(z).length();
+            if (DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE.length() >= size) {
+                if ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0, size).indexOf(userList1.get(z)) != -1) {
                     gai1.setText(userList2.get(z));
                     break;
                 }
@@ -1052,6 +1091,18 @@ public class CompanyDetailsActivity extends BaseActivity {
 //            String stra = (DataManager.QJiugongGList.data.baseInfo.get(0).REGSTATE_CN).substring(0, 2);
 //            details_tit3.setText(stra);//状态
             cp_name.setText(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+            /**
+             * 更新时间
+             */
+        try{
+            if(DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME.equals("")){
+                datatime.setText("暂无更新");
+            }else{
+                datatime.setText("更新："+DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME);
+            }
+        }catch (Exception e){
+                datatime.setText("暂无更新");
+        }
             List<String> lt = new ArrayList<String>();
             lt.add(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
             lt.add(DataManager.QJiugongGList.data.baseInfo.get(0).NAME);
@@ -1143,7 +1194,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                         request100.add("token", token);
                         request100.add("KeyNo", KeyNo);
                         request100.add("regnore", regnore);
-                        request100.add("provinceCode",ProvinceCode);
+                        request100.add("provinceCode", ProvinceCode);
                         request100.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE_CN);
                         request100.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
                         CallServer.getInstance().add(CompanyDetailsActivity.this, request100, MyhttpCallBack.getInstance(), 0x601, true, false, true);
@@ -1152,13 +1203,13 @@ public class CompanyDetailsActivity extends BaseActivity {
                 case R.id.pb_3://企业投诉
                     waitDialog.show();
                     GsonUtil ComplaintsRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCOMPLAIN, RequestMethod.GET);
-                    ComplaintsRuerst.add("token",token);
-                    ComplaintsRuerst.add("KeyNo",KeyNo);
+                    ComplaintsRuerst.add("token", token);
+                    ComplaintsRuerst.add("KeyNo", KeyNo);
                     ComplaintsRuerst.add("deviceId", new Build().MODEL);
-                    ComplaintsRuerst.add("status",1);
-                    ComplaintsRuerst.add("provinceCode",ProvinceCode);
-                    ComplaintsRuerst.add("pageIndex",1);
-                    ComplaintsRuerst.add("pageSize",10);
+                    ComplaintsRuerst.add("status", 1);
+                    ComplaintsRuerst.add("provinceCode", ProvinceCode);
+                    ComplaintsRuerst.add("pageIndex", 1);
+                    ComplaintsRuerst.add("pageSize", 10);
                     CallServer.getInstance().add(CompanyDetailsActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x994, true, false, true);
 
                     break;
@@ -1173,7 +1224,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             requestG.add("deviceId", model);
                             requestG.add("token", token);
                             requestG.add("KeyNo", KeyNo);
-                            requestG.add("provinceCode",ProvinceCode);
+                            requestG.add("provinceCode", ProvinceCode);
                             requestG.add("memberId", csp.getID());
                             CallServer.getInstance().add(CompanyDetailsActivity.this, requestG, MyhttpCallBack.getInstance(), 0x101, true, false, true);
                         } else {//当前状态为已关注，所以点击是取消关注
@@ -1184,7 +1235,7 @@ public class CompanyDetailsActivity extends BaseActivity {
                             requestN.add("deviceId", model);
                             requestN.add("token", token);
                             requestN.add("KeyNo", KeyNo);
-                            requestN.add("provinceCode",ProvinceCode);
+                            requestN.add("provinceCode", ProvinceCode);
                             requestN.add("memberId", csp.getID());
                             CallServer.getInstance().add(CompanyDetailsActivity.this, requestN, MyhttpCallBack.getInstance(), 0x102, true, false, true);
                         }
@@ -1203,21 +1254,22 @@ public class CompanyDetailsActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (waitDialog!=null){
+        if (waitDialog != null) {
             pd.dismiss();
         }
-        if(pd!=null){
+        if (pd != null) {
             pd.dismiss();
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode==1){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){     //拒绝 =0
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {     //拒绝 =0
                 startActivity(new Intent(CompanyDetailsActivity.this, StartMapActivity.class));
             } else {
-                com.example.credit.Utils.Toast.show("权限获取失败，部分功能无法使用，请到设置中开放权限");
+                com.example.credit.Utils.Toast.show("权限获取失败，部分功能无法使用，请到应用设置中开放权限");
                 startActivity(new Intent(CompanyDetailsActivity.this, StartMapActivity.class));
             }
         }

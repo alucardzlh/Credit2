@@ -1331,6 +1331,8 @@ public class DataManager {
                 public String DOM;
                 public String WEBSITNAME;
                 public String EMAIL;
+
+                public String S_EXT_DATATIME;//更新时间
             }
         }
     }

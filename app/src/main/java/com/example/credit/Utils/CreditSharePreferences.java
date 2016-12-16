@@ -31,7 +31,7 @@ public class CreditSharePreferences {
     }
 
     /**
-     * //保存历史记录
+     * //保存企业本地历史记录
      * @param listory
      */
 
@@ -49,6 +49,69 @@ public class CreditSharePreferences {
             return "";
         }
     }
+
+
+    /**
+     * //保存法人本地历史记录
+     * @param legal
+     */
+    public void putLegalHistory(String legal) {
+        if(sp!=null){
+            Editor editor = sp.edit();
+            editor.putString("legal", legal);
+            editor.commit();}
+    }
+
+    public String getLegalHistory() {
+        if(sp!=null) {
+            return sp.getString("legal", null);
+        }else{
+            return "";
+        }
+    }
+
+
+    /**
+     * //保存品牌本地历史记录
+     * @param brand
+     */
+    public void putBrandHistory(String brand) {
+        if(sp!=null){
+            Editor editor = sp.edit();
+            editor.putString("brand", brand);
+            editor.commit();}
+    }
+
+    public String getBrandHistory() {
+        if(sp!=null) {
+            return sp.getString("brand", null);
+        }else{
+            return "";
+        }
+    }
+
+
+    /**
+     * //保存失信本地历史记录
+     * @param lose
+     */
+    public void putLoseHistory(String lose) {
+        if(sp!=null){
+            Editor editor = sp.edit();
+            editor.putString("lose", lose);
+            editor.commit();}
+    }
+
+    public String getLoseHistory() {
+        if(sp!=null) {
+            return sp.getString("lose", null);
+        }else{
+            return "";
+        }
+    }
+
+
+
 
     //保存历史记录(临时)
     public void putmainHistory(String mainlistory) {

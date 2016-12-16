@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#EEEEEE">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/details_con_bg"
         android:orientation="vertical"
         android:paddingBottom="10dp"
@@ -22,7 +23,7 @@
             android:text="序号："
             android:textColor="#000000"
             style="@style/TextBold"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -32,7 +33,7 @@
             android:text="1"
             style="@style/TextBold"
             android:textColor="#57737D"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -42,11 +43,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="企业主体身份代码："
+                android:text="处罚决定书文号："
                 android:textColor="#000000"
                 style="@style/TextBold"
                 android:layout_marginTop="5dp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_marginRight="5dp"/>
 
             <TextView
@@ -57,7 +58,7 @@
                 android:layout_marginTop="5dp"
                 android:text="企业投资技术改造项目变更建设年限批复"
                 android:textColor="#57737D"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -67,9 +68,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业(机构)名称："
+            android:text="违法行为类型："
             android:textColor="#000000"
-            android:textSize="16sp"
+            android:textSize="14sp"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"/>
@@ -82,7 +83,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -92,11 +93,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="注册号："
+            android:text="处罚种类："
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -107,7 +108,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -117,11 +118,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="统一社会信用代码："
+            android:text="罚款金额(万元)："
             android:textColor="#000000"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -132,7 +133,7 @@
             android:layout_marginTop="5dp"
             android:text="企业投资技术改造项目变更建设年限批复"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -142,11 +143,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="处罚决定书文号："
+            android:text="没收金额(万元)："
             android:textColor="#000000"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -157,7 +158,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -167,11 +168,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="违法行为类型："
+            android:text="作出行政处罚决定机关名称："
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -182,7 +183,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -202,7 +203,7 @@
             android:textColor="#000000"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -213,7 +214,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -224,11 +225,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="处罚种类（中文名称）："
+            android:text="作出处罚决定书日期："
             android:textColor="#000000"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -239,134 +240,7 @@
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
-            android:textSize="14sp" />
-        <View
-            android:background="#B8B8B8"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="罚款金额："
-            android:textColor="#000000"
-            style="@style/TextBold"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
-            android:layout_marginRight="5dp"/>
-
-        <TextView
-            android:id="@+id/punish_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
-            style="@style/TextBold"
-            android:layout_marginTop="5dp"
-            android:textColor="#57737D"
-            android:textSize="14sp" />
-        <View
-            android:background="#B8B8B8"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="没收金额："
-            style="@style/TextBold"
-            android:layout_marginTop="5dp"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:layout_marginRight="5dp"/>
-
-        <TextView
-            android:id="@+id/punish_cash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
-            style="@style/TextBold"
-            android:layout_marginTop="5dp"
-            android:textColor="#57737D"
-            android:textSize="14sp" />
-        <View
-            android:background="#B8B8B8"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="处罚内容："
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/punihs_context"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:text="赣环评函[2015]182号"
-                android:textColor="#57737D"
-                android:textSize="14sp" />
-
-        <View
-            android:background="#B8B8B8"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="作出行政处罚决定机关名称："
-                android:layout_marginRight="5dp"
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/punish_office"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2019年11月12日-2020年11月20日"
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:textColor="#57737D"
-                android:textSize="14sp" />
-        <View
-            android:background="#B8B8B8"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="作出处罚决定书日期："
-                android:layout_marginRight="5dp"
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/punish_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="南昌经开区经发局"
-                style="@style/TextBold"
-                android:layout_marginTop="5dp"
-                android:textColor="#57737D"
-                android:textSize="14sp" />
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -377,54 +251,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="公示日期："
+            android:textColor="#000000"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp"
+            android:layout_marginRight="5dp"/>
 
         <TextView
-            android:id="@+id/punish_publicdate"
+            android:id="@+id/punish_money"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"
-            android:text="2015年12月30日"
             android:textColor="#57737D"
-            android:textSize="14sp" />
-
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_height="1dp"/>
-
         <TextView
-            android:id="@+id/permit_content1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="备注："
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp"
+            android:layout_marginRight="5dp"/>
 
         <TextView
-            android:id="@+id/punish_mark"
+            android:id="@+id/punish_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="许可该机构经营中国银行业监督管理委员会依照有关法律、行政法规和其他规定批准的业务，经营范围以批准文件所列的为准。"
-            android:textColor="#57737D"
+            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"/>
+            android:textColor="#57737D"
+            android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情："
+                style="@style/TextBold"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/punihs_context"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextBold"
+                android:layout_marginTop="5dp"
+                android:text="赣环评函[2015]182号"
+                android:textColor="#57737D"
+                android:textSize="12sp" />
+
     </LinearLayout>
 
 

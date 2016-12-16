@@ -750,7 +750,7 @@ public class ReportActivity extends Activity {
                         request.add("select",selectStr);//
                         request.add("email",xx1.getText().toString().trim());//
                         request.add("tel",xx2.getText().toString().trim());//
-                        if(csp.getLoginStatus()){
+                        if(csp.getLoginStatus()){//判定用户是否登录
                             request.add("memberId",csp.getID());//
                         }
                         request.add("provinceCode", CompanyDetailsActivity.ProvinceCode);

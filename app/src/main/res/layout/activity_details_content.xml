@@ -222,7 +222,7 @@
                             android:id="@+id/c_nametit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="企业名称："
+                            android:text="名称："
                             android:textStyle="bold"
                             android:textColor="#000000"
                             android:textSize="@dimen/ctitle_size" />
@@ -314,6 +314,7 @@
                         android:paddingTop="5dp">
 
                         <TextView
+                            android:id="@+id/c_fangweiTit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="经营范围："

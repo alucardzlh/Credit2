@@ -31,6 +31,7 @@ import com.example.credit.Utils.URLconstant;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.error.NetworkError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,12 +75,12 @@ public class WelcomeActivity extends BaseActivity {
         CreditSharePreferences.init(this);
         wd=new WaitDialog(this);
         esp = CreditSharePreferences.getLifeSharedPreferences();
-        try{
-            if(esp.getWelcome().equals("")){
+        try {
+            if (esp.getWelcome().equals("")) {
                 pager.setVisibility(View.VISIBLE);
                 iv.setVisibility(View.GONE);
                 showdy();
-            }else{
+            } else {
                 GsonUtil NewClaimRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.NEWAPP, RequestMethod.GET);//获取最新版本
                 NewClaimRequest.add("token", MD5.MD5s("" + new Build().MODEL));
                 NewClaimRequest.add("KeyNo", "");
@@ -87,7 +88,7 @@ public class WelcomeActivity extends BaseActivity {
                 NewClaimRequest.add("deviceId", (new Build()).MODEL);
                 CallServer.getInstance().add(WelcomeActivity.this, NewClaimRequest, MyhttpCallBack.getInstance(), 0x110, true, false, true);
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e){
             pager.setVisibility(View.VISIBLE);
             iv.setVisibility(View.GONE);
             showdy();
@@ -240,6 +241,22 @@ public class WelcomeActivity extends BaseActivity {
 
             }
         });
+        try {
+            if (esp.getWelcome().equals("")) {
+                if (WelcomeActivity.wd!=null&&WelcomeActivity.wd.isShowing()) {
+                    WelcomeActivity.wd.dismiss();
+                }
+                esp.putWelcome("yes");
+            }
+        } catch (NullPointerException e) {
+            if (null != WelcomeActivity.wd && WelcomeActivity.wd.equals(null)) {
+                if (WelcomeActivity.wd!=null&&WelcomeActivity.wd.isShowing()) {
+                    WelcomeActivity.wd.dismiss();
+                }
+            }
+            esp.putWelcome("yes");
+        }
+
     }
     //初始化组件
     private void initView() {

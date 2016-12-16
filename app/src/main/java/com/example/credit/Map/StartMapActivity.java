@@ -114,9 +114,14 @@ public class StartMapActivity extends Activity implements LocationSource, AMapLo
         maptyp1e.setOnClickListener(listener);
         //在activity执行onCreate时执行mapView.onCreate(savedInstanceState)，实现地图生命周期管理
         mapView.onCreate(savedInstanceState);
-        String [] init=DataManager.getMapList.geocodes.get(0).location.split(",");
-        lng=Double.parseDouble(init[0]);
-        lat=Double.parseDouble(init[1]);
+        String [] init= new String[0];
+        try {
+            init = DataManager.getMapList.geocodes.get(0).location.split(",");
+            lng=Double.parseDouble(init[0]);
+            lat=Double.parseDouble(init[1]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (aMap == null) {
             aMap = mapView.getMap();

@@ -192,18 +192,24 @@ public class Main_Search_ListActivity extends BaseActivity implements PullToRefr
                             nam = "patentName";
                             num = 0x1004;
                             break;
-                        case "失信":
+                        case "失信人":
                             urls = URLconstant.URLINSER + URLconstant.SXDETAILS;
                             num = 0x1006;
                             break;
                     }
                     if (Tname != "招投标") {
                         GsonUtil ComplaintsRuerst = new GsonUtil(urls, RequestMethod.GET);
-                        ComplaintsRuerst.add("token", MD5.MD5s("" + new Build().MODEL));
-                        ComplaintsRuerst.add("KeyNo", "");
+
+
                         ComplaintsRuerst.add("deviceId", new Build().MODEL);
-                        if (Tname != "失信"&&!Tname.equals("失信")) {
+                        if (Tname != "失信人"&&!Tname.equals("失信人")) {
+                            ComplaintsRuerst.add("token", MD5.MD5s("" + new Build().MODEL));
+                            ComplaintsRuerst.add("KeyNo", "");
                             ComplaintsRuerst.add(nam, ETname);
+                        }else {
+                            ComplaintsRuerst.add("token", MD5.MD5s(ETname + new Build().MODEL));
+                            ComplaintsRuerst.add("KeyNo", ETname);
+                            ComplaintsRuerst.add("pripid", "");
                         }
                         ComplaintsRuerst.add("pageIndex", CurrentPage+1);
                         ComplaintsRuerst.add("pageSize",10);

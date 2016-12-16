@@ -29,28 +29,36 @@ public class NewsContentActivity extends BaseActivity {
     String id;
 
     ProgressDialog pd;
+    String Url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_content);
         ViewUtils.inject(this);
-        b_topname.setText("新闻内容");
+        b_topname.setText("文章内容");
         b_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        Intent i=getIntent();
-        id=i.getStringExtra("id");
+        Intent i = getIntent();
+        id = i.getStringExtra("id");
+        Url = i.getStringExtra("Url");
         webinit();
     }
-    public  void webinit(){
+
+    public void webinit() {
         pd = new ProgressDialog(NewsContentActivity.this);
         pd.setMessage("正在加载中...");
         pd.setCancelable(false);
         pd.show();
-        mWebView.loadUrl("http://101.201.211.27:8282/zhirong.credith5/enterinfo/tonewsDetails.do?devicetype=1&KeyNo="+id);
+        if (null == Url) {
+            mWebView.loadUrl("http://101.201.211.27:8282/zhirong.credith5/enterinfo/tonewsDetails.do?devicetype=1&KeyNo=" + id);
+        } else {
+            mWebView.loadUrl(Url+"&devicetype=1");
+        }
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -62,7 +70,7 @@ public class NewsContentActivity extends BaseActivity {
                 }
             }
         });
-        mWebView.setWebViewClient(new WebViewClient(){
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);

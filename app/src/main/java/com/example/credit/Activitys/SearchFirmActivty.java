@@ -502,8 +502,20 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         history_list_null = (TextView) findViewById(R.id.history_list_null);
         csp = CreditSharePreferences.getLifeSharedPreferences();
         if (csp.getHistory() == null || csp.getHistory().equals("")) {//给历史记录赋初始值
-            String Tnameh ="江西智容,泰豪科技,江铃控股,中国瑞林,南昌工业控股,南昌和平大厦实业发展公司,江西梦娜袜业有限公司,江西工商联合投资有限公司,江西城投,煌上煌";//历史字备用
+            String Tnameh = "江西智容,泰豪科技,江铃控股,中国瑞林,南昌工业控股,南昌和平大厦,江西梦娜,江西工商联,江西城投,煌上煌";//企业历史字备用
             csp.putHistory(Tnameh);
+        }
+        if(csp.getLegalHistory() == null || csp.getLegalHistory().equals("")) {
+            String Legal = "李义海,林印孙,熊贤忠,杨文龙,朱星河,李华,徐桂芬,王敏,陈国荣,游建平";//法人
+            csp.putLegalHistory(Legal);
+        }
+        if(csp.getBrandHistory() == null || csp.getBrandHistory().equals("")) {
+        String Brand = "润田,汪氏,仁和,煌上煌,江中,草珊瑚,正邦,春丝,恒大,四特";//商标
+        csp.putBrandHistory(Brand);
+        }
+        if(csp.getLoseHistory() == null || csp.getLoseHistory().equals("")) {
+        String Lose = "陈惠琴,卢全国,马杰豪,傅小马,吕中春,杨山峰,卢国强,陈水利,康泰蔬菜,余幼学";//失信
+        csp.putLoseHistory(Lose);
         }
         /**
          * 监听软键盘回车
@@ -522,7 +534,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                     if (!searchEt.getText().toString().trim().equals("")) {
                         GETsearch();
                     } else {
-                        Toast.show("搜索关键字不能为空!!!");
+                        Toast.show("搜索关键字不能为空!");
                     }
                     return true;
                 }
@@ -591,7 +603,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 Urls = URLconstant.URLINSER + URLconstant.SEARCHURL;
                 break;
         }
-
 
 
     }
@@ -920,15 +931,26 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     private void randomText() {
         ListView history_list = (ListView) findViewById(R.id.history_list);
         TextView history_list_null = (TextView) findViewById(R.id.history_list_null);
-        if (csp.getHistory() != null && !(csp.getHistory()).equals("")) {
-            String str = csp.getHistory();
+        if (csp.getHistory() != null && !(csp.getHistory()).equals("")&&
+                csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("")&&
+                csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("")&&
+                csp.getLoseHistory() != null && !(csp.getLoseHistory()).equals("")) {
+            String str = null;
+            switch (type){
+                case 0: str= csp.getHistory();break;
+                case 1: str = csp.getLegalHistory();break;
+                case 2:str = csp.getBrandHistory();break;
+                case 3:str=csp.getLoseHistory();break;
+            }
+
+
             String[] strh = str.split(",");
             List<String> listh = new ArrayList<String>(Arrays.asList(strh));
             DataManager.DataList = new ArrayList<>(Arrays.asList(strh));
             if (listh != null && listh.size() > 0) {
-                for (String tag : strh) {
+                for (int i = strh.length - 1; i >= 0; i--) {//String tag : strh
                     final TextView textView = makeTextView();
-                    textView.setText(tag);
+                    textView.setText(strh[i]);
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -1161,7 +1183,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     public void GETsearch() {
         if (listseaMore.size() != 0) {
             listseaMore.clear();
-            t=2;
+            t = 2;
         }
         //model = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
         String Tname = searchEt.getText().toString();
@@ -1171,8 +1193,26 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         //历史记录保存本地SP
         String Tnameh = Tname + ",";//历史字备用
         if (!Tname.equals("")) {
-            if (csp.getHistory() != null && !(csp.getHistory()).equals("")) {
-                String str1 = csp.getHistory();
+            if (csp.getHistory() != null && !(csp.getHistory()).equals("")&&
+                    csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("")&&
+                    csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("")&&
+                    csp.getLoseHistory() != null && !(csp.getLoseHistory()).equals("")) {
+                String str1=null;
+                switch (type){
+                    case 0:
+                        str1 = csp.getHistory();
+                        break;
+                    case 1:
+                        str1 = csp.getLegalHistory();
+                        break;
+                    case 2:
+                        str1 = csp.getBrandHistory();
+                        break;
+                    case 3:
+                        str1 = csp.getLoseHistory();
+                        break;
+                }
+                //String str1 = csp.getHistory();
                 String[] strh = str1.split(",");
                 List<String> listh = new ArrayList<String>(Arrays.asList(strh));
                 if (listh != null && listh.size() < 10) {
@@ -1183,7 +1223,21 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         }
                     }
                     if (temp.equals("")) {
-                        csp.putHistory(str1 + Tnameh);
+                        switch (type) {
+                            case 0:
+                                csp.putHistory(str1 + Tnameh);
+                                break;
+                            case 1:
+                                csp.putLegalHistory(str1 + Tnameh);
+                                break;
+                            case 2:
+                                csp.putBrandHistory(str1 + Tnameh);
+                                break;
+                            case 3:
+                                csp.putLoseHistory(str1 + Tnameh);
+                                break;
+                        }
+
                     }
                 } else {
                     String temp = "";
@@ -1198,11 +1252,40 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         for (int i = 0; i < listh.size(); i++) {
                             strlists = strlists + listh.get(i) + ",";
                         }
-                        csp.putHistory(strlists + Tnameh);
+                        //csp.putHistory(strlists + Tnameh);
+                        switch (type) {
+                            case 0:
+                                csp.putHistory(strlists + Tnameh);
+                                break;
+                            case 1:
+                                csp.putLegalHistory(strlists + Tnameh);
+                                break;
+                            case 2:
+                                csp.putBrandHistory(strlists + Tnameh);
+                                break;
+                            case 3:
+                                csp.putLoseHistory(strlists + Tnameh);
+                                break;
+                        }
+
                     }
                 }
             } else {
-                csp.putHistory(Tnameh);
+                //csp.putHistory(Tnameh);
+                switch (type) {
+                    case 0:
+                        csp.putHistory(Tnameh);
+                        break;
+                    case 1:
+                        csp.putLegalHistory(Tnameh);
+                        break;
+                    case 2:
+                        csp.putBrandHistory(Tnameh);
+                        break;
+                    case 3:
+                        csp.putLoseHistory(Tnameh);
+                        break;
+                }
             }
 
             pd = new ProgressDialog(SearchFirmActivty.this);
@@ -1253,7 +1336,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                 request.add("registCapiEnd", registCapiEndIndex);
             }
             if (provinceindex != null) {//int/string 省代码 为空不做限制 为空citycode必须为空
-                request.add("province", provinceindex);
+                request.add("provinceCode", provinceindex);
             }
             if (cityindex != null && provinceindex != null && cityindex != "") {//int 城市代码  为空为当前省所有城市
                 request.add("cityCode", cityindex);
@@ -1327,7 +1410,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                                 request.add("registCapiEnd", registCapiEndIndex);
                             }
                             if (provinceindex != null) {//int/string 省代码 为空不做限制 为空citycode必须为空
-                                request.add("province", provinceindex);
+                                request.add("provinceCode", provinceindex);
                             }
                             if (cityindex != null && provinceindex != null && cityindex != "") {//int 城市代码  为空为当前省所有城市
                                 request.add("cityCode", cityindex);

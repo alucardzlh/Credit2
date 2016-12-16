@@ -1,5 +1,6 @@
 package com.example.credit;
 
+import com.example.credit.Utils.NetUtils;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
 
@@ -21,6 +22,9 @@ public class Application extends android.app.Application {
         Logger.setDebug(true);
         //设置Nohttp的日志tag
         Logger.setTag("forNoHttp");
+        try {
+            NetUtils.getAppVison(this);
+        }catch (Exception e){}
     }
 
 

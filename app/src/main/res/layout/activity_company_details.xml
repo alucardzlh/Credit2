@@ -137,14 +137,14 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@mipmap/updata"/>
+                        android:background="@mipmap/updata2"/>
                     <TextView
+                        android:id="@+id/datatime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="#13227a"
                         android:textSize="16sp"
-                        android:text="更新：最近三天"/>
+                        android:textColor="#13227a"
+                        android:text="更新："/>
                 </LinearLayout>
 
                 <LinearLayout

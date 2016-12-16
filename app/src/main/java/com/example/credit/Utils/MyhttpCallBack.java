@@ -62,28 +62,30 @@ public class MyhttpCallBack implements HttpCallBack {
         try {
             switch (what) {
                 case 0x021://获取城市
-                    jsonString= (String) response.get();
+                    jsonString = (String) response.get();
                     DataManager.citysList = gson.fromJson(jsonString, DataManager.citys.class);
                     break;
                 case 0x110://获取APP最新版本
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")) {
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.MyNewAppS = gson.fromJson(jsonString, DataManager.MyNewApp.class);
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     WelcomeActivity.handler.sendEmptyMessage(1);
                     break;
                 case 0x111://获取新闻
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")) {
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.MyNewsS = gson.fromJson(jsonString, DataManager.MyNews.class);
                             if (DataManager.MyNewsS.data.newInformation != null && DataManager.MyNewsS.data.newInformation.size() > 0) {
                                 MainActivity.MyNewsList = DataManager.MyNewsS.data.newInformation;
                             }
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     WelcomeActivity.handler.sendEmptyMessage(10);
                     break;
                 case 0x1111://获取更多新闻
@@ -100,35 +102,38 @@ public class MyhttpCallBack implements HttpCallBack {
                     break;
                 case 0x112://获取APP首页轮播图
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")) {
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.LBimgS = gson.fromJson(jsonString, DataManager.LBimg.class);
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     WelcomeActivity.handler.sendEmptyMessage(0);
                     break;
                 case 0x113://获取最新认领
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")){
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.NewClaimUtilsList = gson.fromJson(jsonString, DataManager.NewClaimUtils.class);
                             if (DataManager.NewClaimUtilsList.data.claimInfo != null && DataManager.NewClaimUtilsList.data.claimInfo.size() > 0) {
                                 MainActivity.MyCliamList = DataManager.NewClaimUtilsList.data.claimInfo;
                             }
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     WelcomeActivity.handler.sendEmptyMessage(2);
                     break;
                 case 0x1133://获取最新认领1
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")) {
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.NewClaimUtilsList = gson.fromJson(jsonString, DataManager.NewClaimUtils.class);
                             if (DataManager.NewClaimUtilsList.data.claimInfo != null && DataManager.NewClaimUtilsList.data.claimInfo.size() > 0) {
                                 MainActivity.MyCliamList = DataManager.NewClaimUtilsList.data.claimInfo;
                             }
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     MainActivity.handler.sendEmptyMessage(7);
                     break;
                 case 0x1131://获取最新认领(more)
@@ -141,40 +146,46 @@ public class MyhttpCallBack implements HttpCallBack {
                     break;
                 case 0x114://获取热点
                     jsonString = (String) response.get();
-                    try{
-                        if(!jsonString.equals("")) {
+                    try {
+                        if (!jsonString.equals("")) {
                             DataManager.MyHotS = gson.fromJson(jsonString, DataManager.MyHot.class);
                             if (DataManager.MyHotS.data != null && DataManager.MyHotS.data.searchHistory != null && DataManager.MyHotS.data.searchHistory.size() > 0) {
                                 MainActivity.MyHotsList = DataManager.MyHotS.data.searchHistory;
                             }
                         }
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     WelcomeActivity.handler.sendEmptyMessage(3);
                     break;
                 case 0x022://搜索结果
                     jsonString = (String) response.get();
-                    if(!jsonString.equals("")){
+                    if (!jsonString.equals("")) {
                         DataManager.searchList = gson.fromJson(jsonString, DataManager.search.class);
-                        if(DataManager.searchList.status.equals("1")){
+                        if (DataManager.searchList.status.equals("1")) {
                             if (DataManager.searchList.data.Result != null && DataManager.searchList.data.Result.size() > 0) {
                                 try {
-                                    if(DataManager.searchListMore.data.Result !=null && DataManager.searchListMore.data.Result.size()>0){
+                                    if (DataManager.searchListMore.data.Result != null && DataManager.searchListMore.data.Result.size() > 0) {
                                         DataManager.searchListMore.data.Result.clear();
                                     }
-                                }catch (NullPointerException e){
+                                } catch (NullPointerException e) {
 
                                 }
                                 SearchFirmActivty.handler.sendEmptyMessage(0);
                             } else {
                                 SearchFirmActivty.handler.sendEmptyMessage(500);
                             }
-                        }else{
-                            SearchFirmActivty.pd.dismiss();
-                            Toast.show(DataManager.searchList.message+"");
+                        } else {
+                            if (SearchFirmActivty.pd!=null&&SearchFirmActivty.pd.isShowing()) {
+                                SearchFirmActivty.pd.dismiss();
+                            }
+                            //Toast.show(DataManager.searchList.message + "");
+                            Toast.show("暂无该企业信息!");
                         }
-                    }else{
+                    } else {
                         Toast.show("后台程序有误,数据返回为空!!!");
-                        SearchFirmActivty.pd.dismiss();
+                        if (SearchFirmActivty.pd!=null&&SearchFirmActivty.pd.isShowing()) {
+                            SearchFirmActivty.pd.dismiss();
+                        }
                     }
 
                     break;
@@ -227,15 +238,15 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x000://工商信息
                     jsonString = (String) response.get();
                     DataManager.gsxx = gson.fromJson(jsonString, DataManager.GSXX.class);
-                    if(DataManager.gsxx.status.equals("1")){
+                    if (DataManager.gsxx.status.equals("1")) {
                         if (DataManager.gsxx.data.baseInfo != null) {
                             CompanyDetailsActivity.handler.sendEmptyMessage(0);
                         } else {
                             CompanyDetailsActivity.handler.sendEmptyMessage(500);
                         }
-                    }else{
+                    } else {
                         CompanyDetailsActivity.waitDialog.dismiss();
-                        Toast.show(DataManager.gsxx.message+"");
+                        Toast.show(DataManager.gsxx.message + "");
                     }
 
                     break;
@@ -299,9 +310,9 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x006://司法信息
                     jsonString = (String) response.get();
                     DataManager.JudicialDocumentsMarList = gson.fromJson(jsonString, DataManager.JudicialDocumentsMar.class);
-                    if( !DataManager.JudicialDocumentsMarList.data.equals("")){
+                    if (!DataManager.JudicialDocumentsMarList.data.equals("")) {
                         CompanyDetailsActivity.handler.sendEmptyMessage(6);
-                    }else{
+                    } else {
                         CompanyDetailsActivity.handler.sendEmptyMessage(500);
                     }
 
@@ -405,7 +416,7 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x015://自主公示zlh
                     jsonString = (String) response.get();
                     DataManager.ZZGSModels = gson.fromJson(jsonString, DataManager.ZZGS.class);
-                    if( !DataManager.ZZGSModels.data.equals("")){
+                    if (!DataManager.ZZGSModels.data.equals("")) {
                         CompanyDetailsActivity.handler.sendEmptyMessage(15);
                     } else {
                         CompanyDetailsActivity.handler.sendEmptyMessage(500);
@@ -581,8 +592,8 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x999://登入
                     jsonString = (String) response.get();
                     DataManager.user = gson.fromJson(jsonString, DataManager.User.class);
-                    if (! DataManager.user.status.equals("1")) {//登入失败
-                        Toast.show(DataManager.user.message+"");
+                    if (!DataManager.user.status.equals("1")) {//登入失败
+                        Toast.show(DataManager.user.message + "");
                         LoginActivity.wd.dismiss();
                     } else {//登入成功
                         csp.putUser(DataManager.user);
@@ -609,8 +620,8 @@ public class MyhttpCallBack implements HttpCallBack {
                     if (map.get("message").equals("success")) {//注册成功{"message":"success","status":"1","data":{"affectedRow":"1"},"version":"v1.0"}
                         RegisterActivity.handler.sendEmptyMessage(0);
                     } else {//注册失败
-                        Toast.show("注册失败 , " + map.get("message").toString()+" !");
-                        if(RegisterActivity.pd!=null){
+                        Toast.show("注册失败 , " + map.get("message").toString() + " !");
+                        if (RegisterActivity.pd != null) {
                             RegisterActivity.pd.dismiss();
                         }
                     }
@@ -760,17 +771,17 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x1132://地图showLocation&&showLocation({"status":0,"result":{"location":{"lng":115.86455138111218,"lat":28.703788358019084},"precise":1,"confidence":80,"level":"道路"}})
                     jsonString = (String) response.get();
                     DataManager.getMapList = gson.fromJson(jsonString, DataManager.getMap.class);
-                    if(DataManager.getMapList.status.equals("1")){
-                        try{
-                            if(DataManager.getMapList.geocodes!=null &&   DataManager.getMapList.geocodes.size()>0 ){
+                    if (DataManager.getMapList.status.equals("1")) {
+                        try {
+                            if (DataManager.getMapList.geocodes != null && DataManager.getMapList.geocodes.size() > 0) {
                                 CompanyDetailsActivity.handler.sendEmptyMessage(501);
-                            }else{
+                            } else {
                                 Toast.show("公司位置异常，无法定位!");
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             Toast.show("公司位置异常，无法定位!");
                         }
-                    }else{
+                    } else {
                         Toast.show("公司位置异常，无法定位!");
                     }
                     break;
@@ -831,10 +842,10 @@ public class MyhttpCallBack implements HttpCallBack {
                     break;
                 case 0x1143://公交
                     jsonString = (String) response.get();
-                    try{
+                    try {
                         DataManager.getBusList = gson.fromJson(jsonString, DataManager.getBus.class);
                         StartMapActivity.handler.sendEmptyMessage(2);
-                    }catch (JsonSyntaxException e) {
+                    } catch (JsonSyntaxException e) {
                         showdisplay(what);
                         Toast.show("路线有变化,无法导航!");
                     }
@@ -868,20 +879,19 @@ public class MyhttpCallBack implements HttpCallBack {
                 default:
                     break;
             }
-        }catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             showdisplay(what);
             Toast.show("后台数据空返回!");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             showdisplay(what);
             Toast.show("后台数据结构变更下标越界!");
         } catch (ClassCastException e) {
             showdisplay(what);
             Toast.show("后台数据变更类型转换出错!");
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             showdisplay(what);
             Toast.show("字符串转换为数字异常!");
-        }catch (JsonSyntaxException e) {
+        } catch (JsonSyntaxException e) {
             showdisplay(what);
             Toast.show("后台数据变更json解析出错!");
         }
@@ -910,49 +920,87 @@ public class MyhttpCallBack implements HttpCallBack {
                 SearchFirmActivty.pd.dismiss();
                 break;
             case 0x000://工商信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x001://行政审批
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x002://荣誉信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x003://扶持信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x004://抵押信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x005://出质信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x006://司法信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x007://预警信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x008://行政处罚
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x009://经营异常
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x010://专利信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x011://商标信息
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x012://著作权
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x013://广告资质
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x014://守合同重信用
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
             case 0x015://企业自主公示
-                CompanyDetailsActivity.waitDialog.dismiss();
+                if (CompanyDetailsActivity.waitDialog != null && CompanyDetailsActivity.waitDialog.isShowing()) {
+                    CompanyDetailsActivity.waitDialog.dismiss();
+                }
                 break;
             case 0x701://信用报告1
-                ReportActivity.wd.dismiss();
+                if (ReportActivity.wd != null && ReportActivity.wd.isShowing()) {
+                    ReportActivity.wd.dismiss();
+                }
                 break;
             case 0x702://信用报告2
                 Toast.show("邮件正在发送中...");
                 break;
             case 0x996://个人中心取消投诉请求
-                MycomplaintsListActivity.pd.dismiss();
+                if (MycomplaintsListActivity.pd!=null&&MycomplaintsListActivity.pd.isShowing()) {
+                    MycomplaintsListActivity.pd.dismiss();
+                }
                 break;
             case 0x997://个人中心获取投诉列表
-                MainActivity.pd.dismiss();
+                if (MainActivity.pd!=null&&MainActivity.pd.isShowing()) {
+                    MainActivity.pd.dismiss();
+                }
                 break;
             case 0x204://发表评论
             case 0x205://回复评论
@@ -973,8 +1021,12 @@ public class MyhttpCallBack implements HttpCallBack {
 
                 break;
             case 0x206://我的评价
-                MainActivity.ad.dismiss();
-                MainActivity.pd.dismiss();
+                if (MainActivity.ad!=null&&MainActivity.ad.isShowing()) {
+                    MainActivity.ad.dismiss();
+                }
+                if (MainActivity.pd!=null&&MainActivity.pd.isShowing()) {
+                    MainActivity.pd.dismiss();
+                }
                 break;
             case 0x995:
             case 0x994://获取企业投诉列表
@@ -1022,20 +1074,20 @@ public class MyhttpCallBack implements HttpCallBack {
                 break;
             case 0x111://获取新闻
                 WelcomeActivity.handler.sendEmptyMessage(10);
-                try{
-                    if(csp.getWelcome().equals("")){
+                try {
+                    if (csp.getWelcome().equals("")) {
                         WelcomeActivity.wd.dismiss();
                     }
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     WelcomeActivity.wd.dismiss();
                 }
                 break;
             case 0x110://获取APP最新版本
-                try{
-                    if(csp.getWelcome().equals("")){
+                try {
+                    if (csp.getWelcome().equals("")) {
                         WelcomeActivity.wd.dismiss();
                     }
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     WelcomeActivity.wd.dismiss();
                 }
                 WelcomeActivity.handler.sendEmptyMessage(10);

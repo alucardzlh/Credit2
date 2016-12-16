@@ -173,7 +173,7 @@ public class Autonomy_Adapter extends BaseAdapter {
             if (punishList != null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.autonomy_punish_item, null);
                 vh.punish_xh = (TextView) convertView.findViewById(R.id.punish_xh);
-                vh.punish_pripid = (TextView) convertView.findViewById(R.id.punish_pripid);
+                vh.punish_pripid = (TextView) convertView.findViewById(R.id.punish_pripid);//处罚决定书文号
                 vh.punish_name = (TextView) convertView.findViewById(R.id.punish_name);
                 vh.punish_registerno = (TextView) convertView.findViewById(R.id.punish_registerno);
                 vh.punish_creditno = (TextView) convertView.findViewById(R.id.punish_creditno);
@@ -183,10 +183,6 @@ public class Autonomy_Adapter extends BaseAdapter {
                 vh.punish_money = (TextView) convertView.findViewById(R.id.punish_money);
                 vh.punish_cash = (TextView) convertView.findViewById(R.id.punish_cash);
                 vh.punihs_context = (TextView) convertView.findViewById(R.id.punihs_context);
-                vh.punish_office = (TextView) convertView.findViewById(R.id.punish_office);
-                vh.punish_time = (TextView) convertView.findViewById(R.id.punish_time);
-                vh.punish_publicdate = (TextView) convertView.findViewById(R.id.punish_publicdate);
-                vh.punish_mark = (TextView) convertView.findViewById(R.id.punish_mark);
             } else {
             }
             convertView.setTag(vh);
@@ -263,20 +259,17 @@ public class Autonomy_Adapter extends BaseAdapter {
          */
         if (punishList != null) {
             DataManager.ZZGS.DataBean.EimcaseInfoBean punish = punishList.get(position);
-            vh.punish_pripid.setText(punish.PRIPID);
-            vh.punish_name.setText(punish.ENTNAME);
-            vh.punish_registerno.setText(punish.REGNO);
-            vh.punish_creditno.setText(punish.UNISCID);
-            vh.punish_no.setText(punish.PENDECNO);
-            vh.punish_illtype.setText(punish.ILLEGACTTYPE);
-            vh.punish_type_cn.setText(punish.PENTYPE_CN);
-            vh.punish_money.setText(punish.PENAM+"");
-            vh.punish_cash.setText(punish.FORFAM+"");
+            vh.punish_xh.setText(position+1+"");
+            vh.punish_pripid.setText(punish.PENDECNO);
+            vh.punish_name.setText(punish.ILLEGACTTYPE);
+            vh.punish_registerno.setText(punish.PENTYPE_CN);
+            vh.punish_creditno.setText(punish.PENAM);
+            vh.punish_no.setText(punish.FORFAM);
+            vh.punish_illtype.setText(punish.JUDAUTH);
+            vh.punish_type_cn.setText(punish.PENDECISSDATE);
+            vh.punish_money.setText(punish.PUBLICDATE+"");
+            vh.punish_cash.setText(punish.REMARK+"");
             vh.punihs_context.setText(punish.PENCONTENT);
-            vh.punish_office.setText(punish.JUDAUTH);
-            vh.punish_time.setText(punish.PENDECISSDATE);
-            vh.punish_publicdate.setText(punish.PUBLICDATE);
-            vh.punish_mark.setText(punish.REMARK);
         } else {
         }
 
@@ -289,7 +282,7 @@ public class Autonomy_Adapter extends BaseAdapter {
         TextView stock_time, BeforeContent, AfterContent;
         TextView permit_xh,permit_name, permit_no, permit_date, permit_office, permit_time, permit_content,permit_zxtime,permit_zxyuany,permit_bdxtime,permit_bdxyuany,permit_qtendtime,permit_qtendyuany;
         TextView lore_xh,lore_pripid, lore_name, lore_no;
-        TextView punish_xh,punish_pripid, punish_name, punish_registerno, punish_creditno, punish_no, punish_illtype, punish_type_cn, punish_money, punish_cash, punihs_context, punish_office, punish_time, punish_publicdate, punish_mark;
+        TextView punish_xh,punish_pripid, punish_name, punish_registerno, punish_creditno, punish_no, punish_illtype, punish_type_cn, punish_money, punish_cash, punihs_context;
     }
 
 }

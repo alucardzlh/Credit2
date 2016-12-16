@@ -13,25 +13,26 @@
         android:id="@+id/about_banben"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:layout_gravity="center_horizontal"
         android:text="二维码企业信用名片"
         android:textColor="#B8B8B8"
         android:textSize="20sp" />
-
+    <!--二维码企业信用名片-->
     <TextView
         android:id="@+id/about_apkname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_margin="10dp"
-        android:text="二维码企业信用名片是一款企业征信产品，处理为用户提供企业挤出工商信息 外，还免费提供企业关联关系、股权质押、司法诉讼、知识产权、招标等增值信息。提供准确搜索 ，让查询更快更准。是泛金融，泛投资，泛法律和泛商务(如销售、采购)人士的首选工具！"
+        android:text="        瑞臻企业信用系统是一款企业征信产品，除了为用户提供企业基本工商信息 外，还免费提供企业关联关系、股权质押、司法诉讼、知识产权、招标等增值信息。提供准确搜索 ，让查询更快更准。是泛金融，泛投资，泛法律和泛商务(如销售、采购)人士的首选工具！"
         android:textColor="#B8B8B8"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:text="联系我们"
         android:layout_marginLeft="10dp"
         android:textColor="#000000"
@@ -44,7 +45,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="30dp">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="28dp"

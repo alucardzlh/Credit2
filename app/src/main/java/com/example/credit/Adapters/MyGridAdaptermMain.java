@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
+import com.example.credit.Utils.NetUtils;
 import com.example.credit.Views.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author http://blog.csdn.net/finddreams
@@ -65,7 +67,13 @@ public class MyGridAdaptermMain extends BaseAdapter {
         }
         ImageView iv = BaseViewHolder.get(convertView, R.id.iv_img);
         TextView tv = BaseViewHolder.get(convertView, R.id.iv_txt);
-        iv.setBackgroundResource(imgs[position]);
+        try {
+            iv.setBackgroundResource(imgs[position]);
+        }catch (OutOfMemoryError error){
+            Picasso.with(mContext).load(imgs[position]).into(iv);
+        }
+        //iv.setBackgroundResource(imgs[position]);
+        //iv.setImageResource(imgs[position]);
         tv.setText(txt[position]);
 
         return convertView;

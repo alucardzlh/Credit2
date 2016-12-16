@@ -116,7 +116,7 @@ public class SearchListAdapter2 extends BaseAdapter {
 			if(c.REGCAP.indexOf(".") == -1){
 				vh.funds.setText(c.REGCAP+ "万元");
 			}else{
-				vh.funds.setText(c.REGCAP.substring(0,c.REGCAP.indexOf(".")) + "万元");
+				vh.funds.setText(c.REGCAP + "万元");//.substring(0,c.REGCAP.indexOf("."))
 			}
 		}
 

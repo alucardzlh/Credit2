@@ -2,6 +2,7 @@ package com.example.credit.Activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import com.example.credit.Utils.MD5;
 import com.example.credit.Utils.MyhttpCallBack;
 import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
+import com.example.credit.Views.FlowTagLayout;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.yolanda.nohttp.RequestMethod;
@@ -71,6 +73,9 @@ public class Main_SearchActivity extends BaseActivity {
     public static TextView text1;
     @ViewInject(R.id.text2)
     public static TextView text2;
+    @ViewInject(R.id.ftlayout2)
+    FlowTagLayout ftlayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,14 +190,28 @@ public class Main_SearchActivity extends BaseActivity {
                     case 10:
                         if(!hit.equals("招投标")){
                             if ( DataManager.getSgHisList.data.searchHistory !=null && DataManager.getSgHisList.data.searchHistory.size()>0) {
-                                syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
-                                his_yout.setAdapter(adapter);
-                                his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
-                                    }
-                                });
+                                ftlayout.removeAllViews();
+                                for(final DataManager.getSgHis.DataBean.SearchHistoryBean temp:DataManager.getSgHisList.data.searchHistory){
+                                    final TextView textView = makeTextView();
+                                    textView.setText(temp.KEYWORDS+"");
+                                    textView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            search_et.setText(temp.KEYWORDS+"");
+                                        }
+                                    });
+                                    ftlayout.addView(textView);
+
+                                }
+
+//                                syHisAdapter adapter=new syHisAdapter(Main_SearchActivity.this,DataManager.getSgHisList.data.searchHistory);
+//                                his_yout.setAdapter(adapter);
+//                                his_yout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                        search_et.setText(DataManager.getSgHisList.data.searchHistory.get(position).KEYWORDS+"");
+//                                    }
+//                                });
                             }
                         }
                         break;
@@ -343,6 +362,8 @@ public class Main_SearchActivity extends BaseActivity {
             Request.add("token", MD5.MD5s("" + new Build().MODEL));
             Request.add("KeyNo", "");
             Request.add("deviceId", (new Build()).MODEL);
+            Request.add("pageIndex", 1);//int 搜索请求页数
+            Request.add("pageSize", 10);//int 搜索请求条数
             switch (hit) {
                 case "商标":
                     Request.add("logType", 21);
@@ -357,5 +378,12 @@ public class Main_SearchActivity extends BaseActivity {
             CallServer.getInstance().add(Main_SearchActivity.this, Request, MyhttpCallBack.getInstance(), 0x211, true, false, true);
         }
         super.onResume();
+    }
+    private TextView makeTextView() {
+        TextView textView = new TextView(this);
+        textView.setBackgroundResource(R.drawable.ftlayout_tag_bg);
+        textView.setTextColor(Color.WHITE);
+
+        return textView;
     }
 }

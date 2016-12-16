@@ -117,6 +117,8 @@ public class DetailsContentActivity extends BaseActivity {
     @ViewInject(R.id.c_state)
     TextView c_state;//经营状态
 
+    @ViewInject(R.id.c_fangweiTit)
+    TextView c_fangweiTit;//经营范围Tit
     @ViewInject(R.id.c_fangwei)
     TextView c_fangwei;//经营范围
 
@@ -792,7 +794,7 @@ public class DetailsContentActivity extends BaseActivity {
 
     /**
      *
-     * 根据企业类型修改
+     * ===============================   根据18种企业类型修改   ==============================================
      *
      */
     public void enttypeShow(){
@@ -816,7 +818,6 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
 //                c_daimatit.setText("注册号：");
 //                c_daima.setText(DataManager.gsxx.data.baseInfo.REGNO);
-                c_nametit.setText("名称：");
                 c_addresstit.setText("住所：");
 
                 c_djjg_tit.setText("组成形成：");
@@ -880,7 +881,6 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 c_tab2.setText("投资人");
                 c_tv2.setText("投资人");
-                c_nametit.setText("名称：");
                 c_addresstit.setText("住所：");
                 c_stateLin.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
@@ -928,8 +928,8 @@ public class DetailsContentActivity extends BaseActivity {
                 adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays31, arrays4);
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                c_nametit.setText("名称：");
                 c_addresstit.setText("住所：");
+                c_fangweiTit.setText("yewu：");
                 c_limoney.setVisibility(View.VISIBLE);
                 c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP+ "万元" + DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
 
@@ -990,7 +990,6 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 c_tab2.setText("合伙人");
                 c_tv2.setText("合伙人");
-                c_nametit.setText("名称：");
                 c_addresstit.setText("主要经营场所：");
                 c_stateLin.setVisibility(View.GONE);
                 c_tab3.setVisibility(View.GONE);
@@ -1015,7 +1014,6 @@ public class DetailsContentActivity extends BaseActivity {
                 adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                c_nametit.setText("名称：");
                 c_addresstit.setText("经营场所：");
                 c_stateLin.setVisibility(View.GONE);
                 c_tab2.setVisibility(View.GONE);
@@ -1043,6 +1041,19 @@ public class DetailsContentActivity extends BaseActivity {
 //            LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) tabLa.getLayoutParams();
 //            linearParams.height = LayoutParams.WRAP_CONTENT;
 //            tabLa.setLayoutParams(linearParams);
+                arrays3[4]="经营期限自：";
+                arrays3[5]="经营期限至：";
+                List<String> lt = new ArrayList<String>();
+                lt.add(DataManager.gsxx.data.baseInfo.NAME);
+                lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
+                lt.add(DataManager.gsxx.data.baseInfo.ESTDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.APPRDATE);
+                lt.add(DataManager.gsxx.data.baseInfo.OPFROM);
+                lt.add(DataManager.gsxx.data.baseInfo.OPTO);
+                int size = lt.size();
+                arrays4 = lt.toArray(new String[size]);
+                adapter2 = new MyGridAdapter3(DetailsContentActivity.this, arrays3, arrays4);
+
                 c_tab3.setVisibility(View.GONE);
                 c_tv3.setVisibility(View.GONE);
                 myGridViewZY.setVisibility(View.GONE);
@@ -1080,7 +1091,6 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 c_tab2.setText("合伙人");
                 c_tv2.setText("合伙人");
-                c_nametit.setText("名称：");
                 c_addresstit.setText("主要经营场所：");
                 c_stateLin.setVisibility(View.GONE);
                 c_gudong_null.setVisibility(View.GONE);
@@ -1175,6 +1185,8 @@ public class DetailsContentActivity extends BaseActivity {
                     || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9200") != -1)){
                 arrays3[0]="负责人：";
                 arrays3[1]="登记状态：";
+                arrays3[4]="经营期限自：";
+                arrays3[5]="经营期限至：";
                 List<String> lt = new ArrayList<String>();
                 lt.add(DataManager.gsxx.data.baseInfo.NAME);
                 lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);
@@ -1195,8 +1207,7 @@ public class DetailsContentActivity extends BaseActivity {
                 }
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
-                c_nametit.setText("名称：");
-                c_addresstit.setText("经营场所：");
+                c_addresstit.setText("营业场所：");
                 c_stateLin.setVisibility(View.GONE);
                 c_tab2.setVisibility(View.GONE);
                 c_tv2.setVisibility(View.GONE);

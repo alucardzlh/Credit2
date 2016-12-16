@@ -13,7 +13,7 @@
         android:background="@drawable/details_con_bg"
         android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:layout_marginBottom="5dp">
@@ -23,7 +23,7 @@
             android:text="序号："
             android:textStyle="bold"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginRight="5dp"/>
 
         <TextView
@@ -33,7 +33,7 @@
             android:text="1"
             android:textStyle="bold"
             android:textColor="#57737D"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:text="许可文件名称："
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_marginRight="5dp"/>
 
             <TextView
@@ -57,7 +57,7 @@
                 android:text="企业投资技术改造项目变更建设年限批复"
                 android:textStyle="bold"
                 android:textColor="#57737D"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/permit_no"
@@ -83,7 +83,7 @@
                 android:text="赣环评函[2015]182号"
                 android:textStyle="bold"
                 android:textColor="#57737D"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         <View
             android:background="#B8B8B8"
@@ -99,7 +99,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/permit_date"
@@ -108,7 +108,7 @@
                 android:text="2019年11月12日-2020年11月20日"
                 android:textStyle="bold"
                 android:textColor="#57737D"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -123,7 +123,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/permit_office"
@@ -132,7 +132,7 @@
                 android:text="南昌经开区经发局"
                 android:textStyle="bold"
                 android:textColor="#57737D"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         <View
             android:background="#B8B8B8"
             android:layout_width="match_parent"
@@ -146,7 +146,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_time"
@@ -155,7 +155,7 @@
             android:text="2015年12月30日"
             android:textStyle="bold"
             android:textColor="#57737D"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <View
             android:background="#B8B8B8"
@@ -172,7 +172,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_content"
@@ -181,7 +181,7 @@
             android:text="许可该机构经营中国银行业监督管理委员会依照有关法律、行政法规和其他规定批准的业务，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
             android:background="#B8B8B8"
@@ -197,7 +197,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_zxtime"
@@ -206,7 +206,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
             android:background="#B8B8B8"
@@ -222,7 +222,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_zxyuany"
@@ -231,7 +231,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
             android:background="#B8B8B8"
@@ -247,7 +247,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_bdxtime"
@@ -256,7 +256,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
         android:background="#B8B8B8"
@@ -272,7 +272,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_bdxyuany"
@@ -281,7 +281,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
             android:background="#B8B8B8"
@@ -297,7 +297,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_qtendtime"
@@ -306,7 +306,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
         <View
             android:background="#B8B8B8"
@@ -322,7 +322,7 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/permit_qtendyuany"
@@ -331,7 +331,7 @@
             android:text="、，经营范围以批准文件所列的为准。"
             android:textColor="#57737D"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginRight="10dp"/>
     </LinearLayout>
 

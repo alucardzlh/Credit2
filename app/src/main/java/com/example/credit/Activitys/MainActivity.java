@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -63,6 +64,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import com.squareup.picasso.Picasso;
 import com.yolanda.nohttp.RequestMethod;
 
 import java.io.File;
@@ -201,17 +203,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         LoginStatus = csp.getLoginStatus();
         ViewUtils.inject(this);
 
-        try {
-            if (csp.getWelcome().equals("")) {
-                WelcomeActivity.wd.dismiss();
-                csp.putWelcome("yes");
-            }
-        } catch (NullPointerException e) {
-            if (null != WelcomeActivity.wd && WelcomeActivity.wd.equals(null)) {
-                WelcomeActivity.wd.dismiss();
-            }
-            csp.putWelcome("yes");
-        }
+
         ad = new WaitDialog(this);
         boolean falg = NetUtils.isConnectingToInternet(this);
         mLeftMenu = (SlidingMenu) findViewById(R.id.id_menu);
@@ -415,37 +407,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         });
-        try {
-            if (DataManager.MyNewAppS.message != null && DataManager.MyNewAppS.message.equals("success")) {
-                if (DataManager.MyNewAppS.data.VersionInfo != null & DataManager.MyNewAppS.data.VersionInfo.size() > 0) {
-                    for (int i = 0; i < DataManager.MyNewAppS.data.VersionInfo.size(); i++) {
-                        if (DataManager.MyNewAppS.data.VersionInfo.get(i).TYPE.equals("1")) {
-                            if (DataManager.MyNewAppS.data.VersionInfo.get(i).VERSION != null & DataManager.MyNewAppS.data.VersionInfo.get(i).PATH != null) {
-                                double in = Double.parseDouble(DataManager.MyNewAppS.data.VersionInfo.get(i).VERSION);//最新版本号
-                                double isn = Double.parseDouble(FileUtil.getVersionName(MainActivity.this));//当前版本号
-                                if (isn < in) {
-//                                    dialog.show();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-        }
+        NetUtils.getAppVison(this);
         /**
          * 轮播
          */
         mImageCycleView = (ImageCycleView) findViewById(R.id.icv_topView);
-        List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
+        final List<ImageCycleView.ImageInfo> list = new ArrayList<ImageCycleView.ImageInfo>();
         try {
             if (WelcomeActivity.red) {
                 if (DataManager.LBimgS.data.carouselInfo != null && DataManager.LBimgS.data.carouselInfo.size() > 0) {
                     //SD卡图片资源
                     for (int i = 0; i < DataManager.LBimgS.data.carouselInfo.size(); i++) {
 
-                        list.add(new ImageCycleView.ImageInfo(new File(Environment.getExternalStorageDirectory(), "/Credit/cache/CarouselImg" + i + ".jpg"), "", ""));
-//                list.add(new ImageCycleView.ImageInfo(base64Util.stringtoBitmap(DataManager.LBimgS.data.carouselInfo.get(i).PATH),"",""));
+                        //list.add(new ImageCycleView.ImageInfo(new File(Environment.getExternalStorageDirectory(), "/Credit/cache/CarouselImg" + i + ".jpg"), "", ""));
+                        list.add(new ImageCycleView.ImageInfo(base64Util.stringtoBitmap(DataManager.LBimgS.data.carouselInfo.get(i).PATH), "", "", DataManager.LBimgS.data.carouselInfo.get(i).TOURL));
                     }
                 } else {
                     //res图片资源
@@ -463,7 +438,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         mImageCycleView.loadData(list, new ImageCycleView.LoadImageCallBack() {
             @Override
-            public ImageView loadAndDisplay(ImageCycleView.ImageInfo imageInfo) {
+            public ImageView loadAndDisplay(final ImageCycleView.ImageInfo imageInfo) {
 
 //                //本地图片
 //                ImageView imageView=new ImageView(MainActivity.this);
@@ -478,10 +453,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //				smartImageView.setImageResource(Integer.parseInt(imageInfo.image.toString()));
 //				return smartImageView;
 //                使用BitmapUtils,只能使用网络图片
-                BitmapUtils bitmapUtils = new BitmapUtils(MainActivity.this);
+
+                /*BitmapUtils bitmapUtils = new BitmapUtils(MainActivity.this);
                 ImageView imageView = new ImageView(MainActivity.this);
-                bitmapUtils.display(imageView, imageInfo.image.toString());
+                bitmapUtils.display(imageView, imageInfo.image.toString());*/
+                ImageView imageView = new ImageView(MainActivity.this);
+                try {
+                    imageView.setImageBitmap((Bitmap) imageInfo.image);
+                } catch (Exception e) {//网络异常
+                    e.printStackTrace();
+                  findViewById(R.id.lunbo).setVisibility(View.GONE);
+                }
                 return imageView;
+            }
+        });
+        mImageCycleView.setOnPageClickListener(new ImageCycleView.OnPageClickListener() {
+            @Override
+            public void onClick(View imageView, ImageCycleView.ImageInfo imageInfo) {
+                startActivity(new Intent(MainActivity.this,NewsContentActivity.class).putExtra("Url",imageInfo.url));
             }
         });
     }
@@ -507,14 +496,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
         dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-        DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener(){
+        DialogInterface.OnKeyListener keylistener = new DialogInterface.OnKeyListener() {
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode== KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0)
-                {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
             }
@@ -892,19 +878,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
             login.setText("退出登录");
             if (!csp.getICONSTEAM().equals("")) {
 //                headimg.setImageBitmap(base64Util.stringtoBitmap(csp.getICONSTEAM()));
-                try{
+                try {
                     File file = new File(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg");
                     if (file.exists()) {//获取本地图片路径是否存在
 //                        if(csp.getICONSTEAM().substring(11,12).equals("p")){
 //                            headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.png", 100, 100));
 //                        }else{
-                            headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 100, 100));
+                        headimg.setImageBitmap(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 100, 100));
 //                        }
 //                        headimg.setImageBitmap(Environment.getExternalStorageDirectory()+ "/Credit/loginImg.png");
 //                        headimg.setImageBitmap(base64Util.stringtoBitmap(csp.getICONSTEAM()));
                         // Picasso.with(MainActivity.this).load(decodeBitmap(Environment.getExternalStorageDirectory() + "/Credit/loginImg.jpg", 80, 80)).into(headimg);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         } else {//若当前状态未未登录
@@ -960,6 +946,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         CallServer.getInstance().add(this, new GsonUtil(URLconstant.URLINSER + URLconstant.GETINDUSTRY, RequestMethod.GET), MyhttpCallBack.getInstance(), NOHTTP_INDUSTRY, true, false, true);//获取行业
+        NetUtils.getAppVison(this);
 
     }
 
@@ -1075,4 +1062,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 }

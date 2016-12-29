@@ -59,6 +59,8 @@ public class AddPopWindow extends PopupWindow {
 		typelist1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Main_SearchActivity.text2img1.setVisibility(View.VISIBLE);
+				Main_SearchActivity.text2img2.setVisibility(View.GONE);
 				Main_SearchActivity.text2.setText(list.get(position)+"");
 				AddPopWindow.this.dismiss();
 			}
@@ -73,7 +75,7 @@ public class AddPopWindow extends PopupWindow {
 	public void showPopupWindow(View parent) {
 		if (!this.isShowing()) {
 			// 以下拉方式显示popupwindow
-			this.showAsDropDown(parent, parent.getLayoutParams().width / 2, 18);
+			this.showAsDropDown(parent, parent.getLayoutParams().width / 2, 10);
 		} else {
 			this.dismiss();
 		}

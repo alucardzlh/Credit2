@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="纳税先锋"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -49,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="国家级"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -71,7 +69,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="国家级"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -93,7 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="国家级"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -115,7 +111,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="国家级"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -137,7 +132,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="国家级"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -159,7 +153,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="状态"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View

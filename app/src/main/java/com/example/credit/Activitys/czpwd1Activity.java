@@ -83,7 +83,7 @@ public class czpwd1Activity extends BaseActivity {
                     case 0:
 //                        {"message":"账号 或 邮箱 错误","status":"10","version":"v1.0"}
                         if(DataManager.getczpwdList.status.equals("1")){
-                            Toast.show("邮件发送成功!");
+                            Toast.show("短信发送成功!");//邮件
                             startActivity(new Intent(czpwd1Activity.this,czpwd2Activity.class));
                             czpwd1Activity.this.finish();
                         }else{

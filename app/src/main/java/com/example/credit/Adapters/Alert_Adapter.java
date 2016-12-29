@@ -98,7 +98,7 @@ public class Alert_Adapter extends BaseAdapter {
         switch (str){
             case "证照到期":
                 vh.loan_1.setText(list1.get(position).ORGAN);
-                vh.loan_2.setText(list1.get(position).WARNAMOUNT+" 万元");
+                vh.loan_2.setText(list1.get(position).WARNAMOUNT);
                 vh.loan_3.setText(list1.get(position).WARNSTATUS);
                 vh.loan_4.setText(list1.get(position).WARNDATE);
                 vh.loan_5.setText(list1.get(position).WARNCONTENT);
@@ -126,7 +126,7 @@ public class Alert_Adapter extends BaseAdapter {
                 break;
             case "证照过期":
                 vh.loan_1.setText(list2.get(position).ORGAN);
-                vh.loan_2.setText(list2.get(position).WARNAMOUNT+" 万元");
+                vh.loan_2.setText(list2.get(position).WARNAMOUNT);
                 vh.loan_3.setText(list2.get(position).WARNSTATUS);
                 vh.loan_4.setText(list2.get(position).WARNDATE);
                 vh.loan_5.setText(list2.get(position).WARNCONTENT);
@@ -154,7 +154,7 @@ public class Alert_Adapter extends BaseAdapter {
                 break;
             case "责令改正":
                 vh.loan_1.setText(list3.get(position).ORGAN+"");
-                vh.loan_2.setText(list3.get(position).WARNAMOUNT+" 万元");
+                vh.loan_2.setText(list3.get(position).WARNAMOUNT+"");
                 vh.loan_3.setText(list3.get(position).WARNSTATUS+"");
                 vh.loan_4.setText(list3.get(position).WARNDATE+"");
                 vh.loan_5.setText(list3.get(position).WARNCONTENT+"");
@@ -182,7 +182,7 @@ public class Alert_Adapter extends BaseAdapter {
                 break;
             case "欠贷信息":
                 vh.loan_1.setText(list4.get(position).ORGAN);
-                vh.loan_2.setText(list4.get(position).WARNAMOUNT+" 万元");
+                vh.loan_2.setText(list4.get(position).WARNAMOUNT+"");
                 vh.loan_3.setText(list4.get(position).WARNSTATUS);
                 vh.loan_4.setText(list4.get(position).WARNDATE);
                 vh.loan_5.setText(list4.get(position).WARNCONTENT);
@@ -210,7 +210,7 @@ public class Alert_Adapter extends BaseAdapter {
                 break;
             case "欠税信息":
                 vh.loan_1.setText(list5.get(position).ORGAN);
-                vh.loan_2.setText(list5.get(position).WARNAMOUNT+" 万元");
+                vh.loan_2.setText(list5.get(position).WARNAMOUNT+"");
                 vh.loan_3.setText(list5.get(position).WARNSTATUS);
                 vh.loan_4.setText(list5.get(position).WARNDATE);
                 vh.loan_5.setText(list5.get(position).WARNCONTENT);
@@ -238,7 +238,7 @@ public class Alert_Adapter extends BaseAdapter {
                 break;
             case "欠薪信息":
                 vh.loan_1.setText(list6.get(position).ORGAN);
-                vh.loan_2.setText(list6.get(position).WARNAMOUNT + " 万元");
+                vh.loan_2.setText(list6.get(position).WARNAMOUNT +"");
                 vh.loan_3.setText(list6.get(position).WARNSTATUS);
                 vh.loan_4.setText(list6.get(position).WARNDATE);
                 vh.loan_5.setText(list6.get(position).WARNCONTENT);

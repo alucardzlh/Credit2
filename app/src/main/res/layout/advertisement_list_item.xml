@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EEEEEE">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="级别"
+             android:textStyle="bold"
              android:textColor="#000000"
              android:textSize="@dimen/ctitle_size"
              android:layout_marginRight="5dp"/>
@@ -28,8 +30,8 @@
              android:id="@+id/level"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="123123123131"
              android:textColor="#57737D"
+             android:textStyle="bold"
              android:textSize="@dimen/ctest_size" />
         <View
             android:background="#B8B8B8"
@@ -42,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="类别"
+            android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
@@ -51,8 +54,8 @@
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="156165415616516"
             android:textColor="#57737D"
+            android:textStyle="bold"
             android:textSize="@dimen/ctest_size" />
         <View
             android:background="#B8B8B8"
@@ -66,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="有效期"
+            android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
@@ -75,7 +79,7 @@
             android:id="@+id/dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2019年11月12日-2020年11月20日"
+            android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View
@@ -89,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="认定时间"
                 android:layout_marginTop="5dp"
+                android:textStyle="bold"
                 android:layout_marginRight="5dp"
                 android:textColor="#000000"
                 android:textSize="@dimen/ctitle_size" />
@@ -97,7 +102,7 @@
                 android:id="@+id/times"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2019年11月12日"
+                android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
         <View
@@ -110,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="认定机关"
+            android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="@dimen/ctitle_size" />
@@ -118,7 +124,7 @@
             android:id="@+id/office"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="南昌市西湖区工商局"
+            android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
         <View

@@ -929,7 +929,7 @@ public class DetailsContentActivity extends BaseActivity {
                 myGridView3.setAdapter(adapter2);
                 myGridView3.setSelector(new ColorDrawable(Color.TRANSPARENT));
                 c_addresstit.setText("住所：");
-                c_fangweiTit.setText("yewu：");
+                c_fangweiTit.setText("业务范围：");
                 c_limoney.setVisibility(View.VISIBLE);
                 c_money.setText(DataManager.gsxx.data.baseInfo.REGCAP+ "万元" + DataManager.gsxx.data.baseInfo.REGCAPCUR_CN);
 
@@ -1185,8 +1185,8 @@ public class DetailsContentActivity extends BaseActivity {
                     || ((DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).substring(0,4).indexOf("9200") != -1)){
                 arrays3[0]="负责人：";
                 arrays3[1]="登记状态：";
-                arrays3[4]="经营期限自：";
-                arrays3[5]="经营期限至：";
+                arrays3[4]="营业期限自：";
+                arrays3[5]="营业期限至：";
                 List<String> lt = new ArrayList<String>();
                 lt.add(DataManager.gsxx.data.baseInfo.NAME);
                 lt.add(DataManager.gsxx.data.baseInfo.REGSTATE_CN);

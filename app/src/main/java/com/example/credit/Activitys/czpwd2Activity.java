@@ -57,7 +57,7 @@ public class czpwd2Activity extends BaseActivity {
                     startActivity(new Intent(czpwd2Activity.this,czpwd3Activity.class));
                     czpwd2Activity.this.finish();
                 }else{
-                    Toast.show("邮箱验证码错误!");
+                    Toast.show("验证码错误!");
                 }
             }
         });

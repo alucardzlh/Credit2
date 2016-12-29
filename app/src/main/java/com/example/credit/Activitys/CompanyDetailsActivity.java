@@ -35,6 +35,7 @@ import com.example.credit.Utils.CreditSharePreferences;
 import com.example.credit.Utils.GsonUtil;
 import com.example.credit.Utils.MD5;
 import com.example.credit.Utils.MyhttpCallBack;
+import com.example.credit.Utils.NetUtils;
 import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.ActionItem;
@@ -386,547 +387,551 @@ public class CompanyDetailsActivity extends BaseActivity {
     AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int index, long id) {
-            switch (index) {
-                case 0://工商信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).BaseInfoCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request0 = new GsonUtil(URLconstant.URLINSER + URLconstant.DETAILSCINFOURL, RequestMethod.GET);
-                        request0.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request0.add("token", token);
-                        request0.add("deviceId", model);
-                        request0.add("KeyNo", KeyNo);
-                        request0.add("provinceCode", ProvinceCode);
-                        request0.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        /**
-                         * 记录用户进入九宫格
-                         */
-                        if (!DataManager.String0.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "工商信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+            if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                switch (index) {
+                    case 0://工商信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).BaseInfoCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request0 = new GsonUtil(URLconstant.URLINSER + URLconstant.DETAILSCINFOURL, RequestMethod.GET);
+                            request0.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request0.add("token", token);
+                            request0.add("deviceId", model);
+                            request0.add("KeyNo", KeyNo);
+                            request0.add("provinceCode", ProvinceCode);
+                            request0.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            /**
+                             * 记录用户进入九宫格
+                             */
+                            if (!DataManager.String0.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "工商信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request0, MyhttpCallBack.getInstance(), 0x000, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request0, MyhttpCallBack.getInstance(), 0x000, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 1://行政审批
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).ApprovalCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request1 = new GsonUtil(URLconstant.URLINSER + URLconstant.ADMINURL, RequestMethod.GET);
-                        request1.add("token", token);
-                        request1.add("deviceId", model);
-                        request1.add("provinceCode", ProvinceCode);
-                        request1.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request1.add("KeyNo", KeyNo);
-                        if (!DataManager.String1.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "行政审批");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 1://行政审批
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).ApprovalCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request1 = new GsonUtil(URLconstant.URLINSER + URLconstant.ADMINURL, RequestMethod.GET);
+                            request1.add("token", token);
+                            request1.add("deviceId", model);
+                            request1.add("provinceCode", ProvinceCode);
+                            request1.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request1.add("KeyNo", KeyNo);
+                            if (!DataManager.String1.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "行政审批");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request1, MyhttpCallBack.getInstance(), 0x001, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request1, MyhttpCallBack.getInstance(), 0x001, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 2://荣誉信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).HonorCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request2 = new GsonUtil(URLconstant.URLINSER + URLconstant.HONORURL, RequestMethod.GET);
-                        request2.add("token", token);
-                        request2.add("deviceId", model);
-                        request2.add("provinceCode", ProvinceCode);
-                        request2.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request2.add("KeyNo", KeyNo);
-                        if (!DataManager.String2.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "荣誉信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 2://荣誉信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).HonorCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request2 = new GsonUtil(URLconstant.URLINSER + URLconstant.HONORURL, RequestMethod.GET);
+                            request2.add("token", token);
+                            request2.add("deviceId", model);
+                            request2.add("provinceCode", ProvinceCode);
+                            request2.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request2.add("KeyNo", KeyNo);
+                            if (!DataManager.String2.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "荣誉信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request2, MyhttpCallBack.getInstance(), 0x002, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request2, MyhttpCallBack.getInstance(), 0x002, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 3://扶持信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).SupportCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request3 = new GsonUtil(URLconstant.URLINSER + URLconstant.SUPPORTURL, RequestMethod.GET);
-                        request3.add("token", token);
-                        request3.add("deviceId", model);
-                        request3.add("provinceCode", ProvinceCode);
-                        request3.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request3.add("KeyNo", KeyNo);
+                        break;
+                    case 3://扶持信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).SupportCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request3 = new GsonUtil(URLconstant.URLINSER + URLconstant.SUPPORTURL, RequestMethod.GET);
+                            request3.add("token", token);
+                            request3.add("deviceId", model);
+                            request3.add("provinceCode", ProvinceCode);
+                            request3.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request3.add("KeyNo", KeyNo);
 //                        request3.add("pageIndex", 1);
 //                        request3.add("pageSize", 10);
 
-                        if (!DataManager.String3.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "扶持信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            if (!DataManager.String3.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "扶持信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request3, MyhttpCallBack.getInstance(), 0x003, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request3, MyhttpCallBack.getInstance(), 0x003, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 4://抵押信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).MortgagorCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil mortinfoRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.MORTINFO, RequestMethod.GET);//动产request
-                        mortinfoRequest.add("token", MD5.MD5s(DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID + model));
-                        mortinfoRequest.add("deviceId", model);
-                        mortinfoRequest.add("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
-                        mortinfoRequest.add("pageIndex", 1);
-                        mortinfoRequest.add("provinceCode", ProvinceCode);
-                        mortinfoRequest.add("pageSize", 10);
-                        mortinfoRequest.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String4.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "抵押信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
-                        }
+                        break;
+                    case 4://抵押信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).MortgagorCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil mortinfoRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.MORTINFO, RequestMethod.GET);//动产request
+                            mortinfoRequest.add("token", MD5.MD5s(DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID + model));
+                            mortinfoRequest.add("deviceId", model);
+                            mortinfoRequest.add("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
+                            mortinfoRequest.add("pageIndex", 1);
+                            mortinfoRequest.add("provinceCode", ProvinceCode);
+                            mortinfoRequest.add("pageSize", 10);
+                            mortinfoRequest.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String4.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "抵押信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
 //                        GsonUtil mortinfoBdcRequest = new GsonUtil(URLconstant.URLINSER + URLconstant.MORTINFOBDC, RequestMethod.GET);//不动产request
 //                        mortinfoBdcRequest.add("token", MD5.MD5s(DataManager.QJiugongGList.data.baseInfo.get(0).REGNO + model));
 //                        mortinfoBdcRequest.add("deviceId", model);
 //                        mortinfoBdcRequest.add("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
 //                        mortinfoBdcRequest.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, mortinfoRequest, MyhttpCallBack.getInstance(), 0x004, true, false, true);
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, mortinfoRequest, MyhttpCallBack.getInstance(), 0x004, true, false, true);
 //                        CallServer.getInstance().add(CompanyDetailsActivity.this, mortinfoBdcRequest, MyhttpCallBack.getInstance(), 0x0041, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 5://出质信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).PledgeCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request5 = new GsonUtil(URLconstant.URLINSER + URLconstant.PLEDGEURL, RequestMethod.GET);
-                        request5.add("token", token);
-                        request5.add("deviceId", model);
-                        request5.add("KeyNo", KeyNo);
-                        request5.add("provinceCode", ProvinceCode);
-                        request5.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String5.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "出质信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request5, MyhttpCallBack.getInstance(), 0x005, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 6://司法信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).JudiciaryCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request6 = new GsonUtil(URLconstant.URLINSER + URLconstant.JUDICIALURL, RequestMethod.GET);
-                        request6.add("token", token);
-                        request6.add("deviceId", model);
-                        request6.add("KeyNo", KeyNo);
-                        request6.add("provinceCode", ProvinceCode);
-                        request6.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request6.add("regnore", regnore);//注册号
-                        if (!DataManager.String6.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "司法信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 5://出质信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).PledgeCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request5 = new GsonUtil(URLconstant.URLINSER + URLconstant.PLEDGEURL, RequestMethod.GET);
+                            request5.add("token", token);
+                            request5.add("deviceId", model);
+                            request5.add("KeyNo", KeyNo);
+                            request5.add("provinceCode", ProvinceCode);
+                            request5.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String5.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "出质信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request5, MyhttpCallBack.getInstance(), 0x005, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request6, MyhttpCallBack.getInstance(), 0X006, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 7://预警信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).WarningCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request7 = new GsonUtil(URLconstant.URLINSER + URLconstant.GETALERT, RequestMethod.GET);
-                        request7.add("token", token);
-                        request7.add("deviceId", model);
-                        request7.add("KeyNo", KeyNo);
-                        request7.add("provinceCode", ProvinceCode);
-                        request7.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String7.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "预警信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 6://司法信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).JudiciaryCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request6 = new GsonUtil(URLconstant.URLINSER + URLconstant.JUDICIALURL, RequestMethod.GET);
+                            request6.add("token", token);
+                            request6.add("deviceId", model);
+                            request6.add("KeyNo", KeyNo);
+                            request6.add("provinceCode", ProvinceCode);
+                            request6.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request6.add("regnore", regnore);//注册号
+                            if (!DataManager.String6.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "司法信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request6, MyhttpCallBack.getInstance(), 0X006, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request7, MyhttpCallBack.getInstance(), 0x007, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 8://行政处罚
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).PunishCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request = new GsonUtil(URLconstant.URLINSER + URLconstant.PUNISHURL, RequestMethod.GET);
-                        request.add("token", token);
-                        request.add("deviceId", model);
-                        request.add("KeyNo", KeyNo);
-                        request.add("provinceCode", ProvinceCode);
-                        request.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String8.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "行政处罚");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 7://预警信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).WarningCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request7 = new GsonUtil(URLconstant.URLINSER + URLconstant.GETALERT, RequestMethod.GET);
+                            request7.add("token", token);
+                            request7.add("deviceId", model);
+                            request7.add("KeyNo", KeyNo);
+                            request7.add("provinceCode", ProvinceCode);
+                            request7.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String7.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "预警信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request7, MyhttpCallBack.getInstance(), 0x007, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request, MyhttpCallBack.getInstance(), 0X008, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 9://经营异常
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).AbnormityCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request9 = new GsonUtil(URLconstant.URLINSER + URLconstant.ABNORMALURL, RequestMethod.GET);
-                        request9.add("token", token);
-                        request9.add("deviceId", model);
-                        request9.add("KeyNo", KeyNo);
-                        request9.add("provinceCode", ProvinceCode);
-                        request9.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request9.add("pageIndex", 1);
-                        request9.add("pageSize", 10);
-                        if (!DataManager.String9.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "经营异常");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 8://行政处罚
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).PunishCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request = new GsonUtil(URLconstant.URLINSER + URLconstant.PUNISHURL, RequestMethod.GET);
+                            request.add("token", token);
+                            request.add("deviceId", model);
+                            request.add("KeyNo", KeyNo);
+                            request.add("provinceCode", ProvinceCode);
+                            request.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String8.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "行政处罚");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request, MyhttpCallBack.getInstance(), 0X008, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request9, MyhttpCallBack.getInstance(), 0X009, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 10://专利信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).PatentCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request10 = new GsonUtil(URLconstant.URLINSER + URLconstant.PATENTURL, RequestMethod.GET);
-                        request10.add("token", token);
-                        request10.add("deviceId", model);
-                        request10.add("KeyNo", KeyNo);
-                        request10.add("provinceCode", ProvinceCode);
-                        request10.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request10.add("pageIndex", 1);
-                        request10.add("pageSize", 10);
-                        if (!DataManager.String10.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "专利信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 9://经营异常
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).AbnormityCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request9 = new GsonUtil(URLconstant.URLINSER + URLconstant.ABNORMALURL, RequestMethod.GET);
+                            request9.add("token", token);
+                            request9.add("deviceId", model);
+                            request9.add("KeyNo", KeyNo);
+                            request9.add("provinceCode", ProvinceCode);
+                            request9.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request9.add("pageIndex", 1);
+                            request9.add("pageSize", 10);
+                            if (!DataManager.String9.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "经营异常");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request9, MyhttpCallBack.getInstance(), 0X009, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request10, MyhttpCallBack.getInstance(), 0x010, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 11://商标信息
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).TrademarkCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request11 = new GsonUtil(URLconstant.URLINSER + URLconstant.TRADEMARKURL, RequestMethod.GET);
-                        request11.add("token", token);
-                        request11.add("deviceId", model);
-                        request11.add("KeyNo", KeyNo);
-                        request11.add("provinceCode", ProvinceCode);
-                        request11.add("pageIndex", 1);
-                        request11.add("pageSize", 10);
-                        request11.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String11.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "商标信息");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 10://专利信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).PatentCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request10 = new GsonUtil(URLconstant.URLINSER + URLconstant.PATENTURL, RequestMethod.GET);
+                            request10.add("token", token);
+                            request10.add("deviceId", model);
+                            request10.add("KeyNo", KeyNo);
+                            request10.add("provinceCode", ProvinceCode);
+                            request10.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request10.add("pageIndex", 1);
+                            request10.add("pageSize", 10);
+                            if (!DataManager.String10.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "专利信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request10, MyhttpCallBack.getInstance(), 0x010, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request11, MyhttpCallBack.getInstance(), 0x011, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 12://著作权
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).CopyrightCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request12 = new GsonUtil(URLconstant.URLINSER + URLconstant.COPYRIGHTURL, RequestMethod.GET);
-                        request12.add("token", token);
-                        request12.add("deviceId", model);
-                        request12.add("KeyNo", KeyNo);
-                        request12.add("provinceCode", ProvinceCode);
-                        request12.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                        break;
+                    case 11://商标信息
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).TrademarkCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request11 = new GsonUtil(URLconstant.URLINSER + URLconstant.TRADEMARKURL, RequestMethod.GET);
+                            request11.add("token", token);
+                            request11.add("deviceId", model);
+                            request11.add("KeyNo", KeyNo);
+                            request11.add("provinceCode", ProvinceCode);
+                            request11.add("pageIndex", 1);
+                            request11.add("pageSize", 10);
+                            request11.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String11.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "商标信息");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request11, MyhttpCallBack.getInstance(), 0x011, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 12://著作权
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).CopyrightCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request12 = new GsonUtil(URLconstant.URLINSER + URLconstant.COPYRIGHTURL, RequestMethod.GET);
+                            request12.add("token", token);
+                            request12.add("deviceId", model);
+                            request12.add("KeyNo", KeyNo);
+                            request12.add("provinceCode", ProvinceCode);
+                            request12.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
 
-                        if (!DataManager.String12.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "著作权");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            if (!DataManager.String12.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "著作权");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request12, MyhttpCallBack.getInstance(), 0x012, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request12, MyhttpCallBack.getInstance(), 0x012, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 13://广告资质
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).AdvertisementCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request13 = new GsonUtil(URLconstant.URLINSER + URLconstant.ADVERTISEMENTURL, RequestMethod.GET);
-                        request13.add("token", token);
-                        request13.add("deviceId", model);
-                        request13.add("KeyNo", KeyNo);
-                        request13.add("provinceCode", ProvinceCode);
-                        request13.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        request13.add("memberId", "");
-                        request13.add("content", "");
-                        if (!DataManager.String13.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "广告资质");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 13://广告资质
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).AdvertisementCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request13 = new GsonUtil(URLconstant.URLINSER + URLconstant.ADVERTISEMENTURL, RequestMethod.GET);
+                            request13.add("token", token);
+                            request13.add("deviceId", model);
+                            request13.add("KeyNo", KeyNo);
+                            request13.add("provinceCode", ProvinceCode);
+                            request13.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            request13.add("memberId", "");
+                            request13.add("content", "");
+                            if (!DataManager.String13.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "广告资质");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request13, MyhttpCallBack.getInstance(), 0x013, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request13, MyhttpCallBack.getInstance(), 0x013, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 14://守合同重信用
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).CreditCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.OBEYEDURL, RequestMethod.GET);
-                        request14.add("token", token);
-                        request14.add("deviceId", model);
-                        request14.add("KeyNo", KeyNo);
-                        request14.add("provinceCode", ProvinceCode);
-                        request14.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String14.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "守合同重信用");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 14://守合同重信用
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).CreditCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request14 = new GsonUtil(URLconstant.URLINSER + URLconstant.OBEYEDURL, RequestMethod.GET);
+                            request14.add("token", token);
+                            request14.add("deviceId", model);
+                            request14.add("KeyNo", KeyNo);
+                            request14.add("provinceCode", ProvinceCode);
+                            request14.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String14.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "守合同重信用");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request14, MyhttpCallBack.getInstance(), 0x014, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request14, MyhttpCallBack.getInstance(), 0x014, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 15://自主公示
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).AnnualCount.equals("0")) {
-                        waitDialog.show();
-                        GsonUtil request15 = new GsonUtil(URLconstant.URLINSER + URLconstant.GETAUTO, RequestMethod.GET);
-                        request15.add("token", token);
-                        request15.add("deviceId", model);
-                        request15.add("KeyNo", KeyNo);
-                        request15.add("provinceCode", ProvinceCode);
-                        request15.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        if (!DataManager.String15.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
-                            GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
-                            request121.add("token", token);
-                            request121.add("deviceId", model);
-                            request121.add("KeyNo", KeyNo);
-                            request121.add("provinceCode", ProvinceCode);
-                            request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                            request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                            request121.add("memberId", csp.getID());
-                            request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                            request121.add("modulename", "自主公示");
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                        break;
+                    case 15://自主公示
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).AnnualCount.equals("0")) {
+                            waitDialog.show();
+                            GsonUtil request15 = new GsonUtil(URLconstant.URLINSER + URLconstant.GETAUTO, RequestMethod.GET);
+                            request15.add("token", token);
+                            request15.add("deviceId", model);
+                            request15.add("KeyNo", KeyNo);
+                            request15.add("provinceCode", ProvinceCode);
+                            request15.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            if (!DataManager.String15.equals(DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME)) {
+                                GsonUtil request121 = new GsonUtil(URLconstant.URLINSER + URLconstant.SAVESUM, RequestMethod.GET);
+                                request121.add("token", token);
+                                request121.add("deviceId", model);
+                                request121.add("KeyNo", KeyNo);
+                                request121.add("provinceCode", ProvinceCode);
+                                request121.add("regnore", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                                request121.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                                request121.add("memberId", csp.getID());
+                                request121.add("enttype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                                request121.add("modulename", "自主公示");
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, request121, MyhttpCallBack.getInstance(), 0x12138, true, false, true);
+                            }
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request15, MyhttpCallBack.getInstance(), MSG, true, false, true);
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
                         }
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request15, MyhttpCallBack.getInstance(), MSG, true, false, true);
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 16://全景视图
-                    startActivity(new Intent(CompanyDetailsActivity.this, Panoramic_Activity.class).putExtra("KeyNo", KeyNo).putExtra("deviceId", model).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("regnore", regnore).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME));
-                    break;
-                case 17://投资连图
-                    startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.TOUZILIAN).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "1").putExtra("Tname", "投资链图"));
-                    //Toast.show( "此模块，正在开发中...");
-                    break;
-                case 18://发展历程
-                    startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.FAZHAN).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("estdate", DataManager.QJiugongGList.data.baseInfo.get(0).ESTDATE).putExtra("msg", "2").putExtra("Tname", "发展历程").putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE));
-                    //Toast.show("此模块，正在开发中...");
-                    break;
-                case 19://招投标
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).BiddingCount.equals("0")) {
-                        Intent i19 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
-                        i19.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                        i19.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
-                        i19.putExtra("URL", URLconstant.TENDER);
-                        i19.putExtra("Tname", "招投标");
-                        i19.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                        i19.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        i19.putExtra("msg", "3");
-                        startActivity(i19);
-                        overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
-//                    Toast.show( "此模块，正在开发中...");
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-
-                case 20://企业新闻
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).EntNewCount.equals("0")) {
-                        Intent i20 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
-                        i20.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                        i20.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
-                        i20.putExtra("URL", URLconstant.COMPANYNEWS);
-                        i20.putExtra("Tname", "企业新闻");
-                        i20.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                        i20.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        i20.putExtra("msg", "4");
-                        startActivity(i20);
-                        overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
-                        //                    Toast.show( "此模块，正在开发中...");
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-
-                case 21://企业招聘
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).JobCount.equals("0")) {
-                        Intent i21 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
-                        i21.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                        i21.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
-                        i21.putExtra("URL", URLconstant.RECRUIT);
-                        i21.putExtra("Tname", "企业招聘");
-                        i21.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
-                        i21.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
-                        i21.putExtra("msg", "5");
-                        startActivity(i21);
-                        overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
-                        //                    Toast.show( "此模块，正在开发中...");
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 22://企业展示
-                    if (!DataManager.QJiugongGList.data.allCount.get(0).EntShowCount.equals("0")) {
+                        break;
+                    case 16://全景视图
+                        startActivity(new Intent(CompanyDetailsActivity.this, Panoramic_Activity.class).putExtra("KeyNo", KeyNo).putExtra("deviceId", model).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("regnore", regnore).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME));
+                        break;
+                    case 17://投资连图
+                        startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.TOUZILIAN).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "1").putExtra("Tname", "投资链图"));
+                        //Toast.show( "此模块，正在开发中...");
+                        break;
+                    case 18://发展历程
+                        startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.FAZHAN).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("estdate", DataManager.QJiugongGList.data.baseInfo.get(0).ESTDATE).putExtra("msg", "2").putExtra("Tname", "发展历程").putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE));
                         //Toast.show("此模块，正在开发中...");
-                        startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.SHOW).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "6"));
-                    } else {
-                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case 23://信用报告
-                    Intent i23 = new Intent(CompanyDetailsActivity.this, ReportActivity.class);
-                    startActivity(i23);
-                    break;
-                case 24://投资全景
-                    startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("URL", URLconstant.INVESTMENTURL).putExtra("KeyNo", KeyNo).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "11").putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO));
-                    break;
+                        break;
+                    case 19://招投标
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).BiddingCount.equals("0")) {
+                            Intent i19 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
+                            i19.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                            i19.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
+                            i19.putExtra("URL", URLconstant.TENDER);
+                            i19.putExtra("Tname", "招投标");
+                            i19.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                            i19.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            i19.putExtra("msg", "3");
+                            startActivity(i19);
+                            overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
+//                    Toast.show( "此模块，正在开发中...");
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                        break;
 
-                case 500://没有数据时返回信息
-                    android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
-                    break;
+                    case 20://企业新闻
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).EntNewCount.equals("0")) {
+                            Intent i20 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
+                            i20.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                            i20.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
+                            i20.putExtra("URL", URLconstant.COMPANYNEWS);
+                            i20.putExtra("Tname", "企业新闻");
+                            i20.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                            i20.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            i20.putExtra("msg", "4");
+                            startActivity(i20);
+                            overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
+                            //                    Toast.show( "此模块，正在开发中...");
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+
+                    case 21://企业招聘
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).JobCount.equals("0")) {
+                            Intent i21 = new Intent(CompanyDetailsActivity.this, H5ViewActivity.class);
+                            i21.putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                            i21.putExtra("pripid", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID);
+                            i21.putExtra("URL", URLconstant.RECRUIT);
+                            i21.putExtra("Tname", "企业招聘");
+                            i21.putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO);
+                            i21.putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE);
+                            i21.putExtra("msg", "5");
+                            startActivity(i21);
+                            overridePendingTransition(R.anim.start_tran_one, R.anim.start_tran_two);
+                            //                    Toast.show( "此模块，正在开发中...");
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 22://企业展示
+                        if (!DataManager.QJiugongGList.data.allCount.get(0).EntShowCount.equals("0")) {
+                            //Toast.show("此模块，正在开发中...");
+                            startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("KeyNo", DataManager.QJiugongGList.data.baseInfo.get(0).PRIPID).putExtra("URL", URLconstant.SHOW).putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "6"));
+                        } else {
+                            android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 23://信用报告
+                        Intent i23 = new Intent(CompanyDetailsActivity.this, ReportActivity.class);
+                        startActivity(i23);
+                        break;
+                    case 24://投资全景
+                        startActivity(new Intent(CompanyDetailsActivity.this, H5ViewActivity.class).putExtra("URL", URLconstant.INVESTMENTURL).putExtra("KeyNo", KeyNo).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME).putExtra("msg", "11").putExtra("regno", DataManager.QJiugongGList.data.baseInfo.get(0).REGNO));
+                        break;
+
+                    case 500://没有数据时返回信息
+                        android.widget.Toast.makeText(CompanyDetailsActivity.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }else{
+                com.example.credit.Utils.Toast.show("请检查网络");
             }
         }
     };
@@ -1000,9 +1005,9 @@ public class CompanyDetailsActivity extends BaseActivity {
 
 
 
-            if (DataManager.QJiugongGList.data.allCount.size() > 0) {
-                details_tit1.setText(DataManager.QJiugongGList.data.allCount.get(0).PageView + " 次");
-            }
+        if (DataManager.QJiugongGList.data.allCount.size() > 0) {
+            details_tit1.setText(DataManager.QJiugongGList.data.allCount.get(0).PageView + " 次");
+        }
 
 
 //        if(DataManager.QJiugongGList.data.allCount.get(0).IsClaim=="1"||DataManager.QJiugongGList.data.allCount.get(0).IsClaim.equals("1")){
@@ -1094,15 +1099,15 @@ public class CompanyDetailsActivity extends BaseActivity {
             /**
              * 更新时间
              */
-        try{
-            if(DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME.equals("")){
+            try{
+                if(DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME.equals("")){
+                    datatime.setText("暂无更新");
+                }else{
+                    datatime.setText("更新："+DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME);
+                }
+            }catch (Exception e){
                 datatime.setText("暂无更新");
-            }else{
-                datatime.setText("更新："+DataManager.QJiugongGList.data.baseInfo.get(0).S_EXT_DATATIME);
             }
-        }catch (Exception e){
-                datatime.setText("暂无更新");
-        }
             List<String> lt = new ArrayList<String>();
             lt.add(DataManager.QJiugongGList.data.baseInfo.get(0).REGCAP + "万元");
             lt.add(DataManager.QJiugongGList.data.baseInfo.get(0).NAME);
@@ -1179,70 +1184,89 @@ public class CompanyDetailsActivity extends BaseActivity {
                     finish();
                     break;
                 case R.id.pb_2://评论
-                    Intent i21 = new Intent(CompanyDetailsActivity.this, CommentListActivity.class);
-                    i21.putExtra("type", 0);
-                    startActivity(i21);
+                    if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                        Intent i21 = new Intent(CompanyDetailsActivity.this, CommentListActivity.class);
+                        i21.putExtra("type", 0);
+                        startActivity(i21);
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
+                    }
                     break;
                 case R.id.pb_0://二维码名片
-                    File file = new File(Environment.getExternalStorageDirectory() + "/Credit/cache/" + DataManager.QJiugongGList.data.baseInfo.get(0).REGNO + "_TwoDimImg.jpg");
-                    if (file.exists()) {//获取本地图片路径是否存在
-                        CompanyDetailsActivity.handler.sendEmptyMessage(25);
-                    } else {
-                        waitDialog.show();
-                        GsonUtil request100 = new GsonUtil(URLconstant.URLINSER + URLconstant.TWODIM, RequestMethod.GET);
-                        request100.add("deviceId", model);
-                        request100.add("token", token);
-                        request100.add("KeyNo", KeyNo);
-                        request100.add("regnore", regnore);
-                        request100.add("provinceCode", ProvinceCode);
-                        request100.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE_CN);
-                        request100.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
-                        CallServer.getInstance().add(CompanyDetailsActivity.this, request100, MyhttpCallBack.getInstance(), 0x601, true, false, true);
+                    if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                        File file = new File(Environment.getExternalStorageDirectory() + "/Credit/cache/" + DataManager.QJiugongGList.data.baseInfo.get(0).REGNO + "_TwoDimImg.jpg");
+                        if (file.exists()) {//获取本地图片路径是否存在
+                            CompanyDetailsActivity.handler.sendEmptyMessage(25);
+                        } else {
+                            waitDialog.show();
+                            GsonUtil request100 = new GsonUtil(URLconstant.URLINSER + URLconstant.TWODIM, RequestMethod.GET);
+                            request100.add("deviceId", model);
+                            request100.add("token", token);
+                            request100.add("KeyNo", KeyNo);
+                            request100.add("regnore", regnore);
+                            request100.add("provinceCode", ProvinceCode);
+                            request100.add("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE_CN);
+                            request100.add("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME);
+                            CallServer.getInstance().add(CompanyDetailsActivity.this, request100, MyhttpCallBack.getInstance(), 0x601, true, false, true);
+                        }
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
                     }
                     break;
                 case R.id.pb_3://企业投诉
-                    waitDialog.show();
-                    GsonUtil ComplaintsRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCOMPLAIN, RequestMethod.GET);
-                    ComplaintsRuerst.add("token", token);
-                    ComplaintsRuerst.add("KeyNo", KeyNo);
-                    ComplaintsRuerst.add("deviceId", new Build().MODEL);
-                    ComplaintsRuerst.add("status", 1);
-                    ComplaintsRuerst.add("provinceCode", ProvinceCode);
-                    ComplaintsRuerst.add("pageIndex", 1);
-                    ComplaintsRuerst.add("pageSize", 10);
-                    CallServer.getInstance().add(CompanyDetailsActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x994, true, false, true);
-
+                    if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                        waitDialog.show();
+                        GsonUtil ComplaintsRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.GETCOMPLAIN, RequestMethod.GET);
+                        ComplaintsRuerst.add("token", token);
+                        ComplaintsRuerst.add("KeyNo", KeyNo);
+                        ComplaintsRuerst.add("deviceId", new Build().MODEL);
+                        ComplaintsRuerst.add("status", 1);
+                        ComplaintsRuerst.add("provinceCode", ProvinceCode);
+                        ComplaintsRuerst.add("pageIndex", 1);
+                        ComplaintsRuerst.add("pageSize", 10);
+                        CallServer.getInstance().add(CompanyDetailsActivity.this, ComplaintsRuerst, MyhttpCallBack.getInstance(), 0x994, true, false, true);
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
+                    }
                     break;
                 case R.id.pb_4://关注
-                    if (!csp.getLoginStatus()) {//判定是否登录
-                        //Toast.show("请先登录账号");
-                        dialog.show();
-                    } else {
-                        waitDialog.show();
-                        if (pb_4_txt.getText().toString().equals("关注")) {//当前状态为未关注，所以点击是关注
-                            GsonUtil requestG = new GsonUtil(URLconstant.URLINSER + URLconstant.YESFAVORITE, RequestMethod.GET);
-                            requestG.add("deviceId", model);
-                            requestG.add("token", token);
-                            requestG.add("KeyNo", KeyNo);
-                            requestG.add("provinceCode", ProvinceCode);
-                            requestG.add("memberId", csp.getID());
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, requestG, MyhttpCallBack.getInstance(), 0x101, true, false, true);
-                        } else {//当前状态为已关注，所以点击是取消关注
-                            if (type == 5) {
-                                DataManager.FavotiteListS.data.followInfo.remove(posit);
+                    if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                        if (!csp.getLoginStatus()) {//判定是否登录
+                            //Toast.show("请先登录账号");
+                            dialog.show();
+                        } else {
+                            waitDialog.show();
+                            if (pb_4_txt.getText().toString().equals("关注")) {//当前状态为未关注，所以点击是关注
+                                GsonUtil requestG = new GsonUtil(URLconstant.URLINSER + URLconstant.YESFAVORITE, RequestMethod.GET);
+                                requestG.add("deviceId", model);
+                                requestG.add("token", token);
+                                requestG.add("KeyNo", KeyNo);
+                                requestG.add("provinceCode", ProvinceCode);
+                                requestG.add("memberId", csp.getID());
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, requestG, MyhttpCallBack.getInstance(), 0x101, true, false, true);
+                            } else {//当前状态为已关注，所以点击是取消关注
+                                if (type == 5) {
+                                    DataManager.FavotiteListS.data.followInfo.remove(posit);
+                                }
+                                GsonUtil requestN = new GsonUtil(URLconstant.URLINSER + URLconstant.NOFAVORITE, RequestMethod.GET);
+                                requestN.add("deviceId", model);
+                                requestN.add("token", token);
+                                requestN.add("KeyNo", KeyNo);
+                                requestN.add("provinceCode", ProvinceCode);
+                                requestN.add("memberId", csp.getID());
+                                CallServer.getInstance().add(CompanyDetailsActivity.this, requestN, MyhttpCallBack.getInstance(), 0x102, true, false, true);
                             }
-                            GsonUtil requestN = new GsonUtil(URLconstant.URLINSER + URLconstant.NOFAVORITE, RequestMethod.GET);
-                            requestN.add("deviceId", model);
-                            requestN.add("token", token);
-                            requestN.add("KeyNo", KeyNo);
-                            requestN.add("provinceCode", ProvinceCode);
-                            requestN.add("memberId", csp.getID());
-                            CallServer.getInstance().add(CompanyDetailsActivity.this, requestN, MyhttpCallBack.getInstance(), 0x102, true, false, true);
                         }
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
                     }
                     break;
                 case R.id.panoramic://全景
-                    startActivity(new Intent(CompanyDetailsActivity.this, Panoramic_Activity.class).putExtra("KeyNo", KeyNo).putExtra("deviceId", model).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("regnore", regnore).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME));
+                    if(NetUtils.isConnectingToInternet(CompanyDetailsActivity.this)){
+                        startActivity(new Intent(CompanyDetailsActivity.this, Panoramic_Activity.class).putExtra("KeyNo", KeyNo).putExtra("deviceId", model).putExtra("priptype", DataManager.QJiugongGList.data.baseInfo.get(0).ENTTYPE).putExtra("regnore", regnore).putExtra("entname", DataManager.QJiugongGList.data.baseInfo.get(0).ENTNAME));
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
+                    }
                     break;
                 default:
                     break;

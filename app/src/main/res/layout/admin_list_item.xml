@@ -29,7 +29,6 @@
             android:id="@+id/ADXH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="@dimen/ctitle_size" />
@@ -55,7 +54,6 @@
             android:id="@+id/apripid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123123123131"
             android:textColor="#57737D"
             android:textStyle="bold"
             android:textSize="@dimen/ctest_size" />
@@ -81,7 +79,6 @@
             android:id="@+id/aname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4561561651"
             android:textColor="#57737D"
             android:textStyle="bold"
             android:textSize="@dimen/ctest_size" />
@@ -107,7 +104,6 @@
             android:id="@+id/ano"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2019年11月12日-2020年11月20日"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
@@ -133,7 +129,6 @@
             android:id="@+id/atime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="南昌经开区**局"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
@@ -157,7 +152,6 @@
             android:id="@+id/aoffice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015年1月30日"
             android:textColor="#57737D"
             android:textStyle="bold"
             android:textSize="@dimen/ctest_size" />
@@ -183,7 +177,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="6546546546546456465465"
             android:textColor="#57737D"
             android:textStyle="bold"
             android:textSize="@dimen/ctest_size" />

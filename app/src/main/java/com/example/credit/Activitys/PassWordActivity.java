@@ -57,7 +57,7 @@ public class PassWordActivity extends BaseActivity implements View.OnClickListen
     public static Handler handler;
 
     CreditSharePreferences csp;
-    WaitDialog wd;
+    public static WaitDialog wd;
     AlertDialog.Builder builder;
     AlertDialog dialog;
 

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.credit.Adapters.syHisAdapter;
@@ -71,8 +72,16 @@ public class Main_SearchActivity extends BaseActivity {
     List<String> list1=new ArrayList<>();
     @ViewInject(R.id.text1)
     public static TextView text1;
+    @ViewInject(R.id.text1img1)
+    public static ImageView text1img1;
+    @ViewInject(R.id.text1img2)
+    public static ImageView text1img2;
     @ViewInject(R.id.text2)
     public static TextView text2;
+    @ViewInject(R.id.text2img1)
+    public static ImageView text2img1;
+    @ViewInject(R.id.text2img2)
+    public static ImageView text2img2;
     @ViewInject(R.id.ftlayout2)
     FlowTagLayout ftlayout;
 
@@ -97,8 +106,8 @@ public class Main_SearchActivity extends BaseActivity {
                 }
                 list1.add("不限状态");
                 list1.add("商标注册申请中");
-                list1.add("商标注册申请受理通知书发文");
-                list1.add("商标注册申请等待受理");
+                list1.add("商标注册申请受理通知书发文");//商标注册申请受理通知书发文
+                list1.add("商标注册申请等待受理");//商标注册申请等待受理
                 text1.setText(list.get(0)+"");
                 text2.setText(list1.get(0)+"");
             }else if(hit.equals("专利")){
@@ -255,15 +264,33 @@ public class Main_SearchActivity extends BaseActivity {
         mser_type1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                text1img1.setVisibility(View.GONE);
+                text1img2.setVisibility(View.VISIBLE);
                 MorePopWindow morePopWindow = new MorePopWindow(Main_SearchActivity.this,list);
                 morePopWindow.showPopupWindow(mser_type1);
+                morePopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        text1img1.setVisibility(View.VISIBLE);
+                        text1img2.setVisibility(View.GONE);
+                    }
+                });
             }
         });
         mser_type2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                text2img1.setVisibility(View.GONE);
+                text2img2.setVisibility(View.VISIBLE);
                 AddPopWindow addPopWindow = new AddPopWindow(Main_SearchActivity.this,list1);
                 addPopWindow.showPopupWindow(mser_type2);
+                addPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        text2img1.setVisibility(View.VISIBLE);
+                        text2img2.setVisibility(View.GONE);
+                    }
+                });
             }
         });
 

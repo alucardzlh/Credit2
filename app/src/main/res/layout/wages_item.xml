@@ -28,7 +28,6 @@
                 android:id="@+id/wages_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2015年1月"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
 
@@ -52,7 +51,6 @@
                 android:id="@+id/wages_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100万"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View
@@ -75,7 +73,6 @@
                 android:id="@+id/wages_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="未发放"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View
@@ -97,7 +94,6 @@
                 android:id="@+id/wages_source"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="南昌市劳动保障局"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View

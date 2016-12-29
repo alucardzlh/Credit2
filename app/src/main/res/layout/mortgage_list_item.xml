@@ -51,7 +51,6 @@
                 android:id="@+id/mort_xh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
                 android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
@@ -88,7 +87,6 @@
                 android:id="@+id/mort_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123123123131"
                 android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
@@ -126,7 +124,6 @@
                 android:id="@+id/mort_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2019年11月12日"
                 android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
@@ -163,7 +160,6 @@
                 android:id="@+id/mort_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2019年11月12日-2020年11月20日"
                 android:textColor="#57737D"
                 android:textStyle="bold"
                 android:textSize="@dimen/ctest_size" />
@@ -201,7 +197,6 @@
                 android:id="@+id/mort_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100万"
                 android:textStyle="bold"
                 android:textColor="#57737D"
                 android:textSize="@dimen/ctest_size" />
@@ -233,7 +228,6 @@
             android:id="@+id/mort_office"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="南昌市西湖区人民法院"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="@dimen/ctest_size" />
@@ -289,7 +283,6 @@
                 android:id="@+id/mort_Val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4700万人民币"
                 android:textColor="#57737D"
                 android:textStyle="bold"
                 android:textSize="@dimen/ctest_size" />
@@ -323,7 +316,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="许可该机构经营中国银行业监督管理委员会依照有关法律、行政法规和其他规定批准的业务，经营范围以批准文件所列的为准。"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
 

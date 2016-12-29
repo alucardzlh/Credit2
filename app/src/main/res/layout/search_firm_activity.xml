@@ -80,6 +80,7 @@
                 android:lines="1"
                 android:maxEms="20"
                 android:maxLines="1"
+                android:maxLength="20"
                 android:singleLine="true"
                 android:textSize="14sp" />
 
@@ -352,7 +353,7 @@
         android:layout_height="0dp"
         android:layout_weight="10">
 
-        <include layout="@layout/bg_bg" />
+        <include layout="@layout/bg_bg" android:visibility="gone" />
         <!--android:background="#2299cc33"-->
         <LinearLayout
             android:layout_width="match_parent"

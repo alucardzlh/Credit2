@@ -359,7 +359,7 @@ public class ToComplaintActivity extends BaseActivity implements OnItemLongClick
                     }
                     break;
                 case R.id.com_photo:
-                    if (myList.size() < 9) {
+                    if (myList.size() < 8) {
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     } else {

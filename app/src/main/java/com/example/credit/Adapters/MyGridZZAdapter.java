@@ -159,6 +159,11 @@ public class MyGridZZAdapter extends BaseAdapter {
 		}
 		try{
 			if(arrays3.length>0){
+				tv3.setVisibility(View.VISIBLE);
+				tv4.setVisibility(View.VISIBLE);
+				tv5.setVisibility(View.VISIBLE);
+				tv3s.setVisibility(View.VISIBLE);
+				tv4s.setVisibility(View.VISIBLE);
 				tv3.setText("证照/证件类型：");
 				tv4.setText("证照/证件号码：");
 				try {

@@ -89,7 +89,6 @@
                     android:background="@drawable/bg_edittext_black"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="5dp"
-
                     />
             </LinearLayout>
             <LinearLayout
@@ -184,7 +183,14 @@
                     android:stretchMode="columnWidth"
                     />
             </LinearLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textSize="12sp"
+                 android:textColor="#FF0000"
+                android:text="*温馨提示：为提高认领通过率，请依次上传清晰的企业营业执照、身份证照片等照片材料，并填写正确合法邮箱，如若错填无法收到邮件概不负责。"/>
             <LinearLayout
                 android:id="@+id/claim_btn"
                 android:layout_width="match_parent"

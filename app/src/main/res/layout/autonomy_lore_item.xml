@@ -30,7 +30,6 @@
             android:id="@+id/lore_xh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="16sp" />
@@ -56,7 +55,6 @@
             android:id="@+id/lore_pripid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="36XXXXXXXXXX"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="14sp" />
@@ -81,7 +79,6 @@
             android:id="@+id/lore_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="江西省南昌市东湖区"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="14sp" />
@@ -105,7 +102,6 @@
             android:id="@+id/lore_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="safd456sadf456asdf4s5a78"
             android:textStyle="bold"
             android:textColor="#57737D"
             android:textSize="14sp" />

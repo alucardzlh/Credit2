@@ -19,6 +19,7 @@
             android:orientation="horizontal">
 
             <include layout="@layout/left_menu" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -116,7 +117,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:text="热搜："
                                 android:textColor="#7E8287"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                             <TextView
                                 android:id="@+id/hot_1"
                                 android:layout_width="wrap_content"
@@ -127,7 +128,7 @@
                                 android:maxEms="8"
                                 android:singleLine="true"
                                 android:textColor="@color/blue1"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                             <TextView
                                 android:id="@+id/hot_2"
                                 android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                                 android:maxEms="8"
                                 android:singleLine="true"
                                 android:textColor="@color/blue1"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                             <TextView
                                 android:id="@+id/hot_huan"
                                 android:layout_width="wrap_content"
@@ -146,7 +147,7 @@
                                 android:layout_marginLeft="15dp"
                                 android:text="换一批"
                                 android:textColor="@color/blue1"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout

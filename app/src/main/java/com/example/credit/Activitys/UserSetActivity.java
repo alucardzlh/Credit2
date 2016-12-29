@@ -7,9 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.credit.Dialogs.Apk_updata_dialog;
 import com.example.credit.Dialogs.WaitDialog;
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
@@ -40,13 +36,13 @@ import com.example.credit.Utils.CreditSharePreferences;
 import com.example.credit.Utils.GsonUtil;
 import com.example.credit.Utils.MD5;
 import com.example.credit.Utils.MyhttpCallBack;
+import com.example.credit.Utils.NetUtils;
 import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.FileUtil;
 import com.example.credit.Views.WheelView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.squareup.picasso.Picasso;
 import com.yolanda.nohttp.RequestMethod;
 
 import java.io.ByteArrayOutputStream;
@@ -110,7 +106,7 @@ public class UserSetActivity extends BaseActivity {
     RelativeLayout us8;
     CreditSharePreferences csf;
     public static Handler handler;
-    WaitDialog wd;
+    public static WaitDialog wd;
     Intent i;
     CreditSharePreferences csp;
     int type;
@@ -123,6 +119,7 @@ public class UserSetActivity extends BaseActivity {
 
     String[] dwName,dwNameID;//行业
     String[] dwName1,dwNameID1;//学历
+    boolean falg=false;//保存资料验证
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,11 +136,10 @@ public class UserSetActivity extends BaseActivity {
                 switch (msg.what){
                     case 1:
                         Toast.show("修改信息成功！");
-                        MainActivity.loginImg(csp.getICONSTEAM());
                         finish();
                         break;
                     case 2:
-                        Toast.show("修改信息失败！");
+                        Toast.show("非法字符或超出长度修改信息失败！");
                         break;
                 }
             }
@@ -214,7 +210,6 @@ public class UserSetActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.user_set_submit://提交按钮
-                    wd.show();
                     GsonUtil MyClaimRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.REVISEUSER, RequestMethod.POST);
                     MyClaimRuerst.add("deviceId", (new Build()).MODEL);
                     MyClaimRuerst.add("token", MD5.MD5s(csf.getID() + (new Build()).MODEL));
@@ -222,21 +217,29 @@ public class UserSetActivity extends BaseActivity {
 
                     if(!us_emils.getText().toString().equals(csf.getEMAIL())) {
                         MyClaimRuerst.add("email", us_emils.getText().toString());//邮箱
+                        falg=true;
                         csp.putEMAIL(us_emils.getText().toString());
                     }
 
                     if(!us_name.getText().toString().equals(csf.getALIASNAME())) {
                         MyClaimRuerst.add("aliasname", us_name.getText().toString());//别名
+                        falg=true;
                         csp.putALIASNAME(us_name.getText().toString());
                     }
-
-                    if(!us_sex.getText().toString().equals(csf.getSEX())) {
+                    String sx="";
+                    if(csf.getSEX().equals("1")){
+                        sx="男";
+                    }else{
+                        sx="女";
+                    }
+                    if(!us_sex.getText().toString().equals(sx)) {
                         if(us_sex.getText().toString().equals("男")){
                             sexs="1";
                         }else{
                             sexs="0";
                         }
                         MyClaimRuerst.add("sex", sexs);//性别
+                        falg=true;
                         csp.putSEX(sexs);
                     }
 
@@ -244,6 +247,7 @@ public class UserSetActivity extends BaseActivity {
                         for(int i=0;i<dwName.length;i++){
                             if(us_hangye.getText().toString().equals(dwName[i])){
                                 MyClaimRuerst.add("industryId",dwNameID[i]);//行业
+                                falg=true;
                                 csp.putINDUSTRY(us_hangye.getText().toString());
                                 break;
                             }
@@ -254,6 +258,7 @@ public class UserSetActivity extends BaseActivity {
                         for(int i=0;i<dwName1.length;i++){
                             if(us_xueli.getText().toString().equals(dwName1[i])){
                                 MyClaimRuerst.add("educationId",dwNameID1[i]);//学历
+                                falg=true;
                                 csp.putEDUCATION(us_xueli.getText().toString());
                                 break;
                             }
@@ -263,18 +268,29 @@ public class UserSetActivity extends BaseActivity {
                         if(!pic.equals("")){
                             if(!pic.equals(csf.getICONSTEAM())) {
                                 MyClaimRuerst.add("headicon", pic);//头像base64位图
+                                falg=true;
                                 csp.putICONSTEAM(pic);
+                                MainActivity.loginImg(csp.getICONSTEAM());
                             }
                         }
                     }catch (NullPointerException e){}
 
                     if(!us_phone.getText().toString().equals(csf.getMOBILE())) {
                         MyClaimRuerst.add("tel",us_phone.getText().toString());//移动电话
+                        falg=true;
                         csp.putMOBILE(us_phone.getText().toString());
                     }
-                    MyClaimRuerst.add("openType", "1");//0：注册  1：修改(必须)
-
-                    CallServer.getInstance().add(UserSetActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x401, true, false, true);
+                    if(NetUtils.isConnectingToInternet(UserSetActivity.this)){
+                        if(falg){
+                            wd.show();
+                            MyClaimRuerst.add("openType", "1");//0：注册  1：修改(必须)
+                            CallServer.getInstance().add(UserSetActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x401, true, false, true);
+                        }else{
+                            finish();
+                        }
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
+                    }
                     break;
                 case R.id.b_return:
                     finish();
@@ -461,8 +477,11 @@ public class UserSetActivity extends BaseActivity {
         et.setMaxEms(1);
         et.setMaxLines(1);
         switch (title){
-            case "姓名":
+            case "昵称":
                 et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+                break;
+            case "手机号码":
+                et.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
                 break;
         }
         et.setText(state);
@@ -476,26 +495,34 @@ public class UserSetActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (title) {
                             case "邮箱":
-                                if (FileUtil.isEmail(et.getText().toString())) {
+                                if (FileUtil.isEmail(et.getText().toString().trim())) {
                                     tv.setText(et.getText().toString());
                                 } else {
-                                    Toast.show("邮箱格式不正确!!!");
+                                    Toast.show("邮箱格式不正确！");
                                 }
                                 break;
                             case "手机号码":
-                                if (!FileUtil.isNumeric(et.getText().toString())) {
-                                    Toast.show("手机格式不正确,只能输入纯数字!!!");
+                                if (!FileUtil.isNumeric(et.getText().toString().trim())) {
+                                    Toast.show("手机格式不正确,只能输入纯数字！");
                                 } else if (et.getText().length() != 11 ) {
-                                    Toast.show("手机格式不正确,号码位数不等于11位!!!");
+                                    Toast.show("手机格式不正确,号码位数不等于11位！");
                                 } else {
                                     tv.setText(et.getText().toString());
+                                }
+                                break;
+                            case "昵称":
+                                if(!et.getText().toString().trim().equals("")){
+                                        tv.setText(et.getText().toString());
+                                }else{
+                                    Toast.show(title+"输入不能为空！");
+                                    tv.setText(mr);
                                 }
                                 break;
                             default:
                                 if(!et.getText().toString().trim().equals("")){
                                     tv.setText(et.getText().toString());
                                 }else{
-                                    Toast.show(title+"输入不能为空!!!");
+                                    Toast.show(title+"输入不能为空！");
                                     tv.setText(mr);
                                 }
 
@@ -518,7 +545,7 @@ public class UserSetActivity extends BaseActivity {
                 pickIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(pickIntent, REQUESTCODE_PICK);
             } else {
-                Toast.show("权限获取失败!");
+                Toast.show("权限获取失败！");
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -220,8 +220,8 @@ public class Autonomy_Adapter extends BaseAdapter {
         if (stockList != null) {
             DataManager.ZZGS.DataBean.AnSubcapitalInfoBean stock = stockList.get(position);
             vh.stock_time.setText(stock.ALTDATE);
-            vh.AfterContent.setText(stock.TRANSAMPRAF);
-            vh.BeforeContent.setText(stock.TRANSAMPRBF);
+            vh.AfterContent.setText(stock.ALTAF);//TRANSAMPRAF  变更前
+            vh.BeforeContent.setText(stock.ALTBE);//TRANSAMPRBF  变更后
         }
         /**
          * 行政许可信

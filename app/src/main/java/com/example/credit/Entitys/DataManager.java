@@ -892,6 +892,9 @@ public class DataManager {
                 public String TRANSAMPRBF;//转让前股权比例
                 public String TRANSAMPRAF;//转让后股权比例
                 public String ALTDATE;//股权变更日期
+                //妈的李海涛又乱改字段
+                public String ALTAF;//变更前
+                public String ALTBE;//变更后
             }
 
             public static class AimippldgInfoBean {//知识产权登记信息
@@ -1854,6 +1857,7 @@ public class DataManager {
     }
 
     public static MyHot MyHotS = new MyHot();
+    public static MyHot MyHotS2=new MyHot();
 
     /**
      * 热点

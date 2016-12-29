@@ -94,6 +94,9 @@ public class WelcomeActivity extends BaseActivity {
             showdy();
         }
 
+
+
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {

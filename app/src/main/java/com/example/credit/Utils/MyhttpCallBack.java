@@ -157,6 +157,10 @@ public class MyhttpCallBack implements HttpCallBack {
                     }
                     WelcomeActivity.handler.sendEmptyMessage(3);
                     break;
+                case 0x115://获取用户后台接口搜索历史
+                    jsonString=(String) response.get();
+                    DataManager.MyHotS2=gson.fromJson(jsonString,DataManager.MyHot.class);
+                    break;
                 case 0x022://搜索结果
                     jsonString = (String) response.get();
                     if (!jsonString.equals("")) {
@@ -709,8 +713,8 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x1001://商标查询
                     jsonString = (String) response.get();
                     DataManager.trademarkModelS = gson.fromJson(jsonString, DataManager.trademarkModel.class);
-                    if (DataManager.trademarkModelS.data.brandInfo.size() > 0) {
-                        Main_SearchActivity.handler.sendEmptyMessage(0);
+                    if (null!=DataManager.trademarkModelS.data&&DataManager.trademarkModelS.data.brandInfo.size() > 0&&!DataManager.trademarkModelS.status.equals("200")) {
+                            Main_SearchActivity.handler.sendEmptyMessage(0);
                     } else {
                         Main_SearchActivity.handler.sendEmptyMessage(500);
                     }
@@ -718,7 +722,7 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x1002://首页专利查询
                     jsonString = (String) response.get();
                     DataManager.zl_searchS = gson.fromJson(jsonString, DataManager.zl_search.class);
-                    if (DataManager.zl_searchS.data.patentInfo.size() > 0 && DataManager.zl_searchS.data.patentInfo != null) {
+                    if (null!=DataManager.zl_searchS.data&&DataManager.zl_searchS.data.patentInfo.size() > 0 && DataManager.zl_searchS.data.patentInfo != null&&!DataManager.zl_searchS.status.equals("200")) {
                         Main_SearchActivity.handler.sendEmptyMessage(1);
                     } else {
                         Main_SearchActivity.handler.sendEmptyMessage(500);
@@ -741,7 +745,7 @@ public class MyhttpCallBack implements HttpCallBack {
                 case 0x1005://失信人查询
                     jsonString = (String) response.get();
                     DataManager.MyDishonestyS = gson.fromJson(jsonString, DataManager.MyDishonesty.class);
-                    if (DataManager.MyDishonestyS.data.courtcaseInfo.size() > 0 && DataManager.MyDishonestyS.data.courtcaseInfo != null) {
+                    if (null!=DataManager.MyDishonestyS.data&&DataManager.MyDishonestyS.data.courtcaseInfo.size() > 0 &&!DataManager.MyDishonestyS.status.equals("200")) {
                         Main_SearchActivity.handler.sendEmptyMessage(2);
                     } else {
                         Main_SearchActivity.handler.sendEmptyMessage(500);
@@ -876,6 +880,7 @@ public class MyhttpCallBack implements HttpCallBack {
                     DataManager.getczpwdresultList = gson.fromJson(jsonString, DataManager.getczpwdresult.class);
                     czpwd3Activity.handler.sendEmptyMessage(0);
                     break;
+
                 default:
                     break;
             }
@@ -1031,6 +1036,7 @@ public class MyhttpCallBack implements HttpCallBack {
             case 0x995:
             case 0x994://获取企业投诉列表
             case 0x993://提交企业投诉
+
             case 0x992://提交投诉附件
             case 0x991://提交投诉后刷新企业投诉
                 if (ToComplaintActivity.pd != null) {
@@ -1044,6 +1050,10 @@ public class MyhttpCallBack implements HttpCallBack {
             case 0x305://取消认领
             case 0x303://我的认领列表
             case 0x301://提交认领
+                if (ToClaimActivity.wd != null && ToClaimActivity.wd.isShowing()==true) {
+                    ToComplaintActivity.pd.dismiss();
+                }
+                break;
             case 0x302://提交认领附件
                 MainActivity.ad.dismiss();
                 MainActivity.pd.dismiss();
@@ -1092,6 +1102,21 @@ public class MyhttpCallBack implements HttpCallBack {
                 }
                 WelcomeActivity.handler.sendEmptyMessage(10);
                 Toast.show("连接服务器失败");
+                break;
+            case 0x401:
+                if(null!=UserSetActivity.wd&&UserSetActivity.wd.isShowing()){
+                    UserSetActivity.wd.dismiss();
+                }
+                break;
+            case 0x501:
+                if(null!=PassWordActivity.wd&&PassWordActivity.wd.isShowing()){
+                    PassWordActivity.wd.dismiss();
+                }
+                break;
+            case 0x998:
+                if(null!=RegisterActivity.pd&&RegisterActivity.pd.isShowing()){
+                    RegisterActivity.pd.dismiss();
+                }
                 break;
             default:
                 break;

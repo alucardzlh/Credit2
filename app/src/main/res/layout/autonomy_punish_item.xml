@@ -30,7 +30,6 @@
             android:id="@+id/punish_xh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
             style="@style/TextBold"
             android:textColor="#57737D"
             android:textSize="14sp" />
@@ -56,7 +55,6 @@
                 android:layout_height="wrap_content"
                 style="@style/TextBold"
                 android:layout_marginTop="5dp"
-                android:text="企业投资技术改造项目变更建设年限批复"
                 android:textColor="#57737D"
                 android:textSize="12sp" />
         <View
@@ -79,7 +77,6 @@
             android:id="@+id/punish_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -104,7 +101,6 @@
             android:id="@+id/punish_registerno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -131,7 +127,6 @@
             android:layout_height="wrap_content"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
-            android:text="企业投资技术改造项目变更建设年限批复"
             android:textColor="#57737D"
             android:textSize="12sp" />
         <View
@@ -154,7 +149,6 @@
             android:id="@+id/punish_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -179,7 +173,6 @@
             android:id="@+id/punish_illtype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -210,7 +203,6 @@
             android:id="@+id/punish_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -236,7 +228,6 @@
             android:id="@+id/punish_type_cn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -261,7 +252,6 @@
             android:id="@+id/punish_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -286,7 +276,6 @@
             android:id="@+id/punish_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="企业投资技术改造项目变更建设年限批复"
             style="@style/TextBold"
             android:layout_marginTop="5dp"
             android:textColor="#57737D"
@@ -314,7 +303,6 @@
                 android:layout_height="wrap_content"
                 style="@style/TextBold"
                 android:layout_marginTop="5dp"
-                android:text="赣环评函[2015]182号"
                 android:textColor="#57737D"
                 android:textSize="12sp" />
 

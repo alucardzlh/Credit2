@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,9 +21,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.credit.Adapters.CommmentAdapter;
@@ -78,7 +81,10 @@ public class RegisterActivity extends BaseActivity {
     android.support.v7.widget.AppCompatEditText phone;//填写短信验证码
     @ViewInject(R.id.setad)
     Button setad; //获取验证码
-
+    @ViewInject(R.id.protocol)//协议
+    TextView protocol;
+    @ViewInject(R.id.checkBox)
+    CheckBox checkBox;
 
 
     @OnClick({R.id.Ruser_c,R.id.Remail_c, R.id.Rpwd_c, R.id.Rrpwds_c,R.id.setad})
@@ -183,6 +189,7 @@ public class RegisterActivity extends BaseActivity {
     public void init() {
         b_return.setOnClickListener(listener);
         regiest_ing.setOnClickListener(listener);
+        protocol.setOnClickListener(listener);
 
         Ruser.addTextChangedListener(new TextWatcher() {
             @Override
@@ -293,6 +300,11 @@ public class RegisterActivity extends BaseActivity {
                     finish();
                     break;
                 case R.id.regiest_ing://注册按钮
+                    if(!checkBox.isChecked()){
+                        Toast.show("请先阅读服务协议");
+                        return;
+                    }
+
                     if (Ruser.getText().toString().trim().equals("") ) {
                         Toast.show("手机号不能为空...");
                     } else if (!FileUtil.isNumeric(Ruser.getText().toString().trim())) {
@@ -324,9 +336,26 @@ public class RegisterActivity extends BaseActivity {
                         CallServer.getInstance().add(RegisterActivity.this, regiestRquerst, MyhttpCallBack.getInstance(), 0x998, true, false, true);
                     }
                     break;
+                case R.id.protocol://用户协议
+                    showDialog();
                 default:
                     break;
             }
         }
     };
+
+
+
+    private void showDialog(){
+        ScrollView sc = new ScrollView(this);
+        //sc.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+        TextView tv=new TextView(this);
+        tv.setTextSize(16);
+        tv.setText(R.string.protocol);
+        sc.addView(tv);
+        new AlertDialog.Builder(this)
+                .setTitle("用户协议").setView(sc)
+                .create().show();
+
+    }
 }

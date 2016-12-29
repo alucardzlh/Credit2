@@ -359,13 +359,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }
         };
-        if (falg == true) {
-            initView();
-            initData();
-        } else {
+        /*if (falg == true) {*/
+        initView();
+        initData();
+        /*} else {
             this.finish();
             System.exit(0);
-        }
+        }*/
 
         try {
             FileUtil.imgscache();//缓存轮播图base64
@@ -462,7 +462,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     imageView.setImageBitmap((Bitmap) imageInfo.image);
                 } catch (Exception e) {//网络异常
                     e.printStackTrace();
-                  findViewById(R.id.lunbo).setVisibility(View.GONE);
+                    findViewById(R.id.lunbo).setVisibility(View.GONE);
                 }
                 return imageView;
             }
@@ -656,29 +656,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     }
                     break;
                 case R.id.Smenu_3://我的关注
-                    if (!csp.getLoginStatus()) {//判定是否登录
-                        com.example.credit.Utils.Toast.show("请先登录账号");
-                    } else {
-                        ad.show();
-                        GsonUtil MyconcernRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.MYFAVORITE, RequestMethod.GET);
-                        MyconcernRuerst.add("deviceId", (new Build()).MODEL);
-                        MyconcernRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));
-                        MyconcernRuerst.add("KeyNo", "");
-                        MyconcernRuerst.add("memberId", csp.getID());
-                        CallServer.getInstance().add(MainActivity.this, MyconcernRuerst, MyhttpCallBack.getInstance(), 0x103, true, false, true);
+                    if(NetUtils.isConnectingToInternet(MainActivity.this)){
+                        if (!csp.getLoginStatus()) {//判定是否登录
+                            com.example.credit.Utils.Toast.show("请先登录账号");
+                        } else {
+                            ad.show();
+                            GsonUtil MyconcernRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.MYFAVORITE, RequestMethod.GET);
+                            MyconcernRuerst.add("deviceId", (new Build()).MODEL);
+                            MyconcernRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));
+                            MyconcernRuerst.add("KeyNo", "");
+                            MyconcernRuerst.add("memberId", csp.getID());
+                            CallServer.getInstance().add(MainActivity.this, MyconcernRuerst, MyhttpCallBack.getInstance(), 0x103, true, false, true);
+                        }
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
                     }
                     break;
                 case R.id.Smenu_4://我的认领
-                    if (!csp.getLoginStatus()) {//判定是否登录
-                        com.example.credit.Utils.Toast.show("请先登录账号");
-                    } else {
-                        ad.show();
-                        GsonUtil MyClaimRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.NEWCLAIM, RequestMethod.GET);
-                        MyClaimRuerst.add("deviceId", (new Build()).MODEL);
-                        MyClaimRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));
-                        MyClaimRuerst.add("KeyNo", "");
-                        MyClaimRuerst.add("memberId", csp.getID());
-                        CallServer.getInstance().add(MainActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x303, true, false, true);
+                    if(NetUtils.isConnectingToInternet(MainActivity.this)){
+                        if (!csp.getLoginStatus()) {//判定是否登录
+                            com.example.credit.Utils.Toast.show("请先登录账号");
+                        } else {
+                            ad.show();
+                            GsonUtil MyClaimRuerst = new GsonUtil(URLconstant.URLINSER + URLconstant.NEWCLAIM, RequestMethod.GET);
+                            MyClaimRuerst.add("deviceId", (new Build()).MODEL);
+                            MyClaimRuerst.add("token", MD5.MD5s("" + (new Build()).MODEL));
+                            MyClaimRuerst.add("KeyNo", "");
+                            MyClaimRuerst.add("memberId", csp.getID());
+                            CallServer.getInstance().add(MainActivity.this, MyClaimRuerst, MyhttpCallBack.getInstance(), 0x303, true, false, true);
+                        }
+                    }else{
+                        com.example.credit.Utils.Toast.show("请检查网络");
                     }
                     break;
                 case R.id.Smenu_5://服务协议

@@ -28,7 +28,6 @@
                 android:id="@+id/taxes_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2015年1月"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View
@@ -52,7 +51,6 @@
                 android:id="@+id/taxes_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100万"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
 
@@ -75,7 +73,6 @@
                 android:id="@+id/taxes_office"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="南昌市国家税务局"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View
@@ -97,7 +94,6 @@
                 android:id="@+id/taxes_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="未缴"
                 android:textColor="#57737D"
                 android:textSize="14sp" />
         <View

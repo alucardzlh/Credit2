@@ -51,6 +51,8 @@ public class MorePopWindow extends PopupWindow {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Main_SearchActivity.text1.setText(list.get(position)+"");
+				Main_SearchActivity.text1img1.setVisibility(View.VISIBLE);
+				Main_SearchActivity.text1img2.setVisibility(View.GONE);
 				MorePopWindow.this.dismiss();
 			}
 		});
@@ -58,7 +60,7 @@ public class MorePopWindow extends PopupWindow {
 
 	public void showPopupWindow(View parent) {
 		if (!this.isShowing()) {
-			this.showAsDropDown(parent, parent.getLayoutParams().width / 2, 18);
+			this.showAsDropDown(parent, parent.getLayoutParams().width / 2, 10);
 		} else {
 			this.dismiss();
 		}

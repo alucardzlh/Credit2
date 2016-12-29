@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="6dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -76,12 +75,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:text="邮箱验证码："/>
+            android:text="验  证  码："/>
         <EditText
             android:id="@+id/yz3"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:hint="请输入邮箱验证码"
+            android:hint="请输入短信验证码"
             android:maxLines="1"
             android:lines="1"
             android:singleLine="true"

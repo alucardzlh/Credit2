@@ -33,6 +33,7 @@
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -64,7 +65,9 @@
         <activity
             android:name=".Activitys.SearchFirmActivty"
             android:screenOrientation="portrait"
+
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <!--android:windowSoftInputMode="adjustPan|stateHidden"--><!--搜索选择器输入法小bug-->
         <activity
             android:name=".Activitys.CompanyDetailsActivity"
             android:exported="true"

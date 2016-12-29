@@ -4,14 +4,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
@@ -27,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,12 +42,10 @@ import com.example.credit.Adapters.SearchListAdapter2;
 import com.example.credit.Entitys.DataManager;
 import com.example.credit.R;
 import com.example.credit.Services.CallServer;
-import com.example.credit.Utils.ContainsEmojiEditText;
 import com.example.credit.Utils.CreditSharePreferences;
 import com.example.credit.Utils.GsonUtil;
 import com.example.credit.Utils.MD5;
 import com.example.credit.Utils.MyhttpCallBack;
-import com.example.credit.Utils.PullToRefreshView;
 import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.CustomPopupwindow;
@@ -62,6 +59,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.example.credit.R.id.search_et;
 
@@ -152,7 +154,6 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             }
         } catch (Exception E) {
         }
-
 
         search_bt = (ImageView) findViewById(R.id.search_bt);
         search_bt.setOnClickListener(onClickListener);
@@ -270,7 +271,22 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                         break;
                     case 500:
                         pd.dismiss();
+                        if (city_check) {
+                            city.setTextColor(getResources().getColor(R.color.text_nocheck));
+                            city_arraow.setImageResource(R.mipmap.senior_arraow_down);
+                            city_check = false;
+                            if (his_sra.getVisibility() == View.GONE) {//当历史界面隐藏
+                                if (falg == 2) {//并且当前处于已经搜索结果时
+                                    search_list.setVisibility(View.VISIBLE);//则显示搜索结果list
+                                    search_list_layout.setVisibility(View.VISIBLE);
+                                } else {
+                                    his_sra.setVisibility(View.VISIBLE);//反之则显示历史UI
+                                }
+                            }
+                            select.setVisibility(View.GONE);
+                        }
                         android.widget.Toast.makeText(SearchFirmActivty.this, "暂无数据！", android.widget.Toast.LENGTH_SHORT).show();
+
                         break;
 
                     default:
@@ -463,6 +479,8 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 
         searchEt = (EditText) findViewById(search_et);
+        //选择器输入法小bug
+        //((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).showSoftInput(searchEt, 0);
         search_et_cc = (ImageView) findViewById(R.id.search_et_cc);//叉叉
         //selectCity = (TextView) findViewById(R.id.selectCity);//旧版搜索城市
         //selectCity.setOnClickListener(this);////旧版搜索城市
@@ -505,18 +523,32 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
             String Tnameh = "江西智容,泰豪科技,江铃控股,中国瑞林,南昌工业控股,南昌和平大厦,江西梦娜,江西工商联,江西城投,煌上煌";//企业历史字备用
             csp.putHistory(Tnameh);
         }
-        if(csp.getLegalHistory() == null || csp.getLegalHistory().equals("")) {
+        if (csp.getLegalHistory() == null || csp.getLegalHistory().equals("")) {
             String Legal = "李义海,林印孙,熊贤忠,杨文龙,朱星河,李华,徐桂芬,王敏,陈国荣,游建平";//法人
             csp.putLegalHistory(Legal);
         }
-        if(csp.getBrandHistory() == null || csp.getBrandHistory().equals("")) {
-        String Brand = "润田,汪氏,仁和,煌上煌,江中,草珊瑚,正邦,春丝,恒大,四特";//商标
-        csp.putBrandHistory(Brand);
+        if (csp.getBrandHistory() == null || csp.getBrandHistory().equals("")) {
+            String Brand = "润田,汪氏,仁和,煌上煌,江中,草珊瑚,正邦,春丝,恒大,四特";//商标
+            csp.putBrandHistory(Brand);
         }
-        if(csp.getLoseHistory() == null || csp.getLoseHistory().equals("")) {
-        String Lose = "陈惠琴,卢全国,马杰豪,傅小马,吕中春,杨山峰,卢国强,陈水利,康泰蔬菜,余幼学";//失信
-        csp.putLoseHistory(Lose);
+        if (csp.getLoseHistory() == null || csp.getLoseHistory().equals("")) {
+            String Lose = "陈惠琴,卢全国,马杰豪,傅小马,吕中春,杨山峰,卢国强,陈水利,康泰蔬菜,余幼学";//失信
+            csp.putLoseHistory(Lose);
         }
+//        if (csp.getLoginStatus()) {
+//
+//            GsonUtil  getHistory = new GsonUtil(URLconstant.URLINSER + URLconstant.HOTSPOT, RequestMethod.GET);//获取用户搜索历史
+//            getHistory.add("token", MD5.MD5s(csp.getID() + new Build().MODEL));
+//            getHistory.add("KeyNo", csp.getID());
+//            getHistory.add("deviceId", new Build().MODEL);
+//            getHistory.add("logType", type);
+//            CallServer.getInstance().add(SearchFirmActivty.this, getHistory, MyhttpCallBack.getInstance(), 0x115, true, false, true);
+//
+//
+//
+//        }
+
+
         /**
          * 监听软键盘回车
          */
@@ -623,6 +655,8 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 //                popupwindow.showAtDropDownLeft(v);
 //                break;
                 case R.id.city://城市选择按钮
+                    //隐藏软键盘 选择器输入法小bug
+                    // ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SearchFirmActivty.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     if (city_check) {
                         city.setTextColor(getResources().getColor(R.color.text_nocheck));
                         city_arraow.setImageResource(R.mipmap.senior_arraow_down);
@@ -760,6 +794,8 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                     }
                     break;
                 case R.id.industry://行业选择按钮
+                    //隐藏软键盘选 择器输入法小bug
+                    //((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(SearchFirmActivty.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                     if (industry_check) {
                         industry.setTextColor(getResources().getColor(R.color.text_nocheck));
                         industry_arraow.setImageResource(R.mipmap.senior_arraow_down);
@@ -806,9 +842,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
                     break;
 
                 case R.id.search_bt://搜索按钮
-                    select.setVisibility(View.GONE);
+
                     if (!searchEt.getText().toString().trim().equals("")) {
                         GETsearch();
+                        select.setVisibility(View.GONE);
                     } else {
                         Toast.show("搜索关键字不能为空!!!");
                     }
@@ -931,16 +968,26 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     private void randomText() {
         ListView history_list = (ListView) findViewById(R.id.history_list);
         TextView history_list_null = (TextView) findViewById(R.id.history_list_null);
-        if (csp.getHistory() != null && !(csp.getHistory()).equals("")&&
-                csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("")&&
-                csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("")&&
+
+
+        if (csp.getHistory() != null && !(csp.getHistory()).equals("") &&
+                csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("") &&
+                csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("") &&
                 csp.getLoseHistory() != null && !(csp.getLoseHistory()).equals("")) {
             String str = null;
-            switch (type){
-                case 0: str= csp.getHistory();break;
-                case 1: str = csp.getLegalHistory();break;
-                case 2:str = csp.getBrandHistory();break;
-                case 3:str=csp.getLoseHistory();break;
+            switch (type) {
+                case 0:
+                    str = csp.getHistory();
+                    break;
+                case 1:
+                    str = csp.getLegalHistory();
+                    break;
+                case 2:
+                    str = csp.getBrandHistory();
+                    break;
+                case 3:
+                    str = csp.getLoseHistory();
+                    break;
             }
 
 
@@ -977,6 +1024,7 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
     private TextView makeTextView() {
         TextView textView = new TextView(this);
         textView.setBackgroundResource(R.drawable.ftlayout_tag_bg);
+        //textView.setTextColor(getResources().getColor(R.color.tv8));
         textView.setTextColor(Color.WHITE);
 
         return textView;
@@ -1193,12 +1241,12 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
         //历史记录保存本地SP
         String Tnameh = Tname + ",";//历史字备用
         if (!Tname.equals("")) {
-            if (csp.getHistory() != null && !(csp.getHistory()).equals("")&&
-                    csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("")&&
-                    csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("")&&
+            if (csp.getHistory() != null && !(csp.getHistory()).equals("") &&
+                    csp.getLegalHistory() != null && !(csp.getLegalHistory()).equals("") &&
+                    csp.getBrandHistory() != null && !(csp.getBrandHistory()).equals("") &&
                     csp.getLoseHistory() != null && !(csp.getLoseHistory()).equals("")) {
-                String str1=null;
-                switch (type){
+                String str1 = null;
+                switch (type) {
                     case 0:
                         str1 = csp.getHistory();
                         break;
@@ -1433,4 +1481,10 @@ public class SearchFirmActivty extends BaseActivity implements GestureDetector.O
 
     }
 
+    @Override
+    protected void onRestart() {
+        city.setText("不限城市");
+        industry.setText("不限行业");
+        super.onRestart();
+    }
 }

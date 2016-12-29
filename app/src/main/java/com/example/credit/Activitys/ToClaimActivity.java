@@ -385,7 +385,7 @@ public class ToClaimActivity extends BaseActivity implements OnItemLongClickList
                     }
                     break;
                 case R.id.claim_fj:
-                    if(myList.size()<9){
+                    if(myList.size()<8){
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }else{

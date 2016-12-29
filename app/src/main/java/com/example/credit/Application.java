@@ -1,5 +1,6 @@
 package com.example.credit;
 
+import com.example.credit.Utils.CrashHandler;
 import com.example.credit.Utils.NetUtils;
 import com.yolanda.nohttp.Logger;
 import com.yolanda.nohttp.NoHttp;
@@ -25,6 +26,9 @@ public class Application extends android.app.Application {
         try {
             NetUtils.getAppVison(this);
         }catch (Exception e){}
+        CrashHandler handler =CrashHandler.getInstance();
+        handler.init(getApplicationContext());
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
 
@@ -36,4 +40,7 @@ public class Application extends android.app.Application {
     public static Application getInstance() {
         return instance;
     }
+
+
+
 }

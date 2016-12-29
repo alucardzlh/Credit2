@@ -95,7 +95,7 @@ public class JudicialAdapter extends BaseAdapter {
             listst.add(list3.get(position).FROAUTH);
         }
         if(list4!=null && list4.size()>0){
-            listst.add(list4.get(position).INVTYPE_CN);
+            listst.add(list4.get(position).INV);
             listst.add(list4.get(position).EXECUTEITEM_CN);
             listst.add(list4.get(position).FROAUTH);
             listst.add(list4.get(position).FROAM);

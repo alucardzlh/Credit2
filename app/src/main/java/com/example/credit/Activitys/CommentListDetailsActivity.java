@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.example.credit.Utils.CreditSharePreferences;
 import com.example.credit.Utils.GsonUtil;
 import com.example.credit.Utils.MD5;
 import com.example.credit.Utils.MyhttpCallBack;
+import com.example.credit.Utils.Toast;
 import com.example.credit.Utils.URLconstant;
 import com.example.credit.Views.MyListView;
 import com.lidroid.xutils.ViewUtils;
@@ -270,6 +272,7 @@ public class CommentListDetailsActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.b_return://返回键
+                    finish();
                     HttpInit();
                     break;
                 case R.id.Dhuifu_btn://发送键
@@ -342,4 +345,15 @@ public class CommentListDetailsActivity extends BaseActivity {
             finish();
         }
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            finish();
+            HttpInit();
+            overridePendingTransition(R.anim.finish_tran_one, R.anim.finish_tran_two);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
